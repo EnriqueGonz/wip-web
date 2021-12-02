@@ -1,7 +1,10 @@
 import './App.css';
 import React from "react";
-import { BrowserRouter as Router,Switch,Route,NavLink } from "react-router-dom";
+import { BrowserRouter as Router,Switch,Route } from "react-router-dom";
 import FragmentReedem from './Components/FragmentReedem';
+import FragmentProductDetails from './Components/FragmentProductDetails';
+import FragmentSendProduct from './Components/FragmentSendProduct';
+
 
 function App() {
   return (
@@ -11,7 +14,11 @@ function App() {
         <Route path="/Reedem">
           <FragmentReedem></FragmentReedem>
         </Route>
-        <Route path="/Nosotros">
+        <Route path="/detallesProducto">
+          <FragmentProductDetails></FragmentProductDetails>
+        </Route>
+        <Route path="/sendProduct">
+          <FragmentSendProduct></FragmentSendProduct>
         </Route>
         </Switch>
       </Router>
