@@ -7,6 +7,7 @@ import GiftInvitation from './Components/GiftInvitation';
 import RegisterAddress from './Components/RegisterAddress';
 import ProductCatalog from './Components/ProductCatalog';
 import SpecificProduct from './Components/SpecificProduct';
+import MakeOrder from './Components/MakeOrder';
 
 
 function App() {
@@ -31,9 +32,12 @@ function App() {
           <Route path="/catalogo">
             <ProductCatalog></ProductCatalog>
           </Route>
-          
 
           <Route path="/producto/:id" component={SpecificProduct}/>
+
+          <Route path="/make-an-order">
+            <MakeOrder></MakeOrder>
+          </Route>
 
         </Switch>
       </Router>
