@@ -1,19 +1,18 @@
 import React from 'react';
-import { Form,Modal,Button,Row,Col } from 'react-bootstrap';
+import { Form,Button,Row,Col } from 'react-bootstrap';
 import imgDefault from '../images/redeemDefault.png';
-
+import { useHistory } from "react-router-dom";
 import { useState } from 'react';
 import axios from 'axios'; // npm install axios
 
 
-const addressupUrl = '';
-const userId = '';
+const addressupUrl = 'https://e963-2806-10ae-b-d248-3cd4-d181-119f-390a.ngrok.io/useraddresses/api/register/';
 
 
 const FragmentSendProduct = () =>{
-    const [validated, setValidated] = useState(false);
+    let history = useHistory();
     const [inputs, setInputs] = useState({
-        user: 0, // int
+        user: 2, // int
         first_name: "", //This field can be left empty
         last_name: "",  //This field can be left empty
         street: "",
@@ -32,27 +31,20 @@ const FragmentSendProduct = () =>{
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
-        console.log(value);
+        console.log(name + value);
         setInputs(values => ({ ...values, [name]: value }))
     }
 
 
     const handleSubmit = (event) => {
-        if (Form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          setValidated(true);
-        var parseId = parseInt(userId);
-
         axios.post(addressupUrl, {
-            user: parseId,
+            user: "2",
             first_name: inputs.first_name,
             last_name: inputs.last_name,
             street: inputs.street,
             neighborhood: inputs.neighborhood,
-            street_number: inputs.street_number,
-            apartment_number: inputs.apartment_number,
+            street_number: "1",
+            apartment_number: "1",
             postal_code: inputs.postal_code,
             city: inputs.city,
             state: inputs.state,
@@ -60,16 +52,20 @@ const FragmentSendProduct = () =>{
             references: inputs.references,
             email: inputs.email
         })
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch(err => console.log(err));
+        .then((response) => {
+            console.log(response);
+        })
+        .catch(err => console.log(err));
+
+        return false;
+
 
     }
+    
 
     return(    
         <>
-        <div className="container" style={{paddingTop:40, width:"65%"}}>
+        <div className="container" style={{paddingTop:40, width:"70%"}}>
             <Row>
                 <Col>
                     <h4>¿A donde enviamos tu regalo?</h4>
@@ -126,18 +122,18 @@ const FragmentSendProduct = () =>{
                         <Form.Label>Informacion adicional</Form.Label>
                         <Form.Control style={{backgroundColor:"#BFBFBF",color:"#FFF",borderRadius:20}} required  name="references" value={inputs.references} onChange={handleChange} />
                     </Form.Group>
-                    <Button variant="danger" type="submit">
+                    <Button variant="danger" type="button" onClick={handleSubmit}>
                         Submit
                     </Button>
-                    <Button style={{marginLeft:10}} variant="secondary">
-                        Cancelar
+                    <Button style={{marginLeft:10}} onClick={() => history.goBack()} variant="secondary">
+                        Regresar
                     </Button>
                         
                     </Form>
                 </Col>
                 <Col>
                 <div className="container">
-                    <img style={{width:"100%"}} src={imgDefault}></img>
+                    <img alt="" style={{width:"100%"}} src={imgDefault}></img>
                 </div>
                 <div className="container">
                     <p style={{textAlign:"center",fontSize:22,fontWeight:100}} >Termo metalico 355 ml</p>

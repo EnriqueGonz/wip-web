@@ -1,15 +1,18 @@
 import React from 'react';
-import { Modal,Button,Row,Col } from 'react-bootstrap';
+import { Button,Row,Col } from 'react-bootstrap';
 import imgDefault from '../images/redeemDefault.png';
+import { useHistory } from "react-router-dom";
 
 const FragmentProductDetails = () =>{
+    let history = useHistory();
+
     return(    
         <>
         <div className="container" style={{paddingTop:40, width:"65%"}}>
             <Row>
                 <Col>
                 <div className="container">
-                    <img style={{width:"100%"}} src={imgDefault}></img>
+                    <img className="imgtest" alt="" src={imgDefault}></img>
                 </div>
                 </Col>
                 <Col>
@@ -18,7 +21,7 @@ const FragmentProductDetails = () =>{
                                                      Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.<br/>
                                                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut a</p>
                     <div className="container" style={{textAlign:"right"}}>
-                        <Button variant="secondary" style={{marginRight:20}}>Regresar</Button>
+                        <Button variant="secondary" onClick={() => history.goBack()} style={{marginRight:20}}>Regresar</Button>
                         <Button variant="danger" onClick={event =>  window.location.href='/sendProduct'}>Escoge este regalo</Button>
 
                     </div>

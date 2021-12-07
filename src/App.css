@@ -13,3 +13,18 @@
     color: white;
     border-radius: 20px;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+    grid-gap: 25px;
+    justify-content: center;
+}
+.content-product{
+  background-color: transparent;
+    border-color: black;
+    color: black;
+}
+.imagentest{
+  width: 100%;
+}
