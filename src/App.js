@@ -1,44 +1,38 @@
 import './App.css';
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router,Switch,Route } from "react-router-dom";
 import FragmentReedem from './Components/FragmentReedem';
-
-import GiftInvitation from './Components/GiftInvitation';
-import RegisterAddress from './Components/RegisterAddress';
-import ProductCatalog from './Components/ProductCatalog';
-import SpecificProduct from './Components/SpecificProduct';
-import MakeOrder from './Components/MakeOrder';
+import FragmentProductDetails from './Components/FragmentProductDetails';
+import FragmentSendProduct from './Components/FragmentSendProduct';
+import FragmentCatalog from './Components/FragmentCatalog';
+import FragmentProductSpecific from './Components/FragmentProductSpecific';
 
 
 function App() {
   return (
-    <div className="App" style={{ width: "100%", height: "100vh" }}>
-      <Router>
+    <div className="App" style={{width:"100%", height:"100vh"}}>
+      <Router>        
         <Switch>
-          <Route path="/Reedem">
-            <FragmentReedem></FragmentReedem>
-          </Route>
-          <Route path="/Nosotros">
-          </Route>
 
-          <Route path="/enlace-regalo">
-            <GiftInvitation></GiftInvitation>
-          </Route>
+        {/*<Route path="/Reedem">
+          <FragmentReedem></FragmentReedem>
+        </Route>
+        */}
 
-          <Route path="/registrar-direccion">
-            <RegisterAddress></RegisterAddress>
-          </Route>
+        <Route path="/Reedem/:uuid/:rtoken" component={FragmentReedem}/>
 
-          <Route path="/catalogo">
-            <ProductCatalog></ProductCatalog>
-          </Route>
-
-          <Route path="/producto/:id" component={SpecificProduct}/>
-
-          <Route path="/make-an-order">
-            <MakeOrder></MakeOrder>
-          </Route>
-
+        <Route path="/detallesProducto">
+          <FragmentProductDetails></FragmentProductDetails>
+        </Route>
+        <Route path="/sendProduct">
+          <FragmentSendProduct></FragmentSendProduct>
+        </Route>
+        <Route path="/catalogo">
+          <FragmentCatalog></FragmentCatalog>
+        </Route>
+        <Route path="/product/">
+          <FragmentProductSpecific></FragmentProductSpecific>
+        </Route>
         </Switch>
       </Router>
     </div>

@@ -1,7 +1,4 @@
-.navbar-expand-lg {
-  flex-wrap: nowrap;
-    justify-content: space-between;
-}
+
 
 .background-reedem{
   height: 92vh;
@@ -10,4 +7,24 @@
     background-repeat-y: no-repeat;
     background-size: cover;
     background-position: center;
+}
+.inputDireccion{
+  background-color: #606060;
+    color: white;
+    border-radius: 20px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+    grid-gap: 25px;
+    justify-content: center;
+}
+.content-product{
+  background-color: transparent;
+    border-color: black;
+    color: black;
+}
+.imagentest{
+  width: 100%;
 }

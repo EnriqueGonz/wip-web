@@ -1,23 +1,111 @@
-import React, {Component} from 'react';
+import React from 'react';
+import { Modal,Button,Row,Col } from 'react-bootstrap';
+import {useState} from 'react';
+import imgDefault from '../images/redeemDefault.png';
+import axios from 'axios';
 
-class FragmentReedem extends Component{
-  render(){
-      return(
+//const giftUrl = 'http://127.0.0.1:8000/products/gift/Mw/ax8dn6-81ead6d544621ddc9da14783baa98a56/';
+const path = window.location.pathname.split('/')
+const uuid = path[path.length - 2]
+const rtoken = path[path.length - 1]
+const giftUrl = 'http://127.0.0.1:8000/products/gift/' + uuid + '/' +rtoken + '/';
+
+const headers = {
+    'Content-Type': 'application/json',
+};
+
+
+const FragmentReedem = () =>{
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [list, setList] = useState([]);   
+
+  React.useEffect(() =>{  
+    try {
+      
+      //let uuid = this.props.match.params.uuid; 
+      //let rtoken = this.props.match.params.rtoken;
+      //let giftUrl = 'http://127.0.0.1:8000/products/gift/' + uuid + '/' + rtoken + '/';
+      
+      axios.get(giftUrl, { headers })
+      .then((response) => {
+        console.log(response);
+        setList(response.data[0]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    } catch (error) {
+      console.log(' . ', error);
+    }
+  },[setList]);
+  
+
+  
+
+
+
+    return(
+      
+        <div>
           <div>
-            <div>
-                <div className="navbar navbar-expand-lg navbar-light navContainer" style={{backgroundColor:"#D8D8D8"}}>
-                    <h3>Usuario#120</h3>
-                    <h2>Rasca tu regalo</h2>
-                    <h4>750 pts</h4>
+              {list.map((item) => (
+                <div key={item.id} className="navbar navbar-expand-lg navbar-light navContainer" style={{backgroundColor:"#D8D8D8",justifyContent: "space-around"}}>
+                  <h3>Hola {item.first_name}</h3>
+                  <h2>Abre tu regalo</h2>
+                  <h4>{item.points} pts</h4>
                 </div>
-            </div>
-            <div className="background-reedem">
-                    <button className="align-text-bottom">Abrir</button>
+              ))}
+          </div>
+          <div className="background-reedem">
+            <div className="container">
+              <button className="btn btn-info" style={{position:"absolute", right:"5%",bottom:"5%", fontWeight:700,color:"white"}} onClick={handleShow} >Abrir</button>
             </div>
           </div>
-      )
-  }
+
+          <Modal show={show} size="lg" onHide={handleClose}>
+            <Modal.Body>
+              <div>
+                <h3 style={{textAlign:"center"}}>Has recibido un regalo de la empresa "A"</h3>
+              </div>
+              <div className="container">
+                <Row>
+                  <Col>
+                    <br/><br/><br/>
+                    {list.map((item) => (
+                        <h3>Hola {item.first_name}</h3>
+                    ))}
+                    <p style={{textAlign:"justify"}}>Ten un maravilloso día, puedes elejir este regalo clikeando en "Escoge este regalo" o selecciona otro de los productos de nuestro catalago <br/>Para ver otros regalos selecciona "Revisa otras opciones"</p><br/>
+                    <p style={{margin:0}}>Tus amigos</p>
+                    <p><b>Empresa A</b></p>
+                  </Col>
+                  <Col>
+                    <br/>
+                    <p style={{textAlign:"center"}}>Termo metalico 355 ml</p>
+                    <div className="container" style={{textAlign:"center"}}>
+                      <img alt="" src={imgDefault}></img>
+                    </div>
+                    
+                  </Col>
+                </Row>
+              </div>
+
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={event =>  window.location.href='/detallesProducto'}>
+                Escoge este regalo
+              </Button>
+              <Button variant="danger" onClick={event =>  window.location.href='/catalogo'}>
+                Revisa otras opciones
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
+
+        </div>
+    )
 
 }
-
 export default FragmentReedem;
