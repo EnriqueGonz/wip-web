@@ -66,7 +66,7 @@ const FragmentProductSpecific = () =>{
         user: user_id,
         useraddresses: '1',
         campaigns: product_campain,
-        date_delivery: hoy.toLocaleDateString(), // This field will be sent empty
+        date_delivery: '', // This field will be sent empty   //hoy.toLocaleDateString(),
         status: 'Pendiente', // The default value of this field is "Pendiente"
         products: product_id,
         amount: document.getElementById("number").value

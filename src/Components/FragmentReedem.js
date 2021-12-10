@@ -3,32 +3,25 @@ import { Modal,Button,Row,Col } from 'react-bootstrap';
 import {useState} from 'react';
 import imgDefault from '../images/redeemDefault.png';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-//const giftUrl = 'http://127.0.0.1:8000/products/gift/Mw/ax8dn6-81ead6d544621ddc9da14783baa98a56/';
-const path = window.location.pathname.split('/')
-const uuid = path[path.length - 2]
-const rtoken = path[path.length - 1]
-const giftUrl = 'http://127.0.0.1:8000/products/gift/' + uuid + '/' +rtoken + '/';
 
+const giftUrl = 'http://127.0.0.1:8000/products/gift/';
 const headers = {
     'Content-Type': 'application/json',
 };
-
 
 const FragmentReedem = () =>{
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [list, setList] = useState([]);   
+  const [list, setList] = useState([]); 
+  var { uuid } = useParams(); // params
+  var { rtoken } = useParams(); // params  
 
   React.useEffect(() =>{  
     try {
-      
-      //let uuid = this.props.match.params.uuid; 
-      //let rtoken = this.props.match.params.rtoken;
-      //let giftUrl = 'http://127.0.0.1:8000/products/gift/' + uuid + '/' + rtoken + '/';
-      
-      axios.get(giftUrl, { headers })
+      axios.get(giftUrl + uuid + '/' + rtoken + '/', { headers })
       .then((response) => {
         console.log(response);
         setList(response.data[0]);
@@ -41,10 +34,6 @@ const FragmentReedem = () =>{
       console.log(' . ', error);
     }
   },[setList]);
-  
-
-  
-
 
 
     return(
