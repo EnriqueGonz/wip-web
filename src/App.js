@@ -6,6 +6,9 @@ import FragmentProductDetails from './Components/FragmentProductDetails';
 import FragmentSendProduct from './Components/FragmentSendProduct';
 import FragmentCatalog from './Components/FragmentCatalog';
 import FragmentProductSpecific from './Components/FragmentProductSpecific';
+import FragmentHomeUser from './Components/FragmentHomeUser';
+import FragmentRegalos from './Components/FragmentRegalos';
+import FragmentLogin from './Components/FragmentLogin';
 
 
 function App() {
@@ -13,9 +16,10 @@ function App() {
     <div className="App" style={{width:"100%", height:"100vh"}}>
       <Router>        
         <Switch>
-        <Route path="/Reedem">
-          <FragmentReedem></FragmentReedem>
-        </Route>
+        <Route path="/Reedem/:uuid/:rtoken">
+            <FragmentReedem></FragmentReedem>
+          </Route>
+        
         <Route path="/detallesProducto">
           <FragmentProductDetails></FragmentProductDetails>
         </Route>
@@ -28,6 +32,16 @@ function App() {
         <Route path="/product/">
           <FragmentProductSpecific></FragmentProductSpecific>
         </Route>
+        <Route path="/home/">
+          <FragmentHomeUser></FragmentHomeUser>
+        </Route>
+        <Route path="/misregalos/">
+          <FragmentRegalos></FragmentRegalos>
+        </Route>
+        <Route path="/login">
+          <FragmentLogin></FragmentLogin>
+        </Route>
+
         </Switch>
       </Router>
     </div>

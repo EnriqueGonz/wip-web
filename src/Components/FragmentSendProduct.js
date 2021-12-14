@@ -1,12 +1,12 @@
-import React from 'react';
 import { Form,Button,Row,Col } from 'react-bootstrap';
 import imgDefault from '../images/redeemDefault.png';
 import { useHistory } from "react-router-dom";
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios'; // npm install axios
 
 
-const addressupUrl = 'https://e963-2806-10ae-b-d248-3cd4-d181-119f-390a.ngrok.io/useraddresses/api/register/';
+const baseUrl = 'https://wishesinpoints.herokuapp.com';
+const addressupUrl = baseUrl+'/useraddresses/api/register/';
 
 
 const FragmentSendProduct = () =>{

@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import { Button,Row,Col } from 'react-bootstrap';
-import {useState} from 'react';
 import axios from 'axios';
 import { MdStars } from 'react-icons/md';
 
-
+const uuid = localStorage.getItem('uuid');
+const rtoken = localStorage.getItem('rtoken');
 const id_product = localStorage.getItem('producto');
-const giftUrl = 'https://ed93-2806-10ae-b-d248-3cd4-d181-119f-390a.ngrok.io/products/api/specific_product/'+id_product+'/';
-const url = 'https://ed93-2806-10ae-b-d248-3cd4-d181-119f-390a.ngrok.io/products/gift/Mw/ax8dn6-81ead6d544621ddc9da14783baa98a56/';
+const baseurl = 'https://wishesinpoints.herokuapp.com';
+
+
+const giftUrl = baseurl+'/products/api/specific_product/'+id_product+'/';
+const url = baseurl+'/products/gift/'+uuid+'/'+rtoken+'/';
 const headers = {
     'Content-Type': 'application/json',
 };
+
+
 var user_id =0;
 var user_address=0;
 var product_campain =0;
@@ -23,12 +28,9 @@ const hoy = new Date(tiempoTranscurrido);
 const FragmentProductSpecific = () =>{
   const [list, setList] = useState([]);
   const [list2, setList2] = useState([]);
-  
-  
-    
 
-
-  React.useEffect(() =>{
+ 
+  useEffect(() =>{
     axios.get(giftUrl, { headers })
       .then((response) => {
         console.log(response.data[0]);
@@ -43,7 +45,7 @@ const FragmentProductSpecific = () =>{
 
   },[setList]);
 
-  React.useEffect(() =>{
+  useEffect(() =>{
     axios.get(url, { headers })
       .then((response) => {
         user_id = response.data[0][0]["id"];
@@ -59,7 +61,7 @@ const FragmentProductSpecific = () =>{
 
   const postPedido = () => {
     var costo = (document.getElementById("number").value) * product_points;
-    const urlPedido = 'https://ed93-2806-10ae-b-d248-3cd4-d181-119f-390a.ngrok.io/orders/api/order/';
+    const urlPedido = baseurl+'/orders/api/order/';
 
     if(user_points >= costo){
       console.log('Se puede comprar')
@@ -77,8 +79,6 @@ const FragmentProductSpecific = () =>{
       })
       .catch(err => console.log(err));  
       
-
-
     }else{
       console.log('No puede comprar')
     }

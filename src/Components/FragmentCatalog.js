@@ -2,16 +2,15 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Button,Row,Col } from 'react-bootstrap';
 import { MdStars } from 'react-icons/md';
-const giftUrl = 'https://ed93-2806-10ae-b-d248-3cd4-d181-119f-390a.ngrok.io/products/gift/Mw/ax8dn6-81ead6d544621ddc9da14783baa98a56/'
-const headers = {
-    'Content-Type': 'application/json',
-};
+
+const baseUrl = 'https://wishesinpoints.herokuapp.com';
+const giftUrl = baseUrl+'/products/api/get_catalog/';
+
 
 
 
 class FragmentCatalog extends Component {    
     state = {
-        user: [],
         products: []
     }
 
@@ -19,19 +18,17 @@ class FragmentCatalog extends Component {
         console.log('Hola'+ parametro);
         localStorage.setItem('producto', parametro);
 
-        window.location.href = "/product/";
+        window.location.href = "/product/"+parametro;
     }
 
     componentDidMount() {
-        axios.get(giftUrl, { headers })
+        axios.post(giftUrl,{
+            product_name: '',
+        })
             .then(res => {
-                const user = res.data[0];
-                const products = res.data[2];
-                //console.log('datas: ', res.data)
-                // Save user id
-                localStorage.setItem('user_id', user[0].id);
+                const products = res.data;
+                console.log(res.data)
                 this.setState({
-                    user: user,
                     products: products
                 });
             })
@@ -43,23 +40,12 @@ class FragmentCatalog extends Component {
 
         return (
             <div>
-                <div style={{width:"100%"}}>
-                <div>
-                    {this.state.user.map(u =>
-                    <div key={u.id} className="navbar navbar-expand-lg navbar-light navContainer" style={{backgroundColor:"#D8D8D8",justifyContent: "space-around"}}>
-                                <h3>Usuario#{u.id}</h3>
-                                <h3>{u.first_name} {u.last_name}</h3>
-                                <h3><MdStars style={{fontSize:28,color:"#7B3E90"}}/>{u.points} Pts</h3>
-                        </div>
-                        )}
-                </div>
-            </div>
             <div>
 
                 <h6>Productos disponibles</h6>
 
                 <div>
-                    <div className="grid-container">
+                    <div className="grid-container-products">
                         {this.state.products.map(p =>
                         <Button style={{backgroundColor:"transparent", borderColor:"black",color:"black"}} className="content-product" onClick={() => this.redirection(p.id)}>
                             <div key={p.id}>
