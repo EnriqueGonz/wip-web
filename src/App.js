@@ -10,6 +10,7 @@ import FragmentProductSpecific from './Components/FragmentProductSpecific';
 import Login from './Components/Login';
 import Home from './Components/Home';
 import SpecificCampaign from './Components/SpecificCampaign';
+import Signup from './Components/Signup';
 
 
 function App() {
@@ -34,7 +35,11 @@ function App() {
             <FragmentProductSpecific></FragmentProductSpecific>
           </Route>
 
-          <Route path="/login/">
+
+          <Route path="/signup">
+            <Signup></Signup>
+          </Route>
+          <Route path="/login">
             <Login></Login>
           </Route>
           <Route path="/home/">

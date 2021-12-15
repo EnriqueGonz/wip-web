@@ -5,8 +5,8 @@ import imgDefault from '../images/redeemDefault.png';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-
-const giftUrl = 'http://127.0.0.1:8000/products/gift/';
+const baseUrl ='https://wishesinpoints.herokuapp.com';
+const giftUrl = baseUrl + '/products/gift/';
 const headers = {
     'Content-Type': 'application/json',
 };
@@ -21,6 +21,7 @@ const FragmentReedem = () =>{
 
   React.useEffect(() =>{  
     try {
+      console.log(' . . ', uuid , '--- ', rtoken)
       axios.get(giftUrl + uuid + '/' + rtoken + '/', { headers })
       .then((response) => {
         console.log(response);

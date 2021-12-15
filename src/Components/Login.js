@@ -1,12 +1,15 @@
 import React from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import axios from 'axios'; // npm install axios
 
+const baseUrl ='https://wishesinpoints.herokuapp.com';
+const loginUrl = baseUrl + '/access/api/login/';
 
-const loginUrl = 'http://127.0.0.1:8000/access/api/login/';
 
 const Login = () => {
+    const history = useHistory();
     const [inputs, setInputs] = useState({
         email: "",
         password: ""
@@ -21,16 +24,22 @@ const Login = () => {
 
 
     const handleSubmit = (event) => {
-        axios.post(loginUrl, {
-            email: inputs.email,
-            password: inputs.password
-        })
-            .then((response) => {
-                console.log(response.data);
-                
+        try {
+            axios.post(loginUrl, {
+                email: inputs.email,
+                password: inputs.password
             })
-            .catch(err => console.log(err));
-        return false;
+                .then((response) => {
+                    console.log(response.data);
+                    history.push('home');                           
+                })
+                .catch(err => console.log(err));
+            return false;
+            
+        } catch (error) {
+            console.log('error:   ', error);
+            
+        }
     }
 
 

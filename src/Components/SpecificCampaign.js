@@ -5,8 +5,9 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 
+const baseUrl ='https://wishesinpoints.herokuapp.com';
 // Se trae la lista de datos de login
-const specificCUrl = 'http://127.0.0.1:8000/campaigns/api/specific/';
+const specificCUrl = baseUrl +'/campaigns/api/specific/';
 var token = '13a1a04f66f81b94dbb23ee191d0ede49d5c4d43';
 
 const headers = {

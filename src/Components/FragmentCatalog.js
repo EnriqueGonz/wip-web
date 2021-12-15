@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Button,Row,Col } from 'react-bootstrap';
 import { MdStars } from 'react-icons/md';
-const giftUrl = 'http://127.0.0.1:8000/products/gift/Mw/ax8dn6-81ead6d544621ddc9da14783baa98a56/'
+
+const baseUrl ='https://wishesinpoints.herokuapp.com';
+const giftUrl = baseUrl + '/products/api/get_catalog/'
 const headers = {
     'Content-Type': 'application/json',
 };
@@ -23,7 +25,7 @@ class FragmentCatalog extends Component {
     }
 
     componentDidMount() {
-        axios.get(giftUrl, { headers })
+        axios.get('https://wishesinpoints.herokuapp.com/products/api/get_catalog/', { headers })
             .then(res => {
                 const user = res.data[0];
                 const products = res.data[2];

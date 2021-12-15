@@ -6,7 +6,7 @@ import { useState } from 'react';
 import axios from 'axios'; // npm install axios
 
 
-const addressupUrl = 'http://127.0.0.1:8000/useraddresses/api/register/';
+const addressupUrl = 'https://wishesinpoints.herokuapp.com/useraddresses/api/register/';
 
 
 const FragmentSendProduct = () =>{

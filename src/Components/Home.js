@@ -6,15 +6,15 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 
-
+const baseUrl ='https://wishesinpoints.herokuapp.com';
 // Se trae la lista de datos de login
-const userCUrl = 'http://127.0.0.1:8000/usercampaigns/api/customercampaign/3/';
-const redeemedUrl = 'http://127.0.0.1:8000/orders/api/get_index/3/';
+const userCUrl = baseUrl + '/usercampaigns/api/customercampaign/1/';
+const redeemedUrl = baseUrl + '/orders/api/get_index/3/';
 // Aws S3
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 
 
-var token = '13a1a04f66f81b94dbb23ee191d0ede49d5c4d43';
+var token = 'b677a5ccac9cace57ba26b29c8ee393706436114';
 
 const headers = {
     'Content-Type': 'application/json',
