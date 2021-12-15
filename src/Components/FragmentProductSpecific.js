@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { Button,Row,Col } from 'react-bootstrap';
+import { Button,Row,Col,Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { MdStars } from 'react-icons/md';
 
@@ -64,10 +64,16 @@ const FragmentProductSpecific = () =>{
     const urlPedido = baseurl+'/orders/api/order/';
 
     if(user_points >= costo){
+      console.log(user_id);
+      console.log(product_campain);
+      console.log(product_id);
+      console.log(hoy.toLocaleDateString());
+      console.log(document.getElementById("number").value);
       console.log('Se puede comprar')
+      
       axios.post(urlPedido,{
         user: user_id,
-        useraddresses: '1',
+        useraddresses: '0',
         campaigns: product_campain,
         date_delivery: hoy.toLocaleDateString(), // This field will be sent empty
         status: 'Pendiente', // The default value of this field is "Pendiente"
@@ -121,9 +127,24 @@ const FragmentProductSpecific = () =>{
                           ))}
 
                           <div className="container" style={{textAlign:"right"}}>
-                              <Button variant="secondary" >Regresar</Button>
+                              <Button style={{marginRight:10}} variant="secondary" >Regresar</Button>
                               <Button variant="danger" onClick={postPedido}>Escoge este regalo</Button>
-                          </div>
+                          </div><br/>
+                          <Alert className="container" variant="success">
+                          <Alert.Heading>Pedido exitoso</Alert.Heading>
+                          <hr />
+                          <p className="mb-0">
+                            Tu pedido a sido realizado con exito.
+                          </p>
+                        </Alert>
+                        <br/>
+                        <Alert className="container" variant="danger">
+                        <Alert.Heading>Opss algo salio mal</Alert.Heading>
+                        <hr />
+                        <p className="mb-0">
+                          Error... vuelve a intentarlo o intentalo mas tarde
+                        </p>
+                      </Alert>    
                         </div>
                     ))}
                     </Col>

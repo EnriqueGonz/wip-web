@@ -5,7 +5,20 @@ import axios from 'axios';
 
 const baseUrl = 'https://wishesinpoints.herokuapp.com/users/api/user_datas/';
 const baseUrl2 = 'https://wishesinpoints.herokuapp.com/usercampaigns/api/customercampaign/';
+const baseUrl3 = 'https://wishesinpoints.herokuapp.com/orders/api/get_index_customer/';
+
+const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
+
 var token = localStorage.getItem('token');
+var regaloid = "";
+var regalonombre = "";
+var regalofecha = "";
+var regaloImg = "";
+var regalopuntos = "";
+
+var campananombre = "";
+var campanainicio="";
+var campanafin ="";
 
 const headers = {
     'Content-Type': 'application/json',
@@ -17,7 +30,7 @@ const FragmentHomeUser = () =>{
 
     const [list, setList] = useState([]);
     const [listCampanas, setListCampanas] = useState([]); 
-
+    const [listRegalos, setListRegalos] = useState([]); 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);  
@@ -35,7 +48,6 @@ const FragmentHomeUser = () =>{
         elemento3.style.display = "none";
     }
     const openRegalo = () => {
-        console.log('Hola');
         var elemento1 = document.getElementById('campanas');
         var elemento2 = document.getElementById('regalos');
         var elemento3 = document.getElementById('puntos');
@@ -44,7 +56,6 @@ const FragmentHomeUser = () =>{
         elemento3.style.display = "none";
     }
     const openPuntos = () => {
-        console.log('Hola');
         var elemento1 = document.getElementById('campanas');
         var elemento2 = document.getElementById('regalos');
         var elemento3 = document.getElementById('puntos');
@@ -53,12 +64,28 @@ const FragmentHomeUser = () =>{
         elemento3.style.display = "block";
     }
 
+    function methodName(id,nombre,fecha_entrega,imagen,puntos) {
+        regaloid = id;
+        regalonombre = nombre;
+        regalofecha = fecha_entrega;
+        regaloImg = imagen;
+        regalopuntos = puntos;
+        handleShow1();
+      }
+
+      function methodName2(nombre,inicio,fin) {
+        campananombre = nombre;
+        campanainicio = inicio;
+        campanafin = fin;
+        handleShow();
+      }
+    
+
 
     useEffect(() =>{  
         try {
           axios.get(baseUrl+id_usuario+'/',{ headers })
           .then((response) => {
-            console.log(response);
             setList(response.data);
           })
           .catch((error) => {
@@ -74,7 +101,6 @@ const FragmentHomeUser = () =>{
         try {
           axios.get(baseUrl2+id_usuario+'/',{ headers })
           .then((response) => {
-            console.log(response);
             setListCampanas(response.data[1]);
           })
           .catch((error) => {
@@ -86,22 +112,34 @@ const FragmentHomeUser = () =>{
         }// eslint-disable-next-line react-hooks/exhaustive-deps
       },[setListCampanas])
 
+      useEffect(() =>{  
+        try {
+          axios.get(baseUrl3+id_usuario+'/',{ headers })
+          .then((response) => {
+            setListRegalos(response.data[3]);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    
+        } catch (error) {
+          console.log(' . ', error);
+        }// eslint-disable-next-line react-hooks/exhaustive-deps
+      },[setListRegalos])
+
     const bodyCampana=(
         <div>
             <h3 style={{fontWeight:300}}>Detalles</h3>
             <h2 >Campañas</h2><br/>
                 <div className="container" style={{width:"80%", float:"right"}}>
-                    <h7 style={{fontWeight:"bold"}}>Nombre de la campaña</h7><br/>
-                    <h7>Nombre</h7><br/><br/>
+                    <p style={{fontWeight:"bold"}}>Nombre de la campaña</p>
+                    <p>{campananombre}</p>
 
-                    <h7 style={{fontWeight:"bold"}}>Inicio de la campaña</h7><br/>
-                    <h7>Fecha</h7><br/><br/>
+                    <p style={{fontWeight:"bold"}}>Inicio de la campaña</p>
+                    <p>{campanainicio}</p>
 
-                    <h7 style={{fontWeight:"bold"}}>Fin de la campaña</h7><br/>
-                    <h7>Fecha</h7><br/><br/>
-
-                    <h7 style={{fontWeight:"bold"}}>Status de campaña</h7><br/>
-                    <h7>Activa</h7><br/><br/>
+                    <p style={{fontWeight:"bold"}}>Fin de la campaña</p>
+                    <p>{campanafin}</p>
                 </div>
         </div>
     )
@@ -110,15 +148,20 @@ const FragmentHomeUser = () =>{
         <div>
             <h3 style={{fontWeight:300}}>Regalos</h3>
             <h2 >Canjeados</h2><br/>
+            <div style={{textAlign:"center"}} className="container">
+                <img alt="" style={{width:"50%"}} src={ imguRL + regaloImg }></img><br/><br/>
+            </div>
                 <div className="container" style={{width:"80%", float:"right"}}>
-                    <h7 style={{fontWeight:"bold"}}>Fecha de canjeo</h7><br/>
-                    <h7>Fecha</h7><br/><br/>
+                    <p style={{fontWeight:"bold"}}>Regalo #{regaloid}</p>
+                    <p style={{fontWeight:"bold"}}>Nombre del producto</p>
+                    <p>{regalonombre}</p>
 
-                    <h7 style={{fontWeight:"bold"}}>Fecha de entrega</h7><br/>
-                    <h7>Fecha</h7><br/><br/>
+                    <p style={{fontWeight:"bold"}}>Fecha de canjeo</p>
+                    <p>{regalofecha}</p>
 
-                    <h7 style={{fontWeight:"bold"}}>Status de campaña</h7><br/>
-                    <h7>Fecha</h7><br/><br/>
+                    <p style={{fontWeight:"bold"}}>Puntos</p>
+                    <p><MdStars style={{color:"#7B3E90"}}/>{regalopuntos}</p>
+
                 </div>
         </div>
     )
@@ -187,12 +230,14 @@ const FragmentHomeUser = () =>{
                 </div>
                 <div className="row">
                     {listCampanas.map((item) => (
-                        <div className="col-sm-3">
+                        <div key={item.id} className="col-sm-3">
                             <div className="card">
                             <div className="card-body">
                                 <h5 className="card-title">{item.campaign_name}</h5>
                                 <p className="card-text">{item.slug}</p>
-                                <button className="btn btn-danger" style={{borderRadius:20}} onClick={handleShow}>Ver detalles</button>
+                                <div style={{textAlign:"right"}} className="contianer">
+                                    <button className="btn btn-danger" style={{borderRadius:20}} onClick = {() => { methodName2(item.campaign_name,item.start_date,item.end_date);} }>Ver detalles</button>
+                                </div>
                             </div>
                             </div>
                         </div>
@@ -206,42 +251,22 @@ const FragmentHomeUser = () =>{
                     <h3 style={{fontSize:34, fontWeight:"bold"}}>canjeados</h3>
                 </div>
                 <div className="row">
-                    <div className="col-sm-3">
-                        <div className="card">
+                {listRegalos.map((item) => (
+                    <div key={item.id} style={{paddingTop:10}} className="col-sm-3">
+                        <div style={{height:"100%"}} className="card">
                         <div className="card-body">
-                            <h5 className="card-title">Nombre de campaña</h5>
-                            <p className="card-text">Descripcion</p>
-                            <button className="btn btn-danger" style={{borderRadius:20}} onClick={handleShow1}>Ver detalles</button>
+                            <img alt="" style={{width:"100%"}} src={ imguRL + item.image }></img>
+                        </div>
+                        <div className="card-footer">
+                            <h5 className="card-title">{item.product_name}</h5>
+                            <p className="card-text"><MdStars style={{color:"#7B3E90"}}/>{item.points}</p>
+                            <div style={{textAlign:"right"}} className="contianer">
+                                <button className="btn btn-danger" style={{borderRadius:20}} onClick = {() => { methodName(item.id,item.product_name,item.created_at,item.image,item.points);} } >Ver detalles</button>
+                            </div>
                         </div>
                         </div>
                     </div>
-                    <div className="col-sm-3">
-                        <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">Nombre de campaña</h5>
-                            <p className="card-text">Descripcion</p>
-                            <button className="btn btn-danger" style={{borderRadius:20}} onClick={handleShow1}>Ver detalles</button>
-                        </div>
-                        </div>
-                    </div>
-                    <div className="col-sm-3">
-                        <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">Nombre de campaña</h5>
-                            <p className="card-text">Descripcion</p>
-                            <button className="btn btn-danger" style={{borderRadius:20}} onClick={handleShow1}>Ver detalles</button>
-                        </div>
-                        </div>
-                    </div>
-                    <div className="col-sm-3">
-                        <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">Nombre de campaña</h5>
-                            <p className="card-text">Descripcion</p>
-                            <button className="btn btn-danger" style={{borderRadius:20}} onClick={handleShow1}>Ver detalles</button>
-                        </div>
-                        </div>
-                    </div>
+                ))}
                 </div>
             </div>
 
@@ -251,7 +276,7 @@ const FragmentHomeUser = () =>{
                     <h3 style={{fontSize:34, fontWeight:"bold"}}>Restantes</h3>
                 </div>
                 <div className="container" style={{textAlign:"center"}}>
-                     <h2 style={{fontSize:105}}><MdStars style={{fontSize:110,color:"#7B3E90"}}/> 750 Pts.</h2>
+                     <h2 style={{fontSize:105}}><MdStars style={{fontSize:110,color:"#7B3E90"}}/> {list.points} </h2>
                 </div>
             </div>
 
