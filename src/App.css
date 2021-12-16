@@ -228,9 +228,6 @@ a {
     left: 0
 }
 
-.body-pd {
-    /*padding-left: calc(var(--nav-width) + 1rem)*/
-}
 
 .active {
     color: var(--white-color)

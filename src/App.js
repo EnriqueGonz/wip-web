@@ -9,6 +9,7 @@ import FragmentProductSpecific from './Components/FragmentProductSpecific';
 import FragmentHomeUser from './Components/FragmentHomeUser';
 import FragmentRegalos from './Components/FragmentRegalos';
 import FragmentLogin from './Components/FragmentLogin';
+import FragmentPerfil from './Components/FragmentPerfil';
 
 
 function App() {
@@ -40,6 +41,9 @@ function App() {
         </Route>
         <Route path="/login">
           <FragmentLogin></FragmentLogin>
+        </Route>
+        <Route path="/miperfil">
+          <FragmentPerfil></FragmentPerfil>
         </Route>
 
         </Switch>
