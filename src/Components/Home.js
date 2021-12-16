@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 const baseUrl ='https://wishesinpoints.herokuapp.com';
 // Se trae la lista de datos de login
 const userCUrl = baseUrl + '/usercampaigns/api/customercampaign/1/';
-const redeemedUrl = baseUrl + '/orders/api/get_index/3/';
+const redeemedUrl = baseUrl + '/orders/api/get_index/2/';
 // Aws S3
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 
@@ -37,6 +37,7 @@ const Home = () => {
                 setListRG(rg.data);
                 console.log('uc ', uc.data[1]);
                 console.log('rg ', rg.data);
+                console.log('rg0 ', rg.data[0]);
             }))
             .catch(error => console.log(error));
     }, []);
@@ -45,6 +46,7 @@ const Home = () => {
     return (
         <div>
             <div>
+                {/*
                 {listCU.map((item) => (
                     <div key={item.id}>
                         <label><strong>Nombre de campaña</strong></label>
@@ -55,6 +57,7 @@ const Home = () => {
 
                     </div>
                 ))}
+                */}
             </div>
 
             <br /><br />
@@ -64,18 +67,19 @@ const Home = () => {
                         <ul key={index}>
                             {lrg.map(item => (
                                 <li key={item[0].id}>
-                                    <p>Sólo producto</p>
+                                    <span>{item[0].id}</span>
+                                    <p> Sólo producto </p>
                                     <br/>                                    
                                     <img style={{ width: "50%", height: 160 }} src={imguRL + item[0].image} alt="products"></img>
                                     <label><strong>Producto :</strong> </label>
                                     <span>{item[0].product_name}</span>
                                     <br />
-                                    <label><strong>Producto :</strong> </label>
+                                    <label><strong>Campaña :</strong> </label>
                                     <span>{item[0].campaign}</span>
                                     <br /><br />
                                     
 
-
+                                    {/*
                                     <p>Regalos canjeados</p>
                                     <br />
                                     
@@ -93,6 +97,7 @@ const Home = () => {
                                     <label><strong>Status del pedido</strong></label>
                                     <br/>
                                     <span>{item[0].order_status}</span>
+                            */}
 
                                 </li>
                             ))}

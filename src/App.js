@@ -11,6 +11,7 @@ import Login from './Components/Login';
 import Home from './Components/Home';
 import SpecificCampaign from './Components/SpecificCampaign';
 import Signup from './Components/Signup';
+import Profile from './Components/Profile';
 
 
 function App() {
@@ -47,6 +48,9 @@ function App() {
           </Route>
           <Route path="/campaign/:id">
             <SpecificCampaign></SpecificCampaign>
+          </Route>
+          <Route path="/profile/:username">
+            <Profile></Profile>
           </Route>
 
 
