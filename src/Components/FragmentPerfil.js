@@ -22,12 +22,8 @@ const FragmentPerfil = () =>{
         try {
           axios.get(baseUrl+username+'/',{ headers })
           .then((response) => {
-
-            console.log(response);
-            setListName(response.data[0]);            
-            setListImg(response.data[1]);                  
-
-            console.log(response.data[1]);
+            setListName(response.data[0][0]);            
+            setListImg(response.data[1][0]); 
 
           })
           .catch((error) => {
@@ -48,11 +44,11 @@ const FragmentPerfil = () =>{
         <nav className="nav">
             <div>
                 <div className="nav_list">
-                    <a href="http://localhost:3000/home" className="nav_link"> <i className='bx bx-home bx-tada nav_icon'></i></a>
-                    <a href="http://localhost:3000/misregalos" className="nav_link"> <i className='bx bx-gift bx-tada nav_icon'></i></a> 
-                    <a href="http://localhost:3000/miperfil" className="nav_link"> <i className='bx bx-user bx-tada nav_icon'></i></a> 
-                    <a href="http://localhost:3000/" className="nav_link"> <i className='bx bx-directions bx-tada nav_icon' ></i> </a> 
-                    <a href="http://localhost:3000/" className="nav_link"> <i className='bx bx-log-out-circle bx-tada nav_icon'></i></a> 
+                    <a href="http://localhost:3000/home" className="nav_link"> <i className='bx bx-home nav_icon'></i></a>
+                    <a href="http://localhost:3000/misregalos" className="nav_link"> <i className='bx bx-gift nav_icon'></i></a> 
+                    <a href="http://localhost:3000/miperfil" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-user bx-tada nav_icon'></i></a> 
+                    <a href="http://localhost:3000/misdirecciones" className="nav_link"> <i className='bx bx-directions nav_icon' ></i> </a> 
+                    <a href="http://localhost:3000/" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a> 
                 </div>
             </div>
         </nav>
@@ -65,49 +61,30 @@ const FragmentPerfil = () =>{
                     </div>
             </div>
             <div className="container" style={{backgroundColor:"#BFB3CF"}}>
-                {listName.map((item,index1) => (
-                    <div key={index1} className="row">
+                    <div className="row">
                         <div style={{paddingTop:10,paddingBottom:10}} className="col-sm">
-                            {listImg.map((dato,index) => (
-                                <>
-                                <img key={index} alt="" style={{width:"80%"}} src="https://image.shutterstock.com/z/stock-photo-the-word-example-is-written-on-a-magnifying-glass-on-a-yellow-background-1883859943.jpg"></img>
-                                </>
-                            ))}
+                            <img alt="" style={{width:"80%"}} src="https://image.shutterstock.com/z/stock-photo-the-word-example-is-written-on-a-magnifying-glass-on-a-yellow-background-1883859943.jpg"></img>
                         </div>
                         <div style={{paddingTop:10,paddingBottom:10,textAlign:"center", alignSelf:"center"}} className="col-sm">
-                            <h3 style={{fontSize:34, fontWeight:"bold"}}>{item.first_name + " "+ item.last_name}</h3> 
+                            <h3 style={{fontSize:34, fontWeight:"bold"}}>{listName.first_name + " "+ listName.last_name}</h3> 
                         </div>
                         <div style={{paddingTop:10,paddingBottom:10,textAlign:"right"}} className="col-sm">
-                            {listImg.map((dato,index) => (
-                                <>
-                                <h4 key={index} style={{fontSize:34, fontWeight:"bold"}}><MdStars style={{color:"#7B3E90"}}/>{dato.points + " pts"}</h4>     
-                                
-                                </>
-                            ))}
+                            <h4 style={{fontSize:34, fontWeight:"bold"}}><MdStars style={{color:"#7B3E90"}}/>{listImg.points + " pts"}</h4>     
                         </div>
                     </div>
-                ))}
             </div>
             <div className="container">
-                    <div>
-                        {listName.map((dato,index) => (
-                                <>
-                                <h4 key={index} style={{fontWeight: 300,paddingTop:15}}>{"Correo: "+dato.email}</h4>
-                                </>
-                        ))}                        
-                            <div className="row">
-                                <div className="col">
-                                {listImg.map((dato,index) => (
-                                    <>
-                                        <h4 key={index} style={{fontWeight: 300,paddingTop:15}}>{"Telefono: "+dato.phone}</h4>
-                                    </>
-                                ))}
-                                </div>
-                                <div style={{textAlign:"right"}} className="col">
-                                    <button style={{borderRadius:15,backgroundColor:"#7B3E90",color:"white"}} className="btn" >Actualizar informacion</button>
-                                </div>
+                <div>
+                    <h4 style={{fontWeight: 300,paddingTop:15}}>{"Correo: "+listName.email}</h4>                     
+                    <div className="row">
+                        <div className="col">
+                            <h4 style={{fontWeight: 300,paddingTop:15}}>{"Telefono: "+listImg.phone}</h4>
+                        </div>
+                        <div style={{textAlign:"right"}} className="col">
+                            <button style={{borderRadius:15,backgroundColor:"#7B3E90",color:"white"}} className="btn" onClick={event =>  window.location.href='/actualizar-perfil'} >Editar informacion</button>
+                        </div>
 
-                            </div>
+                    </div>
                     </div>
                 <hr style={{height: 9}}></hr>
             </div>

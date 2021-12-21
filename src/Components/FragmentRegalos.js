@@ -16,16 +16,22 @@ const headers = {
 const FragmentProductDetails = () =>{
     const [list, setList] = useState([]);
     const [ListInfo, setListInfo] = useState([]);
+    const [ListIds, setListIds] = useState([]);
     
+
+    function methodName(id) {
+        console.log(id);
+        window.location.href = "/detallescanje/"+id;
+      }
 
     useEffect(() =>{  
         try {
           axios.get(baseUrl+id_usuario+'/',{ headers })
           .then((response) => {
-            //  console.log(response.data[3]);
-            //  console.log(response.data[1]);
-            setList(response.data[3]);
+            console.log(response);
             setListInfo(response.data[1]);
+            setListIds(response.data[2]);
+            setList(response.data[3]);
 
           })
           .catch((error) => {
@@ -35,7 +41,7 @@ const FragmentProductDetails = () =>{
         } catch (error) {
           console.log(' . ', error);
         }// eslint-disable-next-line react-hooks/exhaustive-deps
-      },[setList],[setListInfo])
+      },[setList],[setListInfo],[setListIds])
 
     return(    
         <>
@@ -43,11 +49,11 @@ const FragmentProductDetails = () =>{
         <nav className="nav">
             <div>
                 <div className="nav_list">
-                    <a href="http://localhost:3000/home" className="nav_link"> <i className='bx bx-home bx-tada nav_icon'></i></a>
-                    <a href="http://localhost:3000/misregalos" className="nav_link"> <i className='bx bx-gift bx-tada nav_icon'></i></a> 
-                    <a href="http://localhost:3000/" className="nav_link"> <i className='bx bx-user bx-tada nav_icon'></i></a> 
-                    <a href="http://localhost:3000/" className="nav_link"> <i className='bx bx-directions bx-tada nav_icon' ></i> </a> 
-                    <a href="http://localhost:3000/" className="nav_link"> <i className='bx bx-log-out-circle bx-tada nav_icon'></i></a> 
+                    <a href="http://localhost:3000/home" className="nav_link"> <i className='bx bx-home nav_icon'></i></a>
+                    <a href="http://localhost:3000/misregalos" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-gift bx-tada nav_icon'></i></a> 
+                    <a href="http://localhost:3000/miperfil" className="nav_link"> <i className='bx bx-user nav_icon'></i></a> 
+                    <a href="http://localhost:3000/misdirecciones" className="nav_link"> <i className='bx bx-directions nav_icon' ></i> </a> 
+                    <a href="http://localhost:3000/" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a> 
                 </div>
             </div>
         </nav>
@@ -71,20 +77,34 @@ const FragmentProductDetails = () =>{
                 </tr>
             </thead>
             <tbody>
-            {list.map((item, index) => (
+            {ListIds.map((item, index) => (
                 <tr key={index}>
-                        <td>
-                            <img alt="" style={{width:60}} src={ imguRL + item.image }></img>
-                        </td>
-                        <td>{item.product_name}</td>
-                        {ListInfo.map((dato, index2) => (
-                            index === index2
-                            ? (<td key={index2}>{dato.order_date}</td>)
-                            : null
-                        ))}
-                        <td ><MdStars style={{fontSize:28,color:"#7B3E90"}}/>{item.points}</td>
-                        <td>En camino</td>
-                        <td><button className="btn btn-danger" style={{borderRadius: 20,color:"white"}}>Cancelar canje</button></td>
+                    {list.map((datosProducto) => (
+                        item.products_id === datosProducto.id
+                        ? (<><td ><img  alt="" style={{width:60}} src={ imguRL + datosProducto.image }></img></td><td >{datosProducto.product_name}</td>
+                            {ListInfo.map((datosEntrega) => (
+                                item.orders_id === datosEntrega.id
+                                ? (<><td >{datosEntrega.order_date}</td></>)
+                                :null
+                            ))}
+                            <td ><MdStars style={{fontSize:28,color:"#7B3E90"}}/>{datosProducto.points}</td>
+                            {ListInfo.map((datosEntrega) => (
+                                item.orders_id === datosEntrega.id
+                                ? (<><td>{datosEntrega.status}</td></>)
+                                :null
+                            ))}
+                            <td><button className="btn btn-danger" style={{borderRadius: 20,color:"white"}} onClick = {() => { methodName(item.orders_id);} } >Ver detalle</button></td>
+                        </>)
+                        : null
+                    
+                    
+                    ))}
+
+                    
+                     
+
+
+                    
                 </tr>
             ))}
             </tbody>

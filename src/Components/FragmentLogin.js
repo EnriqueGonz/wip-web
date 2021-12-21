@@ -1,4 +1,4 @@
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button,Modal } from 'react-bootstrap';
 import React, { useState } from 'react';
 import axios from 'axios'; // npm install axios
 import imgLogin from '../images/loginimg.png';
@@ -9,6 +9,9 @@ const FragmentLogin = () => {
         email: "",
         password: ""
     })
+    const [show1, setShow1] = useState(false);
+    const handleClose1 = () => setShow1(false);
+    const handleShow1 = () => setShow1(true);  
 
 
     function handleChange(evt) {
@@ -24,14 +27,13 @@ const FragmentLogin = () => {
             password: inputs.password
         })
             .then((response) => {
-                console.log(response.data);
                 localStorage.setItem('token',response.data["token"]);
                 localStorage.setItem('id_usuario',response.data["pk"]);
                 localStorage.setItem('username',response.data["username"]);
                 window.location.href = "/home";
 
             })
-            .catch(err => console.log(err));
+            .catch(err =>handleShow1());
         return false;
     }
 
@@ -68,7 +70,18 @@ const FragmentLogin = () => {
                     </div>
                 </div>
             </div>
+        <Modal show={show1} size="md" onHide={handleClose1} >
+        <Modal.Body style={{backgroundColor:"#FFF"}}>
+        <div>
+        <div>
+            <h4 style={{fontWeight: 300,paddingTop:15}}>Error</h4>
+            <h3 style={{fontSize:34, fontWeight:"bold"}}>Upsss...</h3> 
+            <p style={{fontSize:24, fontWeight:300}}>Ha ocurrido un error, intentalo mas tarde</p>    
+        </div>
 
+        </div>
+            </Modal.Body>
+        </Modal>
         </>
     )
 

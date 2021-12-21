@@ -10,6 +10,12 @@ import FragmentHomeUser from './Components/FragmentHomeUser';
 import FragmentRegalos from './Components/FragmentRegalos';
 import FragmentLogin from './Components/FragmentLogin';
 import FragmentPerfil from './Components/FragmentPerfil';
+import FragmentDetalleCanje from './Components/FragmentDetalleCanje';
+import FragmentCancelarCanje from './Components/FragmentCancelOrder';
+import FragmentDirecciones from './Components/FragmentDirecciones';
+import FragmentAddDirecciones from './Components/FragmentAddDireccion';
+import FragmentUpdateDirecciones from './Components/FragmentUpdateDireccion';
+import FragmentPerfilUpdate from './Components/FragmentPerfilUpdate';
 
 
 function App() {
@@ -42,9 +48,37 @@ function App() {
         <Route path="/login">
           <FragmentLogin></FragmentLogin>
         </Route>
+        
+        <Route path="/detallesCanje/:idproduct/">
+            <FragmentDetalleCanje></FragmentDetalleCanje>
+          </Route>
+        <Route path="/cancelarCanje/:idorder/">
+          <FragmentCancelarCanje></FragmentCancelarCanje>
+        </Route>
+
+
+
         <Route path="/miperfil">
           <FragmentPerfil></FragmentPerfil>
         </Route>
+        <Route path="/actualizar-perfil">
+          <FragmentPerfilUpdate></FragmentPerfilUpdate>
+        </Route>
+
+
+
+
+        
+        <Route path="/misdirecciones">
+          <FragmentDirecciones></FragmentDirecciones>
+        </Route>
+        <Route path="/add-direccion">
+          <FragmentAddDirecciones></FragmentAddDirecciones>
+        </Route>
+        <Route path="/update-direccion/:iddireccion">
+          <FragmentUpdateDirecciones></FragmentUpdateDirecciones>
+        </Route>
+
 
         </Switch>
       </Router>
