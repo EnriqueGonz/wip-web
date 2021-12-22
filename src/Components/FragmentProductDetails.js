@@ -8,45 +8,28 @@ const FragmentProductDetails = () =>{
 
     return(    
         <>
-        <div className="l-navbar bg-nav" id="nav-bar">
-        <nav className="nav">
-            <div>
-                <div className="nav_list">
-                    <a href="http://localhost:3000/home" className="nav_link color-icon"> <i className='bx bx-home bx-tada nav_icon'></i></a>
-                    <a href="http://localhost:3000/" className="nav_link color-icon"> <i className='bx bx-gift bx-tada nav_icon'></i></a> 
-                    <a href="http://localhost:3000/" className="nav_link color-icon"> <i className='bx bx-user bx-tada nav_icon'></i></a> 
-                    <a href="http://localhost:3000/" className="nav_link color-icon"> <i className='bx bx-directions bx-tada nav_icon' ></i> </a> 
-                    <a href="http://localhost:3000/" className="nav_link color-icon"> <i className='bx bx-log-out-circle bx-tada nav_icon'></i></a> 
-                </div>
-            </div>
-        </nav>
-    </div>
-    <div className="height-100">
-    <div className="container" style={{paddingTop:40, width:"65%"}}>
-            <Row>
-                <Col>
-                <div className="container">
-                    <img className="imgtest" alt="" src={imgDefault}></img>
-                </div>
-                </Col>
-                <Col>
-                    <h4>Termo metalico 255ml</h4>
-                    <p style={{textAlign:"justify", fontFamily: 'Montserrat'}}>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.<br/>
-                                                     Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.<br/>
-                                                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut a</p>
-                    <div className="container" style={{textAlign:"right"}}>
-                        <Button variant="secondary" onClick={() => history.goBack()} style={{marginRight:20,fontFamily: 'Montserrat'}}>Regresar</Button>
-                        <Button variant="danger" onClick={event =>  window.location.href='/sendProduct'} style={{fontFamily: 'Montserrat'}}>Escoge este regalo</Button>
-
+        <div className="height-100">
+        <div className="container" style={{paddingTop:40, width:"65%"}}>
+                <Row>
+                    <Col>
+                    <div className="container">
+                        <img className="imgtest" alt="" src={imgDefault}></img>
                     </div>
-                </Col>
-            </Row>
+                    </Col>
+                    <Col>
+                        <h4>Termo metalico 255ml</h4>
+                        <p style={{textAlign:"justify", fontFamily: 'Montserrat'}}>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.<br/>
+                                                        Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.<br/>
+                                                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut a</p>
+                        <div className="container" style={{textAlign:"right"}}>
+                            <Button variant="secondary" onClick={() => history.goBack()} style={{marginRight:20,fontFamily: 'Montserrat'}}>Regresar</Button>
+                            <Button variant="danger" onClick={event =>  window.location.href='/sendProduct'} style={{fontFamily: 'Montserrat'}}>Escoge este regalo</Button>
+
+                        </div>
+                    </Col>
+                </Row>
+            </div>
         </div>
-    </div>
-        
-         
-
-
         </>
     )
 

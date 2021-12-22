@@ -16,6 +16,7 @@ import FragmentDirecciones from './Components/FragmentDirecciones';
 import FragmentAddDirecciones from './Components/FragmentAddDireccion';
 import FragmentUpdateDirecciones from './Components/FragmentUpdateDireccion';
 import FragmentPerfilUpdate from './Components/FragmentPerfilUpdate';
+import FragmentLogout from './Components/FragmentLogout';
 
 
 function App() {
@@ -77,6 +78,10 @@ function App() {
         </Route>
         <Route path="/update-direccion/:iddireccion">
           <FragmentUpdateDirecciones></FragmentUpdateDirecciones>
+        </Route>
+
+        <Route path="/logout">
+          <FragmentLogout></FragmentLogout>
         </Route>
 
 

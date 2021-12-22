@@ -126,7 +126,7 @@ const FragmentPerfilUpdate = () =>{
                     <a href="http://localhost:3000/misregalos" className="nav_link"> <i className='bx bx-gift nav_icon'></i></a> 
                     <a href="http://localhost:3000/miperfil" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-user bx-tada nav_icon'></i></a> 
                     <a href="http://localhost:3000/misdirecciones" className="nav_link"> <i className='bx bx-directions nav_icon' ></i> </a> 
-                    <a href="http://localhost:3000/" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a> 
+                    <a href="http://localhost:3000/logout" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a> 
                 </div>
             </div>
         </nav>
