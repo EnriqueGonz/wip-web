@@ -96,7 +96,7 @@ const FragmentDirecciones = () =>{
                 <div className="row">
                     {listName.map((item) => (
                         <div key={item.id} style={{marginBottom:10}} className="col-sm-4">
-                            <div  style={{backgroundColor:"#D8D8D8",borderRadius:20,height:"100%"}} className="card">
+                            <div  style={{backgroundColor:"#FFE9EB",borderRadius:20,height:"100%"}} className="card">
                             <div className="card-body">
                                 <p className="card-title">{item.street + " " + item.first_name+ " "}</p>
                                 <p className="card-title">{item.references}</p>

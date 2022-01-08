@@ -158,12 +158,12 @@ const FragmentPerfilUpdate = () =>{
                 <Row className="mb-3">
                     <Form.Group as={Col} controlId="">
                     <Form.Label>Nombre</Form.Label>
-                    <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" value={listName.first_name} name="street"  />
+                    <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} disabled={true} required type="text" value={listName.first_name} name="street"  />
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="">
                     <Form.Label>Apellido</Form.Label>
-                    <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" value={listName.last_name} name="first_name"   />
+                    <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} disabled={true} required type="text" value={listName.last_name} name="first_name"   />
                     </Form.Group>       
                 </Row>
                 <Row className="mb-3">

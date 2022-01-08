@@ -9,7 +9,7 @@ var id_usuario = localStorage.getItem('id_usuario');
 const FragmentAddDireccion = () =>{
     let history = useHistory();
     const [inputs, setInputs] = useState({
-        user: 0, // int
+        user: 2, // int
         first_name: "", //This field can be left empty
         last_name: "",  //This field can be left empty
         street: "",

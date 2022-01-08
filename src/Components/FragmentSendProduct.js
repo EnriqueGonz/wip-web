@@ -1,18 +1,16 @@
 import { Form,Button,Row,Col } from 'react-bootstrap';
-import imgDefault from '../images/redeemDefault.png';
 import { useHistory } from "react-router-dom";
 import React, { useState } from 'react';
 import axios from 'axios'; // npm install axios
 
 
-const baseUrl = 'https://wishesinpoints.herokuapp.com';
-const addressupUrl = baseUrl+'/useraddresses/api/register/';
-
+const addressupUrl = 'https://wishesinpoints.herokuapp.com/useraddresses/api/register/';
+var id_usuario = localStorage.getItem('id_user_invitacion');
 
 const FragmentSendProduct = () =>{
     let history = useHistory();
     const [inputs, setInputs] = useState({
-        user: 2, // int
+        user: 0, // int
         first_name: "", //This field can be left empty
         last_name: "",  //This field can be left empty
         street: "",
@@ -31,16 +29,16 @@ const FragmentSendProduct = () =>{
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
-        console.log(name + value);
+        console.log(name + value)
         setInputs(values => ({ ...values, [name]: value }))
     }
 
 
     const handleSubmit = (event) => {
         axios.post(addressupUrl, {
-            user: "2",
-            first_name: inputs.first_name,
-            last_name: inputs.last_name,
+            user: id_usuario,
+            first_name: inputs.avenida,
+            last_name: "",
             street: inputs.street,
             neighborhood: inputs.neighborhood,
             street_number: "1",
@@ -54,92 +52,88 @@ const FragmentSendProduct = () =>{
         })
         .then((response) => {
             console.log(response);
+            window.location.href = "/product/";
         })
         .catch(err => console.log(err));
 
         return false;
-
-
     }
     
 
     return(    
         <>
-        <div className="container" style={{paddingTop:40, width:"70%"}}>
-            <Row>
-                <Col>
-                    <h4>¿A donde enviamos tu regalo?</h4>
-                    <Form onSubmit={handleSubmit}>
-                    <Row className="mb-3">
-                        <Form.Group as={Col} controlId="">
-                        <Form.Label>Nombre</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",color:"#FFF",borderRadius:20}} className="inputDireccion" required type="text" name="first_name" value={inputs.first_name} onChange={handleChange} />
-                        </Form.Group>
+        <div className="height-100">
+            <div className="container">
+                    <div>
+                        <h4 style={{fontWeight: 300,paddingTop:15}}>Agregar</h4>
+                        <div className="row">
+                                <div className="col">
+                                    <h3 style={{fontSize:34, fontWeight:"bold"}}>Direccion</h3> 
+                                </div>
+                            </div>
+                    </div>
+                    <hr style={{height: 9}}></hr>
+            </div>
 
-                        <Form.Group as={Col} controlId="formGridPassword">
-                        <Form.Label>Apellido</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",color:"#FFF",borderRadius:20}} required type="text" name="last_name" value={inputs.last_name} onChange={handleChange} />
-                        </Form.Group>
-                    </Row>
+            <div className="container">
+            <Form onSubmit={handleSubmit}>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Calle</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",color:"#FFF",borderRadius:20}} required type="text" name="street" value={inputs.street} onChange={handleChange} />
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="street" value={inputs.street} onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="">
-                        <Form.Label>Colonia</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",color:"#FFF",borderRadius:20}} required type="text" name="neighborhood" value={inputs.neighborhood} onChange={handleChange}  />
+                        <Form.Label>Avenida</Form.Label>
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="avenida" value={inputs.avenida} onChange={handleChange}  />
                         </Form.Group>
+
+                        <Form.Group as={Col} controlId="">
+                        <Form.Label>Barrio/Colonia</Form.Label>
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="neighborhood" value={inputs.neighborhood} onChange={handleChange}  />
+                        </Form.Group>
+
+                        
                     </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Ciudad</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",color:"#FFF",borderRadius:20}} required type="text" name="city" value={inputs.city} onChange={handleChange}/>
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="city" value={inputs.city} onChange={handleChange}/>
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Estado</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",color:"#FFF",borderRadius:20}} required type="text" name="state" value={inputs.state} onChange={handleChange} />
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="state" value={inputs.state} onChange={handleChange} />
                         </Form.Group>
                     </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Codigo Postal (CP)</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",color:"#FFF",borderRadius:20}} required type="number" name="postal_code" value={inputs.postal_code} onChange={handleChange} />
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="number" name="postal_code" value={inputs.postal_code} onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="">
-                        <Form.Label>Telefono</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",color:"#FFF",borderRadius:20}} required type="number" name="phone" value={inputs.phone} onChange={handleChange} />
+                        <Form.Label>Num. exterior</Form.Label>
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="number" name="phone" value={inputs.phone} onChange={handleChange} />
                         </Form.Group>
                     </Row>
                     <Form.Group className="mb-3" controlId="">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",color:"#FFF",borderRadius:20}} required  name="email" value={inputs.email} onChange={handleChange} />
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required  name="email" value={inputs.email} onChange={handleChange} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="">
                         <Form.Label>Informacion adicional</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",color:"#FFF",borderRadius:20}} required  name="references" value={inputs.references} onChange={handleChange} />
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required  name="references" value={inputs.references} onChange={handleChange} />
                     </Form.Group>
-                    <Button variant="danger" type="button" onClick={handleSubmit}>
-                        Submit
+                    <Button style={{background:"#7B3E90",borderColor:"white"}} type="button" onClick={handleSubmit}>
+                        Agregar
                     </Button>
                     <Button style={{marginLeft:10}} onClick={() => history.goBack()} variant="secondary">
                         Regresar
                     </Button>
-                        
-                    </Form>
-                </Col>
-                <Col>
-                <div className="container">
-                    <img alt="" style={{width:"100%"}} src={imgDefault}></img>
-                </div>
-                <div className="container">
-                    <p style={{textAlign:"center",fontSize:22,fontWeight:100}} >Termo metalico 355 ml</p>
-                </div>
-                </Col>
-            </Row>
+                    </Form>    
+            </div>
+            
         </div>
          
 

@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import axios from 'axios'; // npm install axios
 import imgLogin from '../images/loginimg.png';
 
+
+
 const loginUrl = 'https://wishesinpoints.herokuapp.com/access/api/login/';
 const FragmentLogin = () => {
     const [inputs, setInputs] = useState({
@@ -61,6 +63,11 @@ const FragmentLogin = () => {
                                         <Form.Label>Contraseña</Form.Label>
                                         <Form.Control type="password" style={{ backgroundColor: "#BFBFBF", color: "#000", borderRadius: 20 }} required name="password" value={inputs.password} onChange={handleChange} />
                                     </Form.Group>
+
+                                    <div>
+                                        <p>¿No tienes una cuenta? <a href='/registrarse'>Registrate</a></p>
+                                    </div>
+                                    
                                     <Button style={{float:"right",borderRadius:15}} variant="danger" type="button" onClick={handleSubmit}>
                                         Entrar
                                     </Button>

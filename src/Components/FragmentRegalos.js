@@ -2,36 +2,26 @@ import { MdStars } from 'react-icons/md';
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 
-const baseUrl = 'https://wishesinpoints.herokuapp.com/orders/api/get_index_customer/';
+const baseUrl = 'https://wishesinpoints.herokuapp.com/orders/api/get_index/';
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 
-var token = localStorage.getItem('token');
 var id_usuario = localStorage.getItem('id_usuario');
-
-const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
-};
 
 const FragmentProductDetails = () =>{
     const [list, setList] = useState([]);
-    const [ListInfo, setListInfo] = useState([]);
-    const [ListIds, setListIds] = useState([]);
     
 
     function methodName(id) {
         console.log(id);
         window.location.href = "/detallescanje/"+id;
-      }
+    }
 
     useEffect(() =>{  
         try {
-          axios.get(baseUrl+id_usuario+'/',{ headers })
+          axios.get(baseUrl+id_usuario+'/')
           .then((response) => {
-            console.log(response);
-            setListInfo(response.data[1]);
-            setListIds(response.data[2]);
-            setList(response.data[3]);
+            console.log(response.data);
+            setList(response.data);
 
           })
           .catch((error) => {
@@ -41,7 +31,7 @@ const FragmentProductDetails = () =>{
         } catch (error) {
           console.log(' . ', error);
         }// eslint-disable-next-line react-hooks/exhaustive-deps
-      },[setList],[setListInfo],[setListIds])
+      },[setList])
 
     return(    
         <>
@@ -77,36 +67,30 @@ const FragmentProductDetails = () =>{
                 </tr>
             </thead>
             <tbody>
-            {ListIds.map((item, index) => (
-                <tr key={index}>
-                    {list.map((datosProducto) => (
-                        item.products_id === datosProducto.id
-                        ? (<><td ><img  alt="" style={{width:60}} src={ imguRL + datosProducto.image }></img></td><td >{datosProducto.product_name}</td>
-                            {ListInfo.map((datosEntrega) => (
-                                item.orders_id === datosEntrega.id
-                                ? (<><td >{datosEntrega.order_date}</td></>)
-                                :null
-                            ))}
-                            <td ><MdStars style={{fontSize:28,color:"#7B3E90"}}/>{datosProducto.points}</td>
-                            {ListInfo.map((datosEntrega) => (
-                                item.orders_id === datosEntrega.id
-                                ? (<><td>{datosEntrega.status}</td></>)
-                                :null
-                            ))}
-                            <td><button className="btn btn-danger" style={{borderRadius: 20,color:"white"}} onClick = {() => { methodName(item.orders_id);} } >Ver detalle</button></td>
-                        </>)
-                        : null
-                    
-                    
-                    ))}
+                {list.map((item,index) => (
+                    <tr key={index}>
+                        <td>
+                            <img style={{width:60}} alt='' src={imguRL + item[2][0]["image"]}></img>
+                        </td>
+                        <td>
+                            {item[2][0]["product_name"]}
+                        </td>
+                        <td>
+                            {item[0][0]["order_date"]}
+                        </td>
+                        <td >
+                            <MdStars style={{fontSize:28,color:"#7B3E90"}}/>{item[2][0]["points"]}
+                        </td>
+                        <td>
+                            {item[0][0]["order_status"]}
+                        </td>
+                        <td>
+                            <button className="btn btn-danger" style={{borderRadius: 20,color:"white"}} onClick = {() => { methodName(item[1][0]["orders_id"]);} } >Ver detalle</button>
+                        </td>
 
-                    
-                     
-
-
-                    
-                </tr>
-            ))}
+                    </tr>
+                ))}
+            
             </tbody>
         </table>
 

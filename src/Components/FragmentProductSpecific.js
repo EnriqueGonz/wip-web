@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { Button,Row,Col,Alert } from 'react-bootstrap';
+import { Button,Row,Col,Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { MdStars } from 'react-icons/md';
 
@@ -28,6 +28,13 @@ const hoy = new Date(tiempoTranscurrido);
 const FragmentProductSpecific = () =>{
   const [list, setList] = useState([]);
   const [list2, setList2] = useState([]);
+
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true); 
+
+  const [show1, setShow1] = useState(false);
+  const handleClose1 = () => setShow1(false);
+  const handleShow1 = () => setShow1(true);  
 
  
   useEffect(() =>{
@@ -59,9 +66,26 @@ const FragmentProductSpecific = () =>{
 
   },[setList2]);
 
+
   const postPedido = () => {
     var costo = (document.getElementById("number").value) * product_points;
     const urlPedido = baseurl+'/orders/api/order/';
+
+    var dato = "";
+
+    list2.map((item) => (
+      dato = "check"+item.id,
+      (document.getElementById(dato).checked) === true 
+      ? user_address = document.getElementById(dato).value
+      : null
+    ))
+
+    if(user_address === 0){
+      document.getElementById("alerta").style.display = "block"
+    }else{
+      document.getElementById("alerta").style.display = "none"
+
+      console.log(user_address);
 
     if(user_points >= costo){
       console.log(user_id);
@@ -73,21 +97,29 @@ const FragmentProductSpecific = () =>{
       
       axios.post(urlPedido,{
         user: user_id,
-        useraddresses: '0',
+        useraddresses: user_address,
         campaigns: product_campain,
         date_delivery: hoy.toLocaleDateString(), // This field will be sent empty
         status: 'Pendiente', // The default value of this field is "Pendiente"
         products: product_id,
-        amount: document.getElementById("number").value
+        amount: document.getElementById("number").value,
+        gift_token: rtoken
       }, headers)
       .then((response) => {
           console.log('Status code: '+response.status);
+          handleShow();
+          localStorage.clear();
+
       })
-      .catch(err => console.log(err));  
+      .catch(err => handleShow1());  
       
     }else{
       console.log('No puede comprar')
     }
+      
+    }
+
+    
   }
   
 
@@ -108,48 +140,83 @@ const FragmentProductSpecific = () =>{
                     {list.map((item) => (
                     <div key={item.id} className="container">
                         <img className="imagentest" alt="" src={"https://wishesinpointsbucket.s3.amazonaws.com/"+item.image}></img>
+                        
+                        <h4>{item.product_name}</h4>
+                          <p style={{textAlign:"justify"}}>{item.description}</p>
+                          <p style={{textAlign:"end"}}><MdStars style={{fontSize:28,color:"#7B3E90"}}/>{item.points} puntos</p>
                     </div>
+
                     ))}
                     </Col>
                     <Col>
                     {list.map((item) => (
                         <div key={item.id}>
-                          <h4>{item.product_name}</h4>
-                          <p style={{textAlign:"justify"}}>{item.description}</p>
-                          <p style={{textAlign:"end"}}><MdStars style={{fontSize:28,color:"#7B3E90"}}/>{item.points} puntos</p>
-                          <p>Agregar mas producto</p><input id="number" type="number" defaultValue="1"></input>
+                          <Row>
+                            <Col>
+                            <h5>Escoge direccion</h5>
+                            </Col>
+                            <Col>
+                            <Button variant="danger" onClick={event =>  window.location.href='/add-direccion-api'}>Agregar direccion</Button>
+                            </Col>
+                          </Row>
+                          <br></br>
 
-                          <p>Escoge direccion</p>
+                          
+                          <div className="form-check">
                           {list2.map((item) => (
                             <div key={item.id}>
-                              <input  type="checkbox" value={item.id}  name="check" /><p>{item.id} {item.city} {item.state} {item.neighborhood} {item.street} {item.postal_code} {item.references}</p>
+                              <input className="form-check-input" type="radio" name="exampleRadios" id={"check"+item.id} value={item.id} ></input>
+                              <label className="form-check-label" htmlFor="exampleRadios1">
+                              <p>{item.id} {item.city} {item.state} {item.neighborhood} {item.street} {item.postal_code} {item.references}</p>
+                              </label>
                             </div>
                           ))}
 
+                          <p>Cantidad de productos</p><input id="number" type="number" defaultValue="1"></input>
+                          <p id='alerta' style={{color:"red",display:"none"}}>Elige una direccion o agrega una nueva</p>
+                          </div>
+
+                        
                           <div className="container" style={{textAlign:"right"}}>
-                              <Button style={{marginRight:10}} variant="secondary" >Regresar</Button>
+                              <br></br>
+                              <Button style={{marginRight:10}} variant="secondary" onClick={event =>  window.location.href='/catalogo'}>Regresar</Button>
                               <Button variant="danger" onClick={postPedido}>Escoge este regalo</Button>
                           </div><br/>
-                          <Alert className="container" variant="success">
-                          <Alert.Heading>Pedido exitoso</Alert.Heading>
-                          <hr />
-                          <p className="mb-0">
-                            Tu pedido a sido realizado con exito.
-                          </p>
-                        </Alert>
-                        <br/>
-                        <Alert className="container" variant="danger">
-                        <Alert.Heading>Opss algo salio mal</Alert.Heading>
-                        <hr />
-                        <p className="mb-0">
-                          Error... vuelve a intentarlo o intentalo mas tarde
-                        </p>
-                      </Alert>    
+
                         </div>
                     ))}
                     </Col>
                 </Row>
             </div>
+
+
+        <Modal show={show} size="md" >
+        <Modal.Body style={{backgroundColor:"#FFF"}}>
+        <div>
+            <div>
+                <h4 style={{fontWeight: 300,paddingTop:15}}>Pedido realizado con exito</h4>
+                <p style={{fontSize:24, fontWeight:300}}>Inicia sesion para poder ver tus pedidos</p>    
+            </div>
+            <div className="container" style={{textAlign:"center"}}>
+                <button style={{borderRadius:15,backgroundColor:"#7B3E90",color:"white"}} className="btn" onClick={event =>  window.location.href='/login'} >Volver</button>
+            </div>
+
+        </div>
+        </Modal.Body>
+        </Modal>
+
+        <Modal show={show1} size="md" onHide={handleClose1} >
+            <Modal.Body style={{backgroundColor:"#FFF"}}>
+            <div>
+            <div>
+                <h4 style={{fontWeight: 300,paddingTop:15}}>Error</h4>
+                <h3 style={{fontSize:34, fontWeight:"bold"}}>Upsss...</h3> 
+                <p style={{fontSize:24, fontWeight:300}}>Ha ocurrido un error, intentalo mas tarde</p>    
+            </div>
+
+        </div>
+            </Modal.Body>
+        </Modal>
           
 
 

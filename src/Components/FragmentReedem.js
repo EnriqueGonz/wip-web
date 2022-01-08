@@ -1,24 +1,23 @@
 import React, {useState,useEffect} from 'react';
 import { Modal,Button,Row,Col } from 'react-bootstrap';
-import imgDefault from '../images/redeemDefault.png';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
 
 const giftUrl = 'https://wishesinpoints.herokuapp.com/products/gift/';
 const headers = {
     'Content-Type': 'application/json',
 };
 
+
 const FragmentReedem = () =>{
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);  
   const [list, setList] = useState([]); 
+  const [listproducts, setlistproducts] = useState([]); 
 
   var { uuid } = useParams(); // params
-  var { rtoken } = useParams(); // params  
-
+  var { rtoken } = useParams(); // params 
   useEffect(() =>{  
     try {
       axios.get(giftUrl + uuid + '/' + rtoken + '/', { headers })
@@ -27,6 +26,8 @@ const FragmentReedem = () =>{
         localStorage.setItem('uuid',uuid);
         localStorage.setItem('rtoken',rtoken);
         setList(response.data[0]);
+        localStorage.setItem('id_user_invitacion',response.data[0][0]["id"]);
+        setlistproducts(response.data[3][0]);
       })
       .catch((error) => {
         console.log(error);
@@ -35,8 +36,13 @@ const FragmentReedem = () =>{
     } catch (error) {
       console.log(' . ', error);
     }// eslint-disable-next-line react-hooks/exhaustive-deps
-  },[setList]);
+  },[setList],[setlistproducts]);
 
+  function methodName() {
+    console.log(listproducts.id);
+    localStorage.setItem('producto', listproducts.id);
+    window.location.href = "/product/"+listproducts.id;
+}
 
     return(
       
@@ -45,7 +51,7 @@ const FragmentReedem = () =>{
               {list.map((item) => (
                 <div key={item.id} className="navbar navbar-expand-lg navbar-light navContainer" style={{backgroundColor:"#D8D8D8",justifyContent: "space-around"}}>
                   <h3>Hola {item.first_name}</h3>
-                  <h2>Abre tu regalo</h2>
+                  <h2>{listproducts.campaign_name}</h2>
                   <h4>{item.points} pts</h4>
                 </div>
               ))}
@@ -74,9 +80,9 @@ const FragmentReedem = () =>{
                   </Col>
                   <Col>
                     <br/>
-                    <p style={{textAlign:"center"}}>Termo metalico 355 ml</p>
+                    <p style={{textAlign:"center"}}>{listproducts.product_name}</p>
                     <div className="container" style={{textAlign:"center"}}>
-                      <img alt="" src={imgDefault}></img>
+                      <img alt="" style={{width:"100%"}} src={"https://wishesinpointsbucket.s3.amazonaws.com/"+listproducts.image}></img>
                     </div>
                     
                   </Col>
@@ -85,7 +91,7 @@ const FragmentReedem = () =>{
 
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="danger" onClick={event =>  window.location.href='/detallesProducto'}>
+              <Button variant="danger" onClick = {() => { methodName()} } >
                 Escoge este regalo
               </Button>
               <Button variant="danger" onClick={event =>  window.location.href='/catalogo'}>

@@ -3,9 +3,8 @@ import axios from 'axios';
 import { Button,Row,Col } from 'react-bootstrap';
 import { MdStars } from 'react-icons/md';
 
-const baseUrl = 'https://wishesinpoints.herokuapp.com';
-const giftUrl = baseUrl+'/products/api/get_catalog/';
-
+const giftUrl = 'https://wishesinpoints.herokuapp.com/products/api/get_catalog/';
+var id = localStorage.getItem('id_user_invitacion');
 
 
 
@@ -22,12 +21,12 @@ class FragmentCatalog extends Component {
     }
 
     componentDidMount() {
-        axios.post(giftUrl,{
+        axios.post(giftUrl+id+"/",{
             product_name: '',
         })
             .then(res => {
                 const products = res.data;
-                console.log(res.data)
+                console.log(res)
                 this.setState({
                     products: products
                 });
