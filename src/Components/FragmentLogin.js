@@ -29,10 +29,22 @@ const FragmentLogin = () => {
             password: inputs.password
         })
             .then((response) => {
-                localStorage.setItem('token',response.data["token"]);
-                localStorage.setItem('id_usuario',response.data["pk"]);
-                localStorage.setItem('username',response.data["username"]);
-                window.location.href = "/home";
+                console.log(response);
+                if(response.data.is_admin){
+                    console.log('is admin');
+                    localStorage.setItem('tokenAdmin',response.data["token"]);
+                    localStorage.setItem('id_usuarioAdmin',response.data["pk"]);
+                    localStorage.setItem('usernameAdmin',response.data["username"]);
+                    window.location.href = "/admin/home";
+
+                    
+                }else{
+                    localStorage.setItem('token',response.data["token"]);
+                    localStorage.setItem('id_usuario',response.data["pk"]);
+                    localStorage.setItem('username',response.data["username"]);
+                    window.location.href = "/home";
+                }
+                
 
             })
             .catch(err =>handleShow1());

@@ -2,19 +2,32 @@ import React, {useState,useEffect} from 'react';
 import { MdStars } from 'react-icons/md';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
+import { Bar } from 'react-chartjs-2';
+import Chart from 'chart.js/auto';
+
+import { ReactComponent as IconInicio } from '../images/iconos/inicio1.svg';
+import { ReactComponent as IconRegalos } from '../images/iconos/regalos.svg';
+import { ReactComponent as IconAdminPerfiles } from '../images/iconos/administrarperfiles.svg';
+import { ReactComponent as IconCampana } from '../images/iconos/crearcampana.svg';
+import { ReactComponent as IconCrearProducto } from '../images/iconos/addproducto.svg';
+import { ReactComponent as IconListaProducto } from '../images/iconos/listaproductos.svg';
 
 const baseUrl = 'https://wishesinpoints.herokuapp.com/users/api/user_datas/';
 const baseUrl2 = 'https://wishesinpoints.herokuapp.com/usercampaigns/api/customercampaign/';
-const baseUrl3 = 'https://wishesinpoints.herokuapp.com/orders/api/get_index_customer/';
+const baseUrl3 = 'https://wishesinpoints.herokuapp.com/orders/api/get_index_orders/';
 
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
+//npm i chart.js
 
-var token = localStorage.getItem('token');
+var token = localStorage.getItem('tokenAdmin');
 var regaloid = "";
 var regalonombre = "";
 var regalofecha = "";
 var regaloImg = "";
 var regalopuntos = "";
+var cantidad = 0;
+var total= 0;
+var regaloscanjeados = 0;
 
 var campananombre = "";
 var campanainicio="";
@@ -26,12 +39,19 @@ const headers = {
 };
 
 const FragmentAdminHome = () =>{
-    var id_usuario = localStorage.getItem('id_usuario');
-    var username = localStorage.getItem('username');
+    var id_usuario = localStorage.getItem('id_usuarioAdmin');
+    var username = localStorage.getItem('usernameAdmin');
 
     const [list, setList] = useState([]);
     const [listCampanas, setListCampanas] = useState([]); 
     const [listRegalos, setListRegalos] = useState([]); 
+
+
+    const [listNombresCampanas, setlistNombresCampanas] = useState([]); 
+    const [listPuntos, setlistPuntos] = useState([]); 
+
+
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);  
@@ -39,6 +59,31 @@ const FragmentAdminHome = () =>{
     const [show1, setShow1] = useState(false);
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);  
+
+
+    const data = {
+        labels: listNombresCampanas,
+        datasets: [{
+          label: 'Puntos por campaña',
+          backgroundColor: '#603E84',
+          borderColor: 'rgb(255, 99, 132)',
+          data: listPuntos,
+        }]
+      };
+    
+      const config = {
+        type: 'bar',
+        data: data,
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            }
+          }
+        },
+      };   
 
     const openCampana = () => {
         var elemento1 = document.getElementById('campanas');
@@ -65,12 +110,14 @@ const FragmentAdminHome = () =>{
         elemento3.style.display = "block";
     }
 
-    function methodName(id,nombre,fecha_entrega,imagen,puntos) {
+    function methodName(id,nombre,fecha_entrega,imagen,puntosTotales,cantidadpedido,precio) {
         regaloid = id;
         regalonombre = nombre;
         regalofecha = fecha_entrega;
         regaloImg = imagen;
-        regalopuntos = puntos;
+        regalopuntos = precio;
+        cantidad = cantidadpedido;
+        total = puntosTotales;
         handleShow1();
       }
 
@@ -103,6 +150,17 @@ const FragmentAdminHome = () =>{
           axios.get(baseUrl2+id_usuario+'/',{ headers })
           .then((response) => {
             setListCampanas(response.data[1]);
+            console.log(response.data[1]);
+            var respuesta = response.data[1];
+            var auxcampana=[];
+            var auxpuntos = [];
+            respuesta.map(elemento=>(
+                auxcampana.push(elemento.campaign_name),
+                auxpuntos.push(elemento.points)
+            ));
+            setlistNombresCampanas(auxcampana);
+            setlistPuntos(auxpuntos);
+
           })
           .catch((error) => {
             console.log(error);
@@ -117,7 +175,9 @@ const FragmentAdminHome = () =>{
         try {
           axios.get(baseUrl3+id_usuario+'/',{ headers })
           .then((response) => {
-            setListRegalos(response.data[3]);
+              regaloscanjeados = response.data.length;
+
+            setListRegalos(response.data);
           })
           .catch((error) => {
             console.log(error);
@@ -160,8 +220,8 @@ const FragmentAdminHome = () =>{
                     <p style={{fontWeight:"bold"}}>Fecha de canjeo</p>
                     <p>{regalofecha}</p>
 
-                    <p style={{fontWeight:"bold"}}>Puntos</p>
-                    <p><MdStars style={{color:"#7B3E90"}}/>{regalopuntos}</p>
+                    <p style={{fontWeight:"bold"}}><MdStars style={{color:"#7B3E90"}}/> Puntos gastados</p>
+                    <p>{regalopuntos +" puntos * "+ cantidad +" productos = "+ total +" puntos"}</p>
 
                 </div>
         </div>
@@ -170,15 +230,16 @@ const FragmentAdminHome = () =>{
 
     return(    
         <>
-        <div className="l-navbar" id="nav-bar">
+    <div className="l-navbar" style={{padding:"1rem 0rem 0 0"}} id="nav-bar">
         <nav className="nav">
             <div>
                 <div className="nav_list">
-                    <a href="http://localhost:3000/home" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-home bx-tada nav_icon'></i></a>
-                    <a href="http://localhost:3000/misregalos" className="nav_link"> <i className='bx bx-gift nav_icon'></i></a> 
-                    <a href="http://localhost:3000/miperfil" className="nav_link"> <i className='bx bx-user nav_icon'></i></a> 
-                    <a href="http://localhost:3000/misdirecciones" className="nav_link"> <i className='bx bx-directions nav_icon' ></i> </a> 
-                    <a href="http://localhost:3000/logout" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a> 
+                    <a href="http://localhost:3000/admin/home" style={{backgroundColor:"gray"}} className="nav_link"> <IconInicio style={{width:26,height:"100%"}}/></a>
+                    <a href="http://localhost:3000/admin/regalos" className="nav_link"> <IconRegalos style={{width:26,height:"100%"}}/></a> 
+                    <a href="http://localhost:3000/admin/administrarperfiles" className="nav_link"> <IconAdminPerfiles style={{width:26,height:"100%"}}/></a> 
+                    <a href="http://localhost:3000/admin/crearcampañas" className="nav_link"><IconCampana style={{width:26,height:"100%"}}/></a> 
+                    <a href="http://localhost:3000/admin/crearproducto" className="nav_link"><IconCrearProducto style={{width:26,height:"100%"}}/></a> 
+                    <a href="http://localhost:3000/admin/listaproducto" className="nav_link"><IconListaProducto style={{width:26,height:"100%"}}/></a> 
                 </div>
             </div>
         </nav>
@@ -205,7 +266,7 @@ const FragmentAdminHome = () =>{
                     <button className="bt-cards" onClick={openRegalo}>
                         <div className="card-body" style={{height:"100%"}}> 
                             <h5 className="card-title" style={{position: "absolute"}}>Regalos canjeados</h5>
-                            <p className="card-text" style={{fontSize: "32px", fontWeight: "bold",textAlign:"right"}}>{list.redeemed}</p>
+                            <p className="card-text" style={{fontSize: "32px", fontWeight: "bold",textAlign:"right"}}>{regaloscanjeados}</p>
                             </div>
                         </button>
                     </div>
@@ -214,7 +275,7 @@ const FragmentAdminHome = () =>{
                     <div className="card bgpuntos">
                     <button className="bt-cards" onClick={openPuntos}>
                             <div className="card-body" style={{height:"100%"}}>
-                            <h5 className="card-title" style={{position: "absolute"}}>Puntos restantes</h5>
+                            <h5 className="card-title" style={{position: "absolute"}}>Puntos por campaña</h5>
                             <p className="card-text" style={{fontSize: "32px", fontWeight: "bold",textAlign:"right"}}>{list.points}</p>
                             </div>
                         </button>
@@ -230,15 +291,17 @@ const FragmentAdminHome = () =>{
                     <h3 style={{fontSize:34, fontWeight:"bold"}}>Campañas</h3>
                 </div>
                 <div className="row">
-                    {listCampanas.map((item) => (
-                        <div key={item.id} className="col-sm-3">
-                            <div className="card">
+                    {listCampanas.map((item,index) => (
+                        <div key={index} style={{paddingTop:10}} className="col-sm-3">
+                            <div className="card" style={{height:"100%"}}>
                             <div className="card-body">
                                 <h5 className="card-title">{item.campaign_name}</h5>
                                 <p className="card-text">{item.slug}</p>
-                                <div style={{textAlign:"right"}} className="contianer">
+                            </div>
+                            <div className="card-footer">
+                                    <div style={{textAlign:"right"}} className="contianer">
                                     <button className="btn btn-danger" style={{borderRadius:20}} onClick = {() => { methodName2(item.campaign_name,item.start_date,item.end_date);} }>Ver detalles</button>
-                                </div>
+                                    </div>
                             </div>
                             </div>
                         </div>
@@ -252,17 +315,18 @@ const FragmentAdminHome = () =>{
                     <h3 style={{fontSize:34, fontWeight:"bold"}}>canjeados</h3>
                 </div>
                 <div className="row">
-                {listRegalos.map((item) => (
-                    <div key={item.id} style={{paddingTop:10}} className="col-sm-3">
+                {listRegalos.map((item,index) => (
+                    <div key={index} style={{paddingTop:10}} className="col-sm-3">
                         <div style={{height:"100%"}} className="card">
                         <div className="card-body">
-                            <img alt="" style={{width:"100%"}} src={ imguRL + item.image }></img>
+                            <img alt="" style={{width:"100%"}} src={ imguRL + listRegalos[index][2][0]["image"] }></img>
                         </div>
                         <div className="card-footer">
-                            <h5 className="card-title">{item.product_name}</h5>
-                            <p className="card-text"><MdStars style={{color:"#7B3E90"}}/>{item.points}</p>
+                            <h5 className="card-title">{listRegalos[index][2][0]["product_name"]}</h5>
+                            <p className="card-text">Campaña: {listRegalos[index][0][0]["campaign"]}</p>
+                            <p className="card-text"><MdStars style={{color:"#7B3E90"}}/>{listRegalos[index][2][0]["points"]}</p>
                             <div style={{textAlign:"right"}} className="contianer">
-                                <button className="btn btn-danger" style={{borderRadius:20}} onClick = {() => { methodName(item.id,item.product_name,item.created_at,item.image,item.points);} } >Ver detalles</button>
+                                <button className="btn btn-danger" style={{borderRadius:20}} onClick = {() => { methodName(listRegalos[index][0][0]["id"],listRegalos[index][2][0]["product_name"],listRegalos[index][0][0]["order_date"],listRegalos[index][2][0]["image"],listRegalos[index][1][0]["total_price"],listRegalos[index][1][0]["amount"],listRegalos[index][2][0]["points"]);} } >Ver detalles</button>
                             </div>
                         </div>
                         </div>
@@ -274,10 +338,10 @@ const FragmentAdminHome = () =>{
             <div id='puntos' className="container" style={{backgroundColor: "#BFB3CF", paddingBottom:30,display:"none"}}>
                 <div style={{padding: 16}}>
                     <h4 style={{fontWeight: 300}}>Puntos</h4>
-                    <h3 style={{fontSize:34, fontWeight:"bold"}}>Restantes</h3>
+                    <h3 style={{fontSize:34, fontWeight:"bold"}}>por campaña</h3>
                 </div>
                 <div className="container" style={{textAlign:"center"}}>
-                     <h2 style={{fontSize:105}}><MdStars style={{fontSize:110,color:"#7B3E90"}}/> {list.points} </h2>
+                    <Bar options={config} data={data} ></Bar>
                 </div>
             </div>
 
@@ -304,4 +368,4 @@ const FragmentAdminHome = () =>{
     )
 
 }
-export default FragmentHomeUser;
+export default FragmentAdminHome;

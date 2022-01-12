@@ -17,7 +17,18 @@ import FragmentUpdateDirecciones from './Components/FragmentUpdateDireccion';
 import FragmentPerfilUpdate from './Components/FragmentPerfilUpdate';
 import FragmentLogout from './Components/FragmentLogout';
 import FragmentRegistro from './Components/FragmentRegister';
+
+
+//Fragmentos de administrador
+import FragmentAdminHome from './Components/FragmentAdminHome';
+import FragmentAdminRegalos from './Components/FragmentAdminRegalos';
+import FragmentAdminDetalleCanje from './Components/FragmentAdminDetalleCanje';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import FragmentAdminCrearCampana from './Components/FragmentAdminCrearCampana';
+import FragmentAdminPerfiles from './Components/FragmentAdminPerfiles';
+import FragmentAdminCrearProducto from './Components/FragmentAdminCrearProducto';
+import FragmentAdminListaProducto from './Components/FragmentAdminListaProducto';
+
 
 var token = localStorage.getItem('token');
 function App() {
@@ -94,6 +105,29 @@ function App() {
           <FragmentCancelarCanje></FragmentCancelarCanje>
         </Route>
 
+
+        <Route path="/admin/home/">
+          <FragmentAdminHome></FragmentAdminHome>
+        </Route>
+        <Route path="/admin/regalos/">
+          <FragmentAdminRegalos></FragmentAdminRegalos>
+        </Route>
+        <Route path="/admin/detallesCanje/:idorder/">
+          <FragmentAdminDetalleCanje></FragmentAdminDetalleCanje>
+        </Route>
+        <Route path="/admin/administrarperfiles/">
+          <FragmentAdminPerfiles></FragmentAdminPerfiles>
+        </Route>
+        <Route path="/admin/crearcampañas/">
+          <FragmentAdminCrearCampana></FragmentAdminCrearCampana>
+        </Route>
+
+        <Route path="/admin/crearproducto/">
+          <FragmentAdminCrearProducto></FragmentAdminCrearProducto>
+        </Route>
+        <Route path="/admin/listaproducto/">
+          <FragmentAdminListaProducto></FragmentAdminListaProducto>
+        </Route>
 
 
         </Switch>

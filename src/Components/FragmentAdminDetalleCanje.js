@@ -14,19 +14,19 @@ const headers = {
     'Authorization': `Token ${token}`
 };
 
-const FragmentDetalleCanje = () =>{
-    var { idproduct } = useParams(); // params
+const FragmentAdminDetalleCanje = () =>{
+    var { idorder } = useParams(); // params
     const [list, setList] = useState([]);
     const [list2, setList2] = useState([]);
 
     function methodName(id) {
         console.log(id);
-        window.location.href = "/cancelarcanje/"+id;
+        //window.location.href = "/cancelarcanje/"+id;
       }
 
     useEffect(() =>{  
         try {
-          axios.get(baseUrl+idproduct+'/',{ headers })
+          axios.get(baseUrl+idorder+'/',{ headers })
           .then((response) => {
             console.log(response.data[0][0]);
             console.log(response.data[0][2][0]);
@@ -49,11 +49,11 @@ const FragmentDetalleCanje = () =>{
         <nav className="nav">
             <div>
                 <div className="nav_list">
-                    <a href="http://localhost:3000/admin/home" className="nav_link"> <i className='bx bx-home nav_icon'></i></a>
-                    <a href="http://localhost:3000/admin/regalos" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-gift bx-tada nav_icon'></i></a> 
-                    <a href="http://localhost:3000/admin/" className="nav_link"> <i className='bx bx-user nav_icon'></i></a> 
-                    <a href="http://localhost:3000/admin/" className="nav_link"> <i className='bx bx-directions nav_icon' ></i> </a> 
-                    <a href="http://localhost:3000/admin/" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a> 
+                    <a href="http://localhost:3000/home" className="nav_link"> <i className='bx bx-home nav_icon'></i></a>
+                    <a href="http://localhost:3000/misregalos" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-gift bx-tada nav_icon'></i></a> 
+                    <a href="http://localhost:3000/miperfil" className="nav_link"> <i className='bx bx-user nav_icon'></i></a> 
+                    <a href="http://localhost:3000/misdirecciones" className="nav_link"> <i className='bx bx-directions nav_icon' ></i> </a> 
+                    <a href="http://localhost:3000/logout" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a> 
                 </div>
             </div>
         </nav>
@@ -80,6 +80,7 @@ const FragmentDetalleCanje = () =>{
     </div>
     <div className="container">
         <div>
+        <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Canjeado por: </b>Empleado #{list2.user_id}</p>
             <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Fecha de canje: </b>{list2.order_date}</p>
             <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Fecha de entrega: </b>{list2.date_delivery}</p>
             <div className="row">
@@ -101,4 +102,4 @@ const FragmentDetalleCanje = () =>{
     )
 
 }
-export default FragmentDetalleCanje;
+export default FragmentAdminDetalleCanje;
