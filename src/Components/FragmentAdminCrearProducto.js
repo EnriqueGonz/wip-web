@@ -160,7 +160,10 @@ const FragmentAdminCrearProducto = () =>{
                         <h4 style={{fontWeight: 300,paddingTop:15}}>Agregar</h4>
                         <div className="row">
                                 <div className="col">
-                                    <h3 style={{fontSize:34, fontWeight:"bold"}}>Producto</h3> 
+                                    <h3 style={{fontSize:34, fontWeight:"bold"}}>Productos</h3> 
+                                </div>
+                                <div style={{textAlign:"right"}} className="col">
+                                    <button style={{borderRadius:15,backgroundColor:"#7B3E90",color:"white"}} className="btn" onClick={event =>  window.location.href='/'} >Carga masiva</button>
                                 </div>
                             </div>
                     </div>

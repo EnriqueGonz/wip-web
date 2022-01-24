@@ -1,12 +1,11 @@
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 import { Modal,Button } from 'react-bootstrap';
+import { MdStars } from 'react-icons/md';
 
 import { ReactComponent as IconInicio } from '../images/iconos/inicio.svg';
 import { ReactComponent as IconRegalos } from '../images/iconos/regalos.svg';
 import { ReactComponent as IconAdminPerfiles } from '../images/iconos/administrarperfiles1.svg';
-import { ReactComponent as IconCampana } from '../images/iconos/crearcampana.svg';
-import { ReactComponent as IconCrearProducto } from '../images/iconos/addproducto.svg';
 import { ReactComponent as IconListaProducto } from '../images/iconos/listaproductos.svg';
 
 
@@ -23,16 +22,19 @@ const FragmentAdminPerfiles = () =>{
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);  
     const [list, setList] = useState([]);
+    const [listCampanas, setlistCampanas] = useState([]);
 
     useEffect(() =>{  
         try {
           axios.post(baseUrl,{
               full_name:"",
-              is_staff: "True"
+              is_staff: "False"
           },{headers})
           .then((response) => {
-              console.log(response);
+              console.log(response.data)
+              console.log(response.data[2][2]);
               setList(response.data);
+              setlistCampanas(response.data)
           })
           .catch((error) => {
             console.log(error);
@@ -41,7 +43,7 @@ const FragmentAdminPerfiles = () =>{
         } catch (error) {
           console.log(' . ', error);
         }// eslint-disable-next-line react-hooks/exhaustive-deps
-      },[setList])
+      },[setList],[setlistCampanas])
       
       function methodName(id) {
         console.log(id);
@@ -79,8 +81,6 @@ const FragmentAdminPerfiles = () =>{
                     <a href="http://localhost:3000/admin/home" className="nav_link"> <IconInicio style={{width:26,height:"100%"}}/></a>
                     <a href="http://localhost:3000/admin/regalos" className="nav_link"> <IconRegalos style={{width:26,height:"100%"}}/></a> 
                     <a href="http://localhost:3000/admin/administrarperfiles" style={{backgroundColor:"gray"}} className="nav_link"> <IconAdminPerfiles style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/crearcampañas"  className="nav_link"><IconCampana style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/crearproducto"  className="nav_link"><IconCrearProducto style={{width:26,height:"100%"}}/></a> 
                     <a href="http://localhost:3000/admin/listaproducto"  className="nav_link"><IconListaProducto style={{width:26,height:"100%"}}/></a> 
                 </div>
             </div>
@@ -92,7 +92,7 @@ const FragmentAdminPerfiles = () =>{
                         <h4 style={{fontWeight: 300,paddingTop:15}}>Administrar</h4>
                         <div className="row">
                                 <div className="col">
-                                    <h3 style={{fontSize:34, fontWeight:"bold"}}>Direcciones</h3> 
+                                    <h3 style={{fontSize:34, fontWeight:"bold"}}>Clientes</h3> 
                                     
                                 </div>
                                 <div style={{textAlign:"right"}} className="col">
@@ -104,36 +104,44 @@ const FragmentAdminPerfiles = () =>{
             </div>
             
             <div className="container">
-                <div className="row">
-                    {list.map((item,index)=>(
-                        <>
-                        <div className="col-sm-8" style={{paddingBottom:20}}>
-                            <div className="card" style={{background:"#EFEFEF"}}>
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className='col-sm-4'>
-                                        <img style={{width:"100%"}} src="https://image.shutterstock.com/z/stock-photo-the-word-example-is-written-on-a-magnifying-glass-on-a-yellow-background-1883859943.jpg" alt=""></img>
-                                    </div>
-                                    <div className='col-sm-8'>
-                                        <h5 className="card-title">Empleado: {list[index][0][0]["first_name"]}</h5>
-                                        <p style={{margin:0}}>Correo: {list[index][0][0]["email"]}</p>
-                                        <p>Telefono: {list[index][1][0]["phone"]}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card-footer">
-                                <div style={{textAlign:"right"}} className="contianer">
-                                
-                                <button style={{borderRadius:15,backgroundColor:"#7B3E90",color:"white",marginRight:10}} className="btn" onClick = {() => { methodUpdate(item.id);} }  >Editar Perfil</button>
-                                <button style={{borderRadius:15,backgroundColor:"#E75353",color:"white"}} className="btn" onClick = {() => { methodName(item.id);} }  >Eliminar Empleado</button>
-                                
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        </>
-                    ))}
-                </div>
+                <table className="table">
+                    <thead className="thead-dark" style={{backgroundColor: "#BFB3CF", color:"black"}}>
+                        <tr>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Nombre completo</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Puntos</th>
+                        <th scope="col">Campañas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {list.map((item,index) => (
+                                <tr key={index}>
+                                    <td>
+                                        <img style={{width:60}} alt='' src="https://image.shutterstock.com/z/stock-photo-the-word-example-is-written-on-a-magnifying-glass-on-a-yellow-background-1883859943.jpg"></img>
+                                    </td>
+                                    <td>
+                                        {list[index][0][0]["first_name"] +" "+list[index][0][0]["last_name"]}
+                                    </td>
+                                    <td>
+                                        {list[index][0][0]["email"]}
+                                    </td>
+                                    <td>
+                                        {list[index][1][0]["phone"]}
+                                    </td>
+                                    <td>
+                                        <MdStars style={{fontSize:28,color:"#7B3E90"}}/>{list[index][1][0]["points"]}
+                                    </td>
+                                    <td>
+                                        {(list[index][2]).map((data,index2) =>
+                                            <li key={index2}>{data.campaign_name}</li>
+                                         )}
+                                    </td>
+                                </tr>
+                            ))}
+                    </tbody>
+                </table>
             </div>
         </div>
 

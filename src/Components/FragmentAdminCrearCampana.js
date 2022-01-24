@@ -28,13 +28,12 @@ const FragmentAdminCrearCampana = () =>{
     const [inputs, setInputs] = useState({
         brands: 0,
         campaigns: 0,
-        categories: 2,
-        product_name:"",
-        description:"",
+        campaign_name:"",
+        start_date:0,
+        end_date:"",
         points:0,
-        amount:0,
         status:0,
-        image: "",
+        slug: "",
     })
 
 
@@ -66,24 +65,18 @@ const FragmentAdminCrearCampana = () =>{
 
 
     const handleSubmit = (event) => {
-        axios.post(baseUrl, {
-            user: "",
-            first_name: inputs.avenida,
-            last_name: "",
-            street: inputs.street,
-            neighborhood: inputs.neighborhood,
-            street_number: "1",
-            apartment_number: "1",
-            postal_code: inputs.postal_code,
-            city: inputs.city,
-            state: inputs.state,
-            phone: inputs.phone,
-            references: inputs.references,
-            email: inputs.email
+        console.log(document.getElementById('fecha').value);
+        axios.post("baseUrl", {
+            brands: 0,
+            plantillas: 1,
+            campaign_name: "",
+            points: 0,
+            status: 0,
+            slug: "",
         })
         .then((response) => {
             console.log(response);
-            window.location.href = "/misdirecciones";
+            //window.location.href = "/misdirecciones";
         })
         .catch(err => console.log(err));
 
@@ -128,12 +121,12 @@ const FragmentAdminCrearCampana = () =>{
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Nombre de campaña</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="city" value={inputs.city} onChange={handleChange}/>
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="campaign_name" value={inputs.campaign_name} onChange={handleChange}/>
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Marca</Form.Label>
-                        <Form.Select style={{backgroundColor:"#BFBFBF",borderRadius:20}} aria-label="Default select example">
+                        <Form.Select style={{backgroundColor:"#BFBFBF",borderRadius:20}} aria-label="Default select example" >
                         {listbrands.map((item,index)=>(
                             <option key={index} value={item.id}>{item.brand_name}</option>
                         ))}
@@ -143,7 +136,7 @@ const FragmentAdminCrearCampana = () =>{
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Plantilla</Form.Label>
-                        <Form.Select style={{backgroundColor:"#BFBFBF",borderRadius:20}} aria-label="Default select example">
+                        <Form.Select style={{backgroundColor:"#BFBFBF",borderRadius:20}} aria-label="Default select example" >
                         <option>Selecciona una opcion</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
@@ -154,7 +147,7 @@ const FragmentAdminCrearCampana = () =>{
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Fecha de inicio de campaña</Form.Label><br></br>
-                        <input type="date" id="start" name="trip-start"
+                        <input type="date" id="start" name="trip-start" id="fecha"
                         min="2022-01-01" max="2024-12-31"/>
                         </Form.Group>
 
@@ -176,13 +169,13 @@ const FragmentAdminCrearCampana = () =>{
 
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Puntos</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="number" name="state" value={inputs.state} onChange={handleChange} />
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="number" name="points" value={inputs.points} onChange={handleChange} />
                         </Form.Group>
                     </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Slug de campaña:</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="city" value={inputs.city} onChange={handleChange}/>
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="slug" value={inputs.slug} onChange={handleChange}/>
                         </Form.Group>
                     </Row>
                     <Button style={{background:"#7B3E90",borderColor:"white"}} type="button" onClick={handleSubmit}>

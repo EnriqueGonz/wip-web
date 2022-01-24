@@ -6,8 +6,6 @@ import axios from 'axios';
 import { ReactComponent as IconInicio } from '../images/iconos/inicio.svg';
 import { ReactComponent as IconRegalos } from '../images/iconos/regalos1.svg';
 import { ReactComponent as IconAdminPerfiles } from '../images/iconos/administrarperfiles.svg';
-import { ReactComponent as IconCampana } from '../images/iconos/crearcampana.svg';
-import { ReactComponent as IconCrearProducto } from '../images/iconos/addproducto.svg';
 import { ReactComponent as IconListaProducto } from '../images/iconos/listaproductos.svg';
 
 
@@ -56,8 +54,6 @@ const FragmentAdminRegalos = () =>{
                     <a href="http://localhost:3000/admin/home"  className="nav_link"> <IconInicio style={{width:26,height:"100%"}}/></a>
                     <a href="http://localhost:3000/admin/regalos" style={{backgroundColor:"gray"}} className="nav_link"> <IconRegalos style={{width:26,height:"100%"}}/></a> 
                     <a href="http://localhost:3000/admin/administrarperfiles" className="nav_link"> <IconAdminPerfiles style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/crearcampañas" className="nav_link"><IconCampana style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/crearproducto" className="nav_link"><IconCrearProducto style={{width:26,height:"100%"}}/></a> 
                     <a href="http://localhost:3000/admin/listaproducto" className="nav_link"><IconListaProducto style={{width:26,height:"100%"}}/></a> 
                 </div>
             </div>
@@ -78,6 +74,7 @@ const FragmentAdminRegalos = () =>{
                 <th scope="col">Fecha de canje</th>
                 <th scope="col">Canjeado por</th>
                 <th scope="col">Costo en puntos</th>
+                <th scope="col">Campaña</th>
                 <th scope="col">Estatus</th>
                 <th scope="col">Opciones</th>
                 </tr>
@@ -99,6 +96,9 @@ const FragmentAdminRegalos = () =>{
                         </td>
                         <td >
                             <MdStars style={{fontSize:28,color:"#7B3E90"}}/>{item[2][0]["points"]}
+                        </td>
+                        <td>
+                            {item[0][0]["campaign"]}
                         </td>
                         <td>
                             {item[0][0]["order_status"]}

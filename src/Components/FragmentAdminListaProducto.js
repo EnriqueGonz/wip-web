@@ -5,8 +5,6 @@ import { Modal,Button } from 'react-bootstrap';
 import { ReactComponent as IconInicio } from '../images/iconos/inicio.svg';
 import { ReactComponent as IconRegalos } from '../images/iconos/regalos.svg';
 import { ReactComponent as IconAdminPerfiles } from '../images/iconos/administrarperfiles.svg';
-import { ReactComponent as IconCampana } from '../images/iconos/crearcampana.svg';
-import { ReactComponent as IconCrearProducto } from '../images/iconos/addproducto.svg';
 import { ReactComponent as IconListaProducto } from '../images/iconos/listaproductos1.svg';
 
 
@@ -82,8 +80,6 @@ const FragmentAdminListaProductos = () =>{
                     <a href="http://localhost:3000/admin/home" className="nav_link"> <IconInicio style={{width:26,height:"100%"}}/></a>
                     <a href="http://localhost:3000/admin/regalos" className="nav_link"> <IconRegalos style={{width:26,height:"100%"}}/></a> 
                     <a href="http://localhost:3000/admin/administrarperfiles" className="nav_link"> <IconAdminPerfiles style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/crearcampañas"  className="nav_link"><IconCampana style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/crearproducto"  className="nav_link"><IconCrearProducto style={{width:26,height:"100%"}}/></a> 
                     <a href="http://localhost:3000/admin/listaproducto" style={{backgroundColor:"gray"}}   className="nav_link"><IconListaProducto style={{width:26,height:"100%"}}/></a> 
                 </div>
             </div>
@@ -93,7 +89,7 @@ const FragmentAdminListaProductos = () =>{
         <div className="container">
             <br></br>
             <h4 style={{fontWeight: 300}}>Lista de</h4>
-            <h3 style={{fontSize:34, fontWeight:"bold"}}>Regalos</h3>
+            <h3 style={{fontSize:34, fontWeight:"bold"}}>Productos</h3>
         </div>
         <div className="container">
         <table className="table">

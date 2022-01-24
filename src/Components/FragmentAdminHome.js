@@ -8,8 +8,6 @@ import Chart from 'chart.js/auto';
 import { ReactComponent as IconInicio } from '../images/iconos/inicio1.svg';
 import { ReactComponent as IconRegalos } from '../images/iconos/regalos.svg';
 import { ReactComponent as IconAdminPerfiles } from '../images/iconos/administrarperfiles.svg';
-import { ReactComponent as IconCampana } from '../images/iconos/crearcampana.svg';
-import { ReactComponent as IconCrearProducto } from '../images/iconos/addproducto.svg';
 import { ReactComponent as IconListaProducto } from '../images/iconos/listaproductos.svg';
 
 const baseUrl = 'https://wishesinpoints.herokuapp.com/users/api/user_datas/';
@@ -18,6 +16,7 @@ const baseUrl3 = 'https://wishesinpoints.herokuapp.com/orders/api/get_index_orde
 
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 //npm i chart.js
+//npm install --save react-chartjs-2 chart.js
 
 var token = localStorage.getItem('tokenAdmin');
 var regaloid = "";
@@ -237,8 +236,6 @@ const FragmentAdminHome = () =>{
                     <a href="http://localhost:3000/admin/home" style={{backgroundColor:"gray"}} className="nav_link"> <IconInicio style={{width:26,height:"100%"}}/></a>
                     <a href="http://localhost:3000/admin/regalos" className="nav_link"> <IconRegalos style={{width:26,height:"100%"}}/></a> 
                     <a href="http://localhost:3000/admin/administrarperfiles" className="nav_link"> <IconAdminPerfiles style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/crearcampañas" className="nav_link"><IconCampana style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/crearproducto" className="nav_link"><IconCrearProducto style={{width:26,height:"100%"}}/></a> 
                     <a href="http://localhost:3000/admin/listaproducto" className="nav_link"><IconListaProducto style={{width:26,height:"100%"}}/></a> 
                 </div>
             </div>
