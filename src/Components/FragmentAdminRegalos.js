@@ -13,6 +13,7 @@ const baseUrl = 'https://wishesinpoints.herokuapp.com/orders/api/get_index_order
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 
 var token = localStorage.getItem('tokenAdmin');
+var id_usuarioAdmin = localStorage.getItem('id_usuarioAdmin');
 const headers = {
     'Content-Type': 'application/json',
     'Authorization': `Token ${token}`
@@ -30,7 +31,9 @@ const FragmentAdminRegalos = () =>{
 
     useEffect(() =>{  
         try {
-          axios.get(baseUrl,{ headers })
+          axios.post(baseUrl+id_usuarioAdmin+'/',{
+              campaign_name:""
+          },{ headers })
           .then((response) => {
             console.log(response.data);
             setList(response.data);

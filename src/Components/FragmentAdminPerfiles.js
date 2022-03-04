@@ -1,6 +1,5 @@
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
-import { Modal,Button } from 'react-bootstrap';
 import { MdStars } from 'react-icons/md';
 
 import { ReactComponent as IconInicio } from '../images/iconos/inicio.svg';
@@ -18,12 +17,7 @@ const headers = {
 };
 
 const FragmentAdminPerfiles = () =>{
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);  
     const [list, setList] = useState([]);
-    const [listCampanas, setlistCampanas] = useState([]);
-
     useEffect(() =>{  
         try {
           axios.post(baseUrl,{
@@ -34,7 +28,6 @@ const FragmentAdminPerfiles = () =>{
               console.log(response.data)
               console.log(response.data[2][2]);
               setList(response.data);
-              setlistCampanas(response.data)
           })
           .catch((error) => {
             console.log(error);
@@ -43,19 +36,8 @@ const FragmentAdminPerfiles = () =>{
         } catch (error) {
           console.log(' . ', error);
         }// eslint-disable-next-line react-hooks/exhaustive-deps
-      },[setList],[setlistCampanas])
+      },[setList])
       
-      function methodName(id) {
-        console.log(id);
-        handleShow();
-      }
-
-      function methodUpdate(id) {
-        console.log(id);
-        window.location.href = "/update-direccion/"+id ;
-        
-    }
-
     /*
 
       function eliminar() {
@@ -144,26 +126,6 @@ const FragmentAdminPerfiles = () =>{
                 </table>
             </div>
         </div>
-
-        <Modal  show={show} size="md" onHide={handleClose} >
-        <Modal.Body>
-                <div>
-                  <div className="container">
-                  <h4 style={{fontWeight: 300}}>Eliminar</h4>
-                  <h3 style={{fontSize:34, fontWeight:"bold"}}>Direccion</h3>
-              </div>
-                <h5 style={{textAlign:"center"}}>¿Seguro que quieres eliminar la direccion?</h5>
-            </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancelar
-          </Button>
-          <Button variant="danger" onClick = {() => { } } >
-            Eliminar
-          </Button>
-        </Modal.Footer>
-        </Modal>
         </>
     )
 

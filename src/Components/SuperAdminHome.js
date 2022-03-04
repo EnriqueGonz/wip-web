@@ -3,25 +3,21 @@ import { MdStars } from 'react-icons/md';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
+import MenuSuperAdmin from './MenuSuperAdmin';
 
-import Chart from 'chart.js/auto';
-
-import { ReactComponent as IconInicio } from '../images/iconos/inicio1.svg';
-import { ReactComponent as IconRegalos } from '../images/iconos/regalos.svg';
-import { ReactComponent as IconAdminPerfiles } from '../images/iconos/administrarperfiles.svg';
-import { ReactComponent as IconListaProducto } from '../images/iconos/listaproductos.svg';
 
 const baseUrl = 'https://wishesinpoints.herokuapp.com/users/api/user_datas/';
-const baseUrl2 = 'https://wishesinpoints.herokuapp.com/campaigns/api/get_list/';
+const baseUrl2 = 'https://wishesinpoints.herokuapp.com/usercampaigns/api/super-admin/all-campaigns/';
 const baseUrl3 = 'https://wishesinpoints.herokuapp.com/orders/api/get_index_orders/';
 
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 //npm i chart.js
 //npm install --save react-chartjs-2 chart.js
+//npm install react-color --save
 
-var token = localStorage.getItem('tokenAdmin');
-var id_usuario = localStorage.getItem('id_usuarioAdmin');
-var username = localStorage.getItem('usernameAdmin');
+var token = localStorage.getItem('tokenSuperAdmin');
+var id_usuario = localStorage.getItem('id_usuarioSuperAdmin');
+var username = localStorage.getItem('usernameSuperAdmin');
 
 var regaloid = "";
 var regalonombre = "";
@@ -41,7 +37,7 @@ const headers = {
     'Authorization': `Token ${token}`
 };
 
-const FragmentAdminHome = () =>{
+const SuperAdminHome = () =>{
 
     const [list, setList] = useState([]);
     const [listCampanas, setListCampanas] = useState([]); 
@@ -135,6 +131,7 @@ const FragmentAdminHome = () =>{
         try {
           axios.get(baseUrl+username+'/',{ headers })
           .then((response) => {
+              //console.log(response);
             setList(response.data);
           })
           .catch((error) => {
@@ -153,14 +150,14 @@ const FragmentAdminHome = () =>{
           },{ headers })
           .then((response) => {
             setListCampanas(response.data[1]);
-            console.log(response.data[1]);
+            //console.log(response.data[1]);
             var respuesta = response.data[1];
             var auxcampana=[];
             var auxpuntos = [];
             respuesta.map(elemento=>{
-                auxcampana.push(elemento.campaign_name)
+                auxcampana.push(elemento.campaign_name) 
                 auxpuntos.push(elemento.points)
-                return ""
+                return ""  
             });
             setlistNombresCampanas(auxcampana);
             setlistPuntos(auxpuntos);
@@ -237,18 +234,17 @@ const FragmentAdminHome = () =>{
 
     return(    
         <>
-    <div className="l-navbar" style={{padding:"1rem 0rem 0 0"}} id="nav-bar">
-        <nav className="nav">
-            <div>
-                <div className="nav_list">
-                    <a href="http://localhost:3000/admin/home" style={{backgroundColor:"gray"}} className="nav_link"> <IconInicio style={{width:26,height:"100%"}}/></a>
-                    <a href="http://localhost:3000/admin/regalos" className="nav_link"> <IconRegalos style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/administrarperfiles" className="nav_link"> <IconAdminPerfiles style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/listaproducto" className="nav_link"><IconListaProducto style={{width:26,height:"100%"}}/></a> 
+        <div className="l-navbar" style={{padding:"1rem 0rem 0 0"}} id="nav-bar">
+            <nav className="nav">
+                <div>
+                    <div className="nav_list">
+                        <MenuSuperAdmin></MenuSuperAdmin>            
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </div>
+            </nav>
+        </div>
+        
+    
     <div className="height-100">
         <div className="container">
                 <div>
@@ -373,4 +369,4 @@ const FragmentAdminHome = () =>{
     )
 
 }
-export default FragmentAdminHome;
+export default SuperAdminHome;

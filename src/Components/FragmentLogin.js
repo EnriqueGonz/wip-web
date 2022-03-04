@@ -30,12 +30,22 @@ const FragmentLogin = () => {
         })
             .then((response) => {
                 console.log(response);
+                localStorage.clear();
                 if(response.data.is_admin){
-                    console.log('is admin');
-                    localStorage.setItem('tokenAdmin',response.data["token"]);
-                    localStorage.setItem('id_usuarioAdmin',response.data["pk"]);
-                    localStorage.setItem('usernameAdmin',response.data["username"]);
-                    window.location.href = "/admin/home";
+                    if(response.data.is_super){
+                        localStorage.setItem('tokenSuperAdmin',response.data["token"]);
+                        localStorage.setItem('id_usuarioSuperAdmin',response.data["pk"]);
+                        localStorage.setItem('usernameSuperAdmin',response.data["username"]);
+                        window.location.href = "/superadmin/home";
+
+                    }else{
+                        console.log('is admin');
+                        localStorage.setItem('tokenAdmin',response.data["token"]);
+                        localStorage.setItem('id_usuarioAdmin',response.data["pk"]);
+                        localStorage.setItem('usernameAdmin',response.data["username"]);
+                        window.location.href = "/admin/home";
+                    }
+                    
 
                     
                 }else{

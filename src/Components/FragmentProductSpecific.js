@@ -75,7 +75,7 @@ const FragmentProductSpecific = () =>{
 
     list2.map((item) => (
       dato = "check"+item.id,
-      (document.getElementById(dato).checked) === true 
+      (document.getElementById(dato).checked) === true
       ? user_address = document.getElementById(dato).value
       : null
     ))

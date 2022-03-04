@@ -1,45 +1,27 @@
 import React, {useState,useEffect} from 'react';
 import { Form,Button,Row,Col } from 'react-bootstrap';
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
-
-import { ReactComponent as IconInicio } from '../images/iconos/inicio.svg';
-import { ReactComponent as IconRegalos } from '../images/iconos/regalos.svg';
-import { ReactComponent as IconAdminPerfiles } from '../images/iconos/administrarperfiles.svg';
-import { ReactComponent as IconCampana } from '../images/iconos/crearcampana.svg';
-import { ReactComponent as IconCrearProducto } from '../images/iconos/addproducto1.svg';
-import { ReactComponent as IconListaProducto } from '../images/iconos/listaproductos.svg';
+import MenuSuperAdmin from './MenuSuperAdmin';
 
 
-const urlgetcategoria = 'https://wishesinpoints.herokuapp.com/categories/api/get_list/';
-const urlgetmarcas ='https://wishesinpoints.herokuapp.com/brands/api/get_list/';
-const urlgetcampanas = 'https://wishesinpoints-heroku.herokuapp.com/campaigns/api/get_list/';
-
-const baseUrl = 'https://wishesinpoints.herokuapp.com/products/api/register/';
-
-var token = localStorage.getItem('tokenAdmin');
+var token = localStorage.getItem('tokenSuperAdmin');
 
 const headers = {
     'Content-Type': 'application/json',
     'Authorization': `Token ${token}`
 };
 
-const FragmentAdminCrearProducto = () =>{
-    let history = useHistory();
-    const [list, setList] = useState([]);
-    const [listbrands, setListbrands] = useState([]);
+const SuperAdminCrearProducto = () =>{
+    const [selectedFile, setSelectedFile] = useState("");
+    const [listCategoria, setlistCategoria] = useState([]);
     const [listcampanas, setlistcampanas] = useState([]);
 
     const [inputs, setInputs] = useState({
-        brands: 0,
-        campaigns: 0,
-        categories: 2,
         product_name:"",
         description:"",
         points:0,
         amount:0,
         status:0,
-        image: "",
     })
 
 
@@ -50,14 +32,18 @@ const FragmentAdminCrearProducto = () =>{
         setInputs(values => ({ ...values, [name]: value }))
     }
 
+    const handleFileSelect = (event) => {
+      setSelectedFile(event.target.files[0])
+    }
 
-    useEffect(() =>{  
+
+      useEffect(() =>{  
         try {
-          axios.post(urlgetcategoria,{
+          axios.post('https://wishesinpoints.herokuapp.com/categories/api/get_list/',{
             category_name:""
           },{ headers })
           .then((response) => {
-            setList(response.data);
+            setlistCategoria(response.data);
             console.log(response.data);
           })
           .catch((error) => {
@@ -67,34 +53,16 @@ const FragmentAdminCrearProducto = () =>{
         } catch (error) {
           console.log(' . ', error);
         }// eslint-disable-next-line react-hooks/exhaustive-deps
-      },[setList])
+      },[setlistCategoria])
 
       useEffect(() =>{  
         try {
-          axios.post(urlgetmarcas,{
-            brand_name:""
-          },{ headers })
-          .then((response) => {
-            setListbrands(response.data);
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-    
-        } catch (error) {
-          console.log(' . ', error);
-        }// eslint-disable-next-line react-hooks/exhaustive-deps
-      },[setListbrands])
-
-      useEffect(() =>{  
-        try {
-          axios.post(urlgetcampanas,{
+          axios.post('https://wishesinpoints.herokuapp.com/usercampaigns/api/super-admin/all-campaigns/1/',{
             campaign_name:""
           },{ headers })
           .then((response) => {
             setlistcampanas(response.data[1]);
-            console.log(response.data[1]);
+            console.log(response.data);
           })
           .catch((error) => {
             console.log(error);
@@ -105,31 +73,40 @@ const FragmentAdminCrearProducto = () =>{
         }// eslint-disable-next-line react-hooks/exhaustive-deps
       },[setlistcampanas])
 
-    const handleSubmit = (event) => {
-        console.log(document.getElementById("file").value);
 
+    const handleSubmit = (event) => {
+      let text = document.getElementById('selectCampana').value;
+      const myArray = text.split("/");
+      let word = myArray[1];
+      let word2 = myArray[0];
+      
         if(document.getElementById("file").value === ""){
             document.getElementById('labelImg').style.color="red";
         }else{
             document.getElementById('labelImg').style.color="blue";
 
-            axios.post(baseUrl, {
-                brands: document.getElementById("selectMarca").value,
-                campaigns: document.getElementById("selectCampana").value,
-                categories: document.getElementById("selectCategoria").value,
-                product_name:inputs.product_name,
-                description:inputs.description,
-                points:inputs.points,
-                amount:inputs.amount,
-                status:inputs.amount,
-                image: document.getElementById("file").value,
-                image_two:"",
-                image_three:""
-            },{headers})
+            let formData = new FormData();
+            formData.append('image', selectedFile)
+            formData.append('brands', word)
+            formData.append('campaigns', word2)
+            formData.append('categories', document.getElementById('selectCategoria').value)
+            formData.append('product_name', inputs.product_name)
+            formData.append('description', inputs.description)
+            formData.append('points', inputs.points)
+            formData.append('amount', inputs.amount)
+            formData.append('status', inputs.amount)
+
+            axios.post('https://wishesinpoints.herokuapp.com/products/api/register/', 
+            formData    
+            ,{headers})
             .then((response) => {
                 console.log(response);
+                window.location.href = "/superadmin/lista-productos/";
             })
-            .catch(err => document.getElementById('msgerror').style.display="block");
+            .catch(err => {
+                console.log(err);
+            });
+        
         }
 
         
@@ -141,18 +118,13 @@ const FragmentAdminCrearProducto = () =>{
     return(    
         <>
         <div className="l-navbar" style={{padding:"1rem 0rem 0 0"}} id="nav-bar">
-        <nav className="nav">
-            <div>
-                <div className="nav_list">
-                    <a href="http://localhost:3000/admin/home" className="nav_link"> <IconInicio style={{width:26,height:"100%"}}/></a>
-                    <a href="http://localhost:3000/admin/regalos" className="nav_link"> <IconRegalos style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/administrarperfiles" className="nav_link"> <IconAdminPerfiles style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/crearcampañas" className="nav_link"><IconCampana style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/crearproducto" style={{backgroundColor:"gray"}} className="nav_link"><IconCrearProducto style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/listaproducto" className="nav_link"><IconListaProducto style={{width:26,height:"100%"}}/></a> 
+            <nav className="nav">
+                <div>
+                    <div className="nav_list">
+                        <MenuSuperAdmin></MenuSuperAdmin>            
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
         </div>
         <div className="height-100">
             <div className="container">
@@ -173,28 +145,21 @@ const FragmentAdminCrearProducto = () =>{
             <div className="container">
             <Form onSubmit={handleSubmit}>
                     <label htmlFor="file" id='labelImg'>Selecciona una imagen *</label><br></br>
-                    <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png"/>
+                    <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png" onChange={handleFileSelect}/>
                     <Row className="mb-3" style={{marginTop: 15}}>
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Nombre del producto *</Form.Label>
                         <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="product_name" value={inputs.product_name} onChange={handleChange}/>
                         </Form.Group>
 
-                        <Form.Group as={Col} controlId="">
-                        <Form.Label>Selecciona una categoria</Form.Label>
-                        <Form.Select style={{backgroundColor:"#BFBFBF",borderRadius:20}} aria-label="Default select example" id='selectCategoria'>
-                        {list.map((item,index)=>(
-                            <option key={index} value={item.id}>{item.category_name}</option>
-                        ))}
-                        </Form.Select>
-                        </Form.Group>
                     </Row>
                     <Row className="mb-3">
-                        <Form.Group as={Col} controlId="">
-                        <Form.Label>Selecciona una marca</Form.Label>
-                        <Form.Select style={{backgroundColor:"#BFBFBF",borderRadius:20}} aria-label="Default select example" id='selectMarca'>
-                        {listbrands.map((item,index)=>(
-                            <option key={index} value={item.id}>{item.brand_name}</option>
+                        
+                      <Form.Group as={Col} controlId="">
+                        <Form.Label>Selecciona una categoria</Form.Label>
+                        <Form.Select style={{backgroundColor:"#BFBFBF",borderRadius:20}} aria-label="Default select example" id='selectCategoria'>
+                        {listCategoria.map((item,index)=>(
+                            <option key={index} value={item.id}>{item.category_name}</option>
                         ))}
                         </Form.Select>
                         </Form.Group>
@@ -203,10 +168,10 @@ const FragmentAdminCrearProducto = () =>{
                         <Form.Label>Selecciona una campaña</Form.Label>
                         <Form.Select style={{backgroundColor:"#BFBFBF",borderRadius:20}} aria-label="Default select example" id='selectCampana'>
                         {listcampanas.map((item,index)=>(
-                            <option key={index} value={item.id}>{item.campaign_name}</option>
+                            <option key={index} value={item.id+"/"+item.brands_id}>{item.campaign_name}</option>
                         ))}
                         </Form.Select>
-                        </Form.Group>
+                      </Form.Group>
                     </Row>
                     <Row className="mb-3" style={{marginTop: 15}}>
                         <Form.Group as={Col} controlId="">
@@ -225,9 +190,6 @@ const FragmentAdminCrearProducto = () =>{
                     </Form.Group>
                     <p id='msgerror' style={{color:"red",display:"none"}}>Error, verifica que los campos no esten vacios o intentalo mas tarde.</p>
                     <div className='container' style={{textAlign:"right"}}>
-                    <Button style={{marginRight:10}} onClick={() => history.goBack()} variant="secondary">
-                        Regresar
-                    </Button>
                     <Button style={{background:"#7B3E90",borderColor:"white"}} type="button" onClick={handleSubmit}>
                         Agregar
                     </Button>
@@ -240,4 +202,4 @@ const FragmentAdminCrearProducto = () =>{
     )
 
 }
-export default FragmentAdminCrearProducto;
+export default SuperAdminCrearProducto;

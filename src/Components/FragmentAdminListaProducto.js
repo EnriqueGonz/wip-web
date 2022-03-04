@@ -12,6 +12,7 @@ const baseUrl = 'https://wishesinpoints.herokuapp.com/products/api/all_products/
 const delurl = 'https://wishesinpoints.herokuapp.com/products/api/delete/';
 
 var token = localStorage.getItem('tokenAdmin');
+var id_usuarioAdmin = localStorage.getItem('id_usuarioAdmin');
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 var id_direccion = "";
 
@@ -55,8 +56,9 @@ const FragmentAdminListaProductos = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post(baseUrl,{
-            product_name:""
+          axios.post(baseUrl+id_usuarioAdmin+'/',{
+            product_name:"",
+            campaign_name:""
           },{ headers })
           .then((response) => {
             console.log(response.data);
