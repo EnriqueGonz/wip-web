@@ -1,12 +1,7 @@
 import { MdStars } from 'react-icons/md';
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
-
-
-import { ReactComponent as IconInicio } from '../images/iconos/inicio.svg';
-import { ReactComponent as IconRegalos } from '../images/iconos/regalos1.svg';
-import { ReactComponent as IconAdminPerfiles } from '../images/iconos/administrarperfiles.svg';
-import { ReactComponent as IconListaProducto } from '../images/iconos/listaproductos.svg';
+import MenuAdmin from './MenuAdmin';
 
 
 const baseUrl = 'https://wishesinpoints.herokuapp.com/orders/api/get_index_orders/';
@@ -54,10 +49,7 @@ const FragmentAdminRegalos = () =>{
         <nav className="nav">
             <div>
                 <div className="nav_list">
-                    <a href="http://localhost:3000/admin/home"  className="nav_link"> <IconInicio style={{width:26,height:"100%"}}/></a>
-                    <a href="http://localhost:3000/admin/regalos" style={{backgroundColor:"gray"}} className="nav_link"> <IconRegalos style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/administrarperfiles" className="nav_link"> <IconAdminPerfiles style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/listaproducto" className="nav_link"><IconListaProducto style={{width:26,height:"100%"}}/></a> 
+                    <MenuAdmin></MenuAdmin>            
                 </div>
             </div>
         </nav>

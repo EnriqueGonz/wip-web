@@ -3,21 +3,13 @@ import { MdStars } from 'react-icons/md';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
-
 import Chart from 'chart.js/auto';
-
-import { ReactComponent as IconInicio } from '../images/iconos/inicio1.svg';
-import { ReactComponent as IconRegalos } from '../images/iconos/regalos.svg';
-import { ReactComponent as IconAdminPerfiles } from '../images/iconos/administrarperfiles.svg';
-import { ReactComponent as IconListaProducto } from '../images/iconos/listaproductos.svg';
-
-const baseUrl = 'https://wishesinpoints.herokuapp.com/users/api/user_datas/';
-const baseUrl2 = 'https://wishesinpoints.herokuapp.com/campaigns/api/get_list/';
-const baseUrl3 = 'https://wishesinpoints.herokuapp.com/orders/api/get_index_orders/';
+import MenuAdmin from './MenuAdmin';
 
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 //npm i chart.js
 //npm install --save react-chartjs-2 chart.js
+//npm install react-color --save
 
 var token = localStorage.getItem('tokenAdmin');
 var id_usuario = localStorage.getItem('id_usuarioAdmin');
@@ -133,7 +125,7 @@ const FragmentAdminHome = () =>{
 
     useEffect(() =>{  
         try {
-          axios.get(baseUrl+username+'/',{ headers })
+          axios.get('https://wishesinpoints.herokuapp.com/users/api/user_datas/'+username+'/',{ headers })
           .then((response) => {
             setList(response.data);
           })
@@ -148,7 +140,7 @@ const FragmentAdminHome = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post(baseUrl2+id_usuario+'/',{
+          axios.post('https://wishesinpoints.herokuapp.com/campaigns/api/get_list/'+id_usuario+'/',{
             campaign_name:""
           },{ headers })
           .then((response) => {
@@ -177,7 +169,7 @@ const FragmentAdminHome = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post(baseUrl3+id_usuario+'/',{
+          axios.post('https://wishesinpoints.herokuapp.com/orders/api/get_index_orders/'+id_usuario+'/',{
               campaign_name:""
           },{ headers })
           .then((response) => {
@@ -241,10 +233,7 @@ const FragmentAdminHome = () =>{
         <nav className="nav">
             <div>
                 <div className="nav_list">
-                    <a href="http://localhost:3000/admin/home" style={{backgroundColor:"gray"}} className="nav_link"> <IconInicio style={{width:26,height:"100%"}}/></a>
-                    <a href="http://localhost:3000/admin/regalos" className="nav_link"> <IconRegalos style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/administrarperfiles" className="nav_link"> <IconAdminPerfiles style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/listaproducto" className="nav_link"><IconListaProducto style={{width:26,height:"100%"}}/></a> 
+                    <MenuAdmin></MenuAdmin>            
                 </div>
             </div>
         </nav>

@@ -216,7 +216,6 @@ const SuperAdminPerfiles = () =>{
                                             ? <img style={{width:50}} alt='' src="https://wishesinpointsbucket.s3.amazonaws.com/assets/ProfilePic1.jpg"></img>
                                             : <img style={{width:50}} alt='' src={'https://wishesinpointsbucket.s3.amazonaws.com/'+item[1][0].image}></img>
                                         }
-                                        <img style={{width:60}} alt='' src=""></img>
                                     </td>
                                     <td>
                                         {item[0][0].first_name + " "+item[0][0].last_name}

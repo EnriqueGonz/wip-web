@@ -1,10 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import { MdStars } from 'react-icons/md';
 import axios from 'axios';
-
-const baseUrl = 'https://wishesinpoints.herokuapp.com/users/api/profile/';
-
-//const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
+import { Button,Modal } from 'react-bootstrap';
 
 var token = localStorage.getItem('token');
 
@@ -17,13 +14,18 @@ const FragmentPerfil = () =>{
     var username = localStorage.getItem('username');
     const [listName, setListName] = useState([]);
     const [listImg, setListImg] = useState([]);
+    const [selectedFile, setSelectedFile] = useState("");
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() =>{  
         try {
-          axios.get(baseUrl+username+'/',{ headers })
+          axios.get('https://wishesinpoints.herokuapp.com/users/api/profile/'+username+'/',{ headers })
           .then((response) => {
             setListName(response.data[0][0]);            
             setListImg(response.data[1][0]); 
+            console.log(response.data);
 
           })
           .catch((error) => {
@@ -35,6 +37,28 @@ const FragmentPerfil = () =>{
         }// eslint-disable-next-line react-hooks/exhaustive-deps
       },[setListName],[setListImg])
 
+      const handleFileSelect = (event) => {
+        setSelectedFile(event.target.files[0])
+      }
+
+      const handleSubmitImage = (event) => {
+        event.preventDefault()
+        let formData = new FormData();
+        formData.append('image', selectedFile)
+        
+        try {
+            axios.post('https://wishesinpoints.herokuapp.com/users/api/update_profile/'+username+'/', 
+            formData    
+            ,{headers})
+            .then((response) => {
+                console.log(response);
+                window.location.href = "/miperfil/";
+    
+            })
+        } catch(error) {
+          console.log(error)
+        }
+      }
       
     
 
@@ -62,8 +86,14 @@ const FragmentPerfil = () =>{
             </div>
             <div className="container" style={{backgroundColor:"#BFB3CF"}}>
                     <div className="row">
-                        <div style={{paddingTop:10,paddingBottom:10}} className="col-sm">
-                            <img alt="" style={{width:"80%"}} src="https://image.shutterstock.com/z/stock-photo-the-word-example-is-written-on-a-magnifying-glass-on-a-yellow-background-1883859943.jpg"></img>
+                        <div style={{position:"relative"}} className="col-sm">
+                            <Button style={{position:"absolute",backgroundColor:"#7B3E90",borderColor:"#7B3E90"}} onClick = {() => { handleShow()} }>Cambiar imagen</Button>
+                            {
+                                            (listImg.image) === '' 
+                                            ? <img style={{width:"80%"}} alt='' src="https://wishesinpointsbucket.s3.amazonaws.com/assets/ProfilePic1.jpg"></img>
+                                            : <img style={{width:"80%"}} alt='' src={'https://wishesinpointsbucket.s3.amazonaws.com/'+listImg.image}></img>
+                            }
+                            
                         </div>
                         <div style={{paddingTop:10,paddingBottom:10,textAlign:"center", alignSelf:"center"}} className="col-sm">
                             <h3 style={{fontSize:34, fontWeight:"bold"}}>{listName.first_name + " "+ listName.last_name}</h3> 
@@ -89,6 +119,19 @@ const FragmentPerfil = () =>{
                 <hr style={{height: 9}}></hr>
             </div>
         </div>
+
+        <Modal  show={show} size="md" onHide={handleClose} >
+            <Modal.Body style={{margin:20}}>
+            <div>
+                <h4>Cambiar foto de perfil</h4>
+                <form onSubmit={handleSubmitImage}>
+                <input type="file" onChange={handleFileSelect}/><br></br><br></br>
+                <Button type="submit" value="Upload File" style={{backgroundColor:"#7B3E90",borderColor:"#7B3E90"}}>Cambiar imagen</Button>
+                </form>
+            </div>
+            </Modal.Body>
+        </Modal>
+
         </>
     )
 

@@ -17,9 +17,9 @@ const SuperAdminRegalos = () =>{
     const [listcampanas, setlistcampanas] = useState([]);
     
 
-    function methodName(id) {
+    function methodName(id,iduser) {
         console.log(id);
-        window.location.href = "/superadmin/detallescanje/"+id;
+        window.location.href = "/superadmin/detallescanje/"+id+"/"+iduser;
     }
 
     
@@ -151,7 +151,7 @@ const SuperAdminRegalos = () =>{
                             {item[0][0]["order_status"]}
                         </td>
                         <td>
-                            <button className="btn btn-danger" style={{borderRadius: 20,color:"white"}} onClick = {() => { methodName(item[1][0]["orders_id"]);} } >Ver detalle</button>
+                            <button className="btn btn-danger" style={{borderRadius: 20,color:"white"}} onClick = {() => { methodName(item[1][0]["orders_id"],item[0][0]["user_id"]);} } >Ver detalle</button>
                         </td>
 
                     </tr>

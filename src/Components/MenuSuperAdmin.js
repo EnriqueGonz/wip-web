@@ -14,6 +14,8 @@ import { ReactComponent as IconListaCampana } from '../images/iconos/ListaCampan
 import { ReactComponent as IconListaMarca } from '../images/iconos/ListaMarcas.svg';
 import { ReactComponent as IconListaCategoria } from '../images/iconos/ListaCategoria.svg';
 import { ReactComponent as IconSalir } from '../images/iconos/CerrarSesion.svg';
+import { ReactComponent as IconAddUserCampana} from '../images/iconos/AddUserCampana.svg'
+import { ReactComponent as IconEnviarInvitacion} from '../images/iconos/EnviarInv.svg'
 
 const MenuSuperAdmin = () =>{
     
@@ -41,6 +43,16 @@ const MenuSuperAdmin = () =>{
                     <a href="/superadmin/administrarperfiles/" className="nav_link"><IconAdminPerfiles style={{width:26,height:"100%"}}/></a> 
                 </span>
             </OverlayTrigger>
+            <OverlayTrigger placement="right" overlay={<Tooltip id="tooltip-disabled">Asignar campañas</Tooltip>}>
+                <span className="d-inline-block">
+                    <a href="/superadmin/AddUser-Campaña/" className="nav_link"><IconAddUserCampana style={{width:26,height:"100%"}}/></a> 
+                </span>
+            </OverlayTrigger>
+            <OverlayTrigger placement="right" overlay={<Tooltip id="tooltip-disabled">Enviar Invitacion</Tooltip>}>
+                <span className="d-inline-block">
+                    <a href="/superadmin/enviar-Invitacion/" className="nav_link"><IconEnviarInvitacion style={{width:26,height:"100%"}}/></a> 
+                </span>
+            </OverlayTrigger>
             <OverlayTrigger placement="right" overlay={<Tooltip id="tooltip-disabled">Plantillas</Tooltip>}>
                 <span className="d-inline-block">
                     <a href="/superadmin/lista-Plantillas/" className="nav_link"><IconListaPlantilla style={{width:26,height:"100%"}}/></a> 
@@ -66,6 +78,7 @@ const MenuSuperAdmin = () =>{
                     <a href="/superadmin/salir/" className="nav_link"><IconSalir style={{width:26,height:"100%"}}/></a> 
                 </span>
             </OverlayTrigger>
+            
             
             
             

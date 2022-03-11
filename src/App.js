@@ -1,6 +1,9 @@
 import './App.css';
 import React from "react";
 import { BrowserRouter as Router,Switch,Route } from "react-router-dom";
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+
+
 import FragmentReedem from './Components/FragmentReedem';
 import FragmentSendProduct from './Components/FragmentSendProduct';
 import FragmentCatalog from './Components/FragmentCatalog';
@@ -23,9 +26,9 @@ import FragmentRegistro from './Components/FragmentRegister';
 import FragmentAdminHome from './Components/FragmentAdminHome';
 import FragmentAdminRegalos from './Components/FragmentAdminRegalos';
 import FragmentAdminDetalleCanje from './Components/FragmentAdminDetalleCanje';
-import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import FragmentAdminPerfiles from './Components/FragmentAdminPerfiles';
 import FragmentAdminListaProducto from './Components/FragmentAdminListaProducto';
+import FragmentAdminSalir from './Components/FragmentAdminSalir';
 
 //Fragmentos de Super Admin
 import SuperAdminHome from './Components/SuperAdminHome';
@@ -33,21 +36,32 @@ import SuperAdminRegalos from './Components/SuperAdminRegalos';
 import SuperAdminCrearCampana from './Components/SuperAdminCampana';
 import SuperAdminCrearProducto from './Components/SuperAdminCrearProducto';
 import SuperAdminPerfiles from './Components/SuperAdminPerfiles';
+import SuperAdminAddUser from './Components/SuperAdminAddUser';
+import SuperAdminUserCampana from './Components/SuperAdminUserCampana';
+import SuperAdminEnviarInvitacion from './Components/SuperAdminEnviarInvitacion';
 import SuperAdminAddPlantilla from './Components/SuperAdminAddPlantilla';
 import SuperAdminListaPlantilla from './Components/SuperAdminListaPlantillas';
 import SuperAdminListaMarca from './Components/SuperAdminListaMarca';
 import SuperAdminListaCategoria from './Components/SuperAdminListaCategoria';
 import SuperAdminListCampaings from './Components/SuperAdminListCampaings';
 import SuperAdminListaProductos from './Components/SuperAdminListaProductos';
-import SuperAdminAddUser from './Components/SuperAdminAddUser';
 import SuperAdminSalir from './Components/SuperAdminSalir';
+import SuperAdminDetallesCanje from './Components/SuperAdminDetallesCanje';
+
+
 
 var token = localStorage.getItem('token');
+
 function App() {
   return (
     <div className="App" style={{width:"100%", height:"100vh"}}>
       <Router>        
         <Switch>
+        <Route exact path="/">
+          <FragmentLogin />
+        </Route>
+
+
         <Route path="/Reedem/:uuid/:rtoken">
             <FragmentReedem></FragmentReedem>
         </Route>
@@ -133,6 +147,9 @@ function App() {
         <Route path="/admin/listaproducto/">
           <FragmentAdminListaProducto></FragmentAdminListaProducto>
         </Route>
+        <Route path="/admin/salir/">
+          <FragmentAdminSalir></FragmentAdminSalir>
+        </Route>
 
 
         <Route path="/superadmin/home/">
@@ -141,6 +158,9 @@ function App() {
         
         <Route path="/superadmin/lista-pedidos/">
           <SuperAdminRegalos></SuperAdminRegalos>
+        </Route>
+        <Route path="/superadmin/detallescanje/:idorder/:iduser">
+          <SuperAdminDetallesCanje></SuperAdminDetallesCanje>
         </Route>
 
         <Route path="/superadmin/lista-Productos/">
@@ -156,6 +176,12 @@ function App() {
         </Route>
         <Route path="/superadmin/addUser/">
           <SuperAdminAddUser></SuperAdminAddUser>
+        </Route>
+        <Route path="/superadmin/AddUser-Campaña/">
+          <SuperAdminUserCampana></SuperAdminUserCampana>
+        </Route>
+        <Route path="/superadmin/enviar-Invitacion/">
+          <SuperAdminEnviarInvitacion></SuperAdminEnviarInvitacion>
         </Route>
 
         <Route path="/superadmin/lista-Plantillas/">

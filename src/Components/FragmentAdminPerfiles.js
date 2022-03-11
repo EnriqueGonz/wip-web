@@ -1,14 +1,8 @@
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
-import { MdStars } from 'react-icons/md';
+import { MdStars,MdSearch } from 'react-icons/md';
+import MenuAdmin from './MenuAdmin';
 
-import { ReactComponent as IconInicio } from '../images/iconos/inicio.svg';
-import { ReactComponent as IconRegalos } from '../images/iconos/regalos.svg';
-import { ReactComponent as IconAdminPerfiles } from '../images/iconos/administrarperfiles1.svg';
-import { ReactComponent as IconListaProducto } from '../images/iconos/listaproductos.svg';
-
-
-const baseUrl = 'https://wishesinpoints.herokuapp.com/users/api/get_list/';
 var token = localStorage.getItem('tokenAdmin');
 
 const headers = {
@@ -20,13 +14,11 @@ const FragmentAdminPerfiles = () =>{
     const [list, setList] = useState([]);
     useEffect(() =>{  
         try {
-          axios.post(baseUrl,{
-              full_name:"",
-              is_staff: "False"
+          axios.post('https://wishesinpoints.herokuapp.com/usercampaigns/api/admin-campaign-users/',{
+              full_name:""
           },{headers})
           .then((response) => {
               console.log(response.data)
-              console.log(response.data[2][2]);
               setList(response.data);
           })
           .catch((error) => {
@@ -37,50 +29,59 @@ const FragmentAdminPerfiles = () =>{
           console.log(' . ', error);
         }// eslint-disable-next-line react-hooks/exhaustive-deps
       },[setList])
-      
-    /*
 
-      function eliminar() {
-          console.log(id_direccion);
-          axios.delete(baseUrldel+id_direccion+'/',{headers})
+      function BuscarPorNombre() {
+        axios.post('https://wishesinpoints.herokuapp.com/usercampaigns/api/admin-campaign-users/',{
+              full_name:document.getElementById("BuscarNombre").value,
+          },{headers})
           .then((response) => {
-              console.log(response);
-              window.location.href = "/misdirecciones";
+              console.log(response.data)
+              setList(response.data);
           })
           .catch((error) => {
             console.log(error);
           });
-      }
-
-      */
+    }
+      
 
     return(    
         <>
         <div className="l-navbar" style={{padding:"1rem 0rem 0 0"}} id="nav-bar">
-        <nav className="nav">
-            <div>
-                <div className="nav_list">
-                    <a href="http://localhost:3000/admin/home" className="nav_link"> <IconInicio style={{width:26,height:"100%"}}/></a>
-                    <a href="http://localhost:3000/admin/regalos" className="nav_link"> <IconRegalos style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/administrarperfiles" style={{backgroundColor:"gray"}} className="nav_link"> <IconAdminPerfiles style={{width:26,height:"100%"}}/></a> 
-                    <a href="http://localhost:3000/admin/listaproducto"  className="nav_link"><IconListaProducto style={{width:26,height:"100%"}}/></a> 
+            <nav className="nav">
+                <div>
+                    <div className="nav_list">
+                        <MenuAdmin></MenuAdmin>            
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
         </div>
         <div className="height-100">
             <div className="container">
                     <div>
                         <h4 style={{fontWeight: 300,paddingTop:15}}>Administrar</h4>
                         <div className="row">
-                                <div className="col">
-                                    <h3 style={{fontSize:34, fontWeight:"bold"}}>Clientes</h3> 
+                            <div className="col-4">
+                                <h3 style={{fontSize:34, fontWeight:"bold"}}>Clientes</h3> 
+                            </div>
+                            <div style={{textAlign:"right"}} className="col-8">
+                                <div className='row'>
+                                    <div className='col'>
+                                    </div>
+                                    <div className='col'>
+                                        <div className="input-group" style={{paddingBottom:10}}>
+                                            <input type="text" className="form-control" id='BuscarNombre' placeholder='Buscar por nombre'></input>
+                                            <span className="input-group-btn">
+                                                <button className="btn" style={{backgroundColor:"#7B3E90"}} type="button" onClick = {() => { BuscarPorNombre()}} > 
+                                                    <MdSearch style={{color:"white"}} ></MdSearch>
+                                                </button>
+                                            </span>
+                                            
+                                        </div>
+                                    </div>
                                     
                                 </div>
-                                <div style={{textAlign:"right"}} className="col">
-                                    <button style={{borderRadius:15,backgroundColor:"#7B3E90",color:"white"}} className="btn" onClick={event =>  window.location.href='/add-direccion'} >Por campaña</button>
-                                </div>
                             </div>
+                        </div>
                     </div>
                     <hr style={{height: 9}}></hr>
             </div>
@@ -101,19 +102,23 @@ const FragmentAdminPerfiles = () =>{
                         {list.map((item,index) => (
                                 <tr key={index}>
                                     <td>
-                                        <img style={{width:60}} alt='' src="https://image.shutterstock.com/z/stock-photo-the-word-example-is-written-on-a-magnifying-glass-on-a-yellow-background-1883859943.jpg"></img>
+                                        {
+                                            (item[1][0].image) === '' 
+                                            ? <img style={{width:50}} alt='' src="https://wishesinpointsbucket.s3.amazonaws.com/assets/ProfilePic1.jpg"></img>
+                                            : <img style={{width:50}} alt='' src={'https://wishesinpointsbucket.s3.amazonaws.com/'+item[1][0].image}></img>
+                                        }
                                     </td>
                                     <td>
-                                        {list[index][0][0]["first_name"] +" "+list[index][0][0]["last_name"]}
+                                        {item[0][0].first_name+" "+item[0][0].last_name}
                                     </td>
                                     <td>
-                                        {list[index][0][0]["email"]}
+                                        {item[0][0].email}
                                     </td>
                                     <td>
-                                        {list[index][1][0]["phone"]}
+                                        {item[1][0].phone}
                                     </td>
                                     <td>
-                                        <MdStars style={{fontSize:28,color:"#7B3E90"}}/>{list[index][1][0]["points"]}
+                                        <MdStars style={{fontSize:28,color:"#7B3E90"}}/>{item[1][0].points}
                                     </td>
                                     <td>
                                         {(list[index][2]).map((data,index2) =>

@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import { Form,Button,Row,Col } from 'react-bootstrap';
+import { Form,Button,Row,Col,Modal } from 'react-bootstrap';
 import axios from 'axios';
 import MenuSuperAdmin from './MenuSuperAdmin';
 
@@ -16,6 +16,11 @@ const SuperAdminCrearProducto = () =>{
     const [listCategoria, setlistCategoria] = useState([]);
     const [listcampanas, setlistcampanas] = useState([]);
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [listUserErr, setlistUserErr] = useState([]);
+
     const [inputs, setInputs] = useState({
         product_name:"",
         description:"",
@@ -24,6 +29,10 @@ const SuperAdminCrearProducto = () =>{
         status:0,
     })
 
+    const handleFileSelect = (event) => {
+      setSelectedFile(event.target.files[0])
+    }
+
 
     function handleChange(evt) {
         const name = evt.target.name;
@@ -31,11 +40,6 @@ const SuperAdminCrearProducto = () =>{
         console.log(name + value)
         setInputs(values => ({ ...values, [name]: value }))
     }
-
-    const handleFileSelect = (event) => {
-      setSelectedFile(event.target.files[0])
-    }
-
 
       useEffect(() =>{  
         try {
@@ -112,6 +116,25 @@ const SuperAdminCrearProducto = () =>{
         
 
     }
+
+    const handleSubmitExcel = (event) => {
+      event.preventDefault()
+      let formData = new FormData();
+      formData.append('pathfile', selectedFile)
+
+      axios.post('https://wishesinpoints.herokuapp.com/uploadfiles/api/upload-products/', 
+      formData    
+      ,{headers})
+      .then((response) => {
+          console.log(response);
+          window.location.href = "/superadmin/lista-Productos/";
+
+      }).catch(err => {
+        console.log(err.response)
+          setlistUserErr(err.response.data[1])
+          document.getElementById("mensaje").style.display = "block"
+      });
+    }
       
     
 
@@ -135,7 +158,7 @@ const SuperAdminCrearProducto = () =>{
                                     <h3 style={{fontSize:34, fontWeight:"bold"}}>Productos</h3> 
                                 </div>
                                 <div style={{textAlign:"right"}} className="col">
-                                    <button style={{borderRadius:15,backgroundColor:"#7B3E90",color:"white"}} className="btn" onClick={event =>  window.location.href='/'} >Carga masiva</button>
+                                  <Button style={{backgroundColor:"#7B3E90",borderColor:"#7B3E90"}} onClick = {() => { handleShow()} }>Subir por excel</Button>
                                 </div>
                             </div>
                     </div>
@@ -198,6 +221,25 @@ const SuperAdminCrearProducto = () =>{
             </div>
             
         </div>
+
+        <Modal  show={show} size="md" onHide={handleClose} >
+            <Modal.Body style={{margin:20}}>
+            <div>
+                <h4>Subir productos por excel</h4>
+                <form onSubmit={handleSubmitExcel}>
+                <input type="file" onChange={handleFileSelect} accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" /><br></br><br></br>
+                <Button type="submit" value="Upload File" style={{backgroundColor:"#7B3E90",borderColor:"#7B3E90"}}>Cargar</Button>
+                </form>
+
+                <div>
+                    <p id="mensaje" style={{display:"none"}}>Hubo unos errores al subir estos productos, verifica sus datos:</p>
+                    {listUserErr.map((item,index)=>(
+                        <li key={index} style={{color:"red"}}>{item.product_name}</li>
+                    ))}
+                </div>
+            </div>
+            </Modal.Body>
+        </Modal>
         </>
     )
 

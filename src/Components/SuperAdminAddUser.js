@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Form,Button,Row,Col } from 'react-bootstrap';
+import { Form,Button,Row,Col,Modal } from 'react-bootstrap';
 import axios from 'axios';
 import MenuSuperAdmin from './MenuSuperAdmin';
 
@@ -12,6 +12,11 @@ const headers = {
 };
 
 const SuperAdminAddUser = () =>{
+    const [selectedFile, setSelectedFile] = useState("");
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [listUserErr, setlistUserErr] = useState([]);
 
     const [inputs, setInputs] = useState({
       first_name:"",
@@ -45,9 +50,30 @@ const SuperAdminAddUser = () =>{
       .catch(err => {
           console.log(err);
       });
-        
-
+    
     }
+
+    const handleFileSelect = (event) => {
+        setSelectedFile(event.target.files[0])
+      }
+
+    const handleSubmitExcel = (event) => {
+        event.preventDefault()
+        let formData = new FormData();
+        formData.append('pathfile', selectedFile)
+
+        axios.post('https://wishesinpoints.herokuapp.com/uploadfiles/api/upload-customer/', 
+        formData    
+        ,{headers})
+        .then((response) => {
+            console.log(response);
+            window.location.href = "/superadmin/administrarperfiles/";
+
+        }).catch(err => {
+            setlistUserErr(err.response.data[1])
+            document.getElementById("mensaje").style.display = "block"
+        });
+      }
       
     
 
@@ -69,6 +95,9 @@ const SuperAdminAddUser = () =>{
                         <div className="row">
                                 <div className="col">
                                     <h3 style={{fontSize:34, fontWeight:"bold"}}>Usuario</h3> 
+                                </div>
+                                <div className="col" style={{textAlign:"right"}}>
+                                <Button style={{backgroundColor:"#7B3E90",borderColor:"#7B3E90"}} onClick = {() => { handleShow()} }>Subir por excel</Button>
                                 </div>
                             </div>
                     </div>
@@ -117,8 +146,29 @@ const SuperAdminAddUser = () =>{
                     </div>
                     </Form>    
             </div>
+
+            
             
         </div>
+
+        <Modal  show={show} size="md" onHide={handleClose} >
+            <Modal.Body style={{margin:20}}>
+            <div>
+                <h4>Subir usuarios por excel</h4>
+                <form onSubmit={handleSubmitExcel}>
+                <input type="file" onChange={handleFileSelect} accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" /><br></br><br></br>
+                <Button type="submit" value="Upload File" style={{backgroundColor:"#7B3E90",borderColor:"#7B3E90"}}>Cargar</Button>
+                </form>
+
+                <div>
+                    <p id="mensaje" style={{display:"none"}}>Hubo unos errores al subir estos usuarios, verifica sus datos:</p>
+                    {listUserErr.map((item,index)=>(
+                        <li key={index} style={{color:"red"}}>{item.email}</li>
+                    ))}
+                </div>
+            </div>
+            </Modal.Body>
+        </Modal>
         </>
     )
 

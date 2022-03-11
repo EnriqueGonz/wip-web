@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 const baseUrl = 'https://wishesinpoints.herokuapp.com/orders/api/specific/';
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 
-var token = localStorage.getItem('tokenAdmin');
+var token = localStorage.getItem('token');
 
 
 const headers = {
@@ -82,6 +82,7 @@ const FragmentDetalleCanje = () =>{
         <div>
             <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Fecha de canje: </b>{list2.order_date}</p>
             <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Fecha de entrega: </b>{list2.date_delivery}</p>
+            <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Status: </b>{list2.status}</p>
             <div className="row">
                 <div className="col">
                     <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Status: </b>{list2.status}</p>
