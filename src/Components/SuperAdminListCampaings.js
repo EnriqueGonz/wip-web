@@ -128,7 +128,7 @@ const SuperAdminListCampaings = () =>{
         axios.delete('https://wishesinpoints.herokuapp.com/campaigns/api/delete/'+idCampana+'/',{headers})
         .then((response) => {
             console.log(response);
-            window.location.href = "/superadmin/list-Plantillas";
+            window.location.href = "/superadmin/lista-campañas/";
         })
         .catch((error) => {
             handleClose();
@@ -162,7 +162,6 @@ const SuperAdminListCampaings = () =>{
             brands: document.getElementById('selectMarca').value,
             plantillas: document.getElementById('selectPlantilla').value,
             campaign_name: inputs.campaign_name,
-            points: inputs.points,
             status: document.getElementById('selectStatus').value,
             slug: inputs.slug,
             start_date:document.getElementById('fechaInicio').value + ' 19:48:28.182647-05',
@@ -170,7 +169,7 @@ const SuperAdminListCampaings = () =>{
         },{headers})
         .then((response) => {
             console.log(response);
-            //window.location.href = "/misdirecciones";
+            window.location.href = "/superadmin/lista-Campañas/";
         })
         .catch(err => console.log(err));
         
@@ -228,10 +227,10 @@ const SuperAdminListCampaings = () =>{
                 <table className="table">
                     <thead className="thead-dark" style={{backgroundColor: "#BFB3CF", color:"black"}}>
                         <tr>
+                        <th scope="col">Id</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Marca</th>
                         <th scope="col">Plantilla</th>
-                        <th scope="col">Puntos</th>
                         <th scope="col">slug</th>
                         <th scope="col">Fecha inicio</th>
                         <th scope="col">Fecha Fin</th>
@@ -243,6 +242,9 @@ const SuperAdminListCampaings = () =>{
                         {list.map((item,index) => (
                                 <tr key={index}>
                                     <td>
+                                        {item.id}
+                                    </td>
+                                    <td>
                                         {item.campaign_name}
                                     </td>
                                     <td>
@@ -250,9 +252,6 @@ const SuperAdminListCampaings = () =>{
                                     </td>
                                     <td>
                                         {item.plantillas_id}
-                                    </td>
-                                    <td>
-                                        {item.points}
                                     </td>
                                     <td>
                                         {item.slug}
@@ -381,11 +380,6 @@ const SuperAdminListCampaings = () =>{
                         <option value="true">Activa</option>
                         <option value="false">Desactivada</option>
                         </Form.Select>
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="">
-                        <Form.Label>Puntos</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="number" name="points" value={inputs.points} onChange={handleChange} />
                         </Form.Group>
                     </Row>
                     <Row className="mb-3">

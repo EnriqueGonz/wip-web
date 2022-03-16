@@ -3,10 +3,16 @@ import { Modal,Button,Row,Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
+import Prosa1 from '../images/Prosa.png';
+import Pmorado1 from '../images/Pmorado.png';
+import Pazul1 from '../images/Pazul.png';
+import Pregalo from '../images/Pregalo.png';
+
 const giftUrl = 'https://wishesinpoints.herokuapp.com/products/gift/';
 const headers = {
     'Content-Type': 'application/json',
 };
+
 
 
 const FragmentReedem = () =>{
@@ -15,6 +21,7 @@ const FragmentReedem = () =>{
   const handleShow = () => setShow(true);  
   const [list, setList] = useState([]); 
   const [listproducts, setlistproducts] = useState([]); 
+  const [listplantilla, setlistplantilla] = useState([]); 
 
   var { uuid } = useParams(); // params
   var { rtoken } = useParams(); // params 
@@ -25,9 +32,11 @@ const FragmentReedem = () =>{
         console.log(response);
         localStorage.setItem('uuid',uuid);
         localStorage.setItem('rtoken',rtoken);
-        setList(response.data[0]);
+        setList(response.data[0][0]);
         localStorage.setItem('id_user_invitacion',response.data[0][0]["id"]);
         setlistproducts(response.data[3][0]);
+        setlistplantilla(response.data[4][0]);
+        
       })
       .catch((error) => {
         console.log(error);
@@ -36,7 +45,8 @@ const FragmentReedem = () =>{
     } catch (error) {
       console.log(' . ', error);
     }// eslint-disable-next-line react-hooks/exhaustive-deps
-  },[setList],[setlistproducts]);
+  },[setList],[setlistproducts],[setlistplantilla]);
+
 
   function methodName() {
     console.log(listproducts.id);
@@ -46,37 +56,43 @@ const FragmentReedem = () =>{
 
     return(
       
-        <div>
-          <div>
-              {list.map((item) => (
-                <div key={item.id} className="navbar navbar-expand-lg navbar-light navContainer" style={{backgroundColor:"#D8D8D8",justifyContent: "space-around"}}>
-                  <h3>Hola {item.first_name}</h3>
+        <>
+
+          
+              <div className="navbar navbar-expand-lg navbar-light navContainer" style={{justifyContent: "space-around"}}>
+                  <h3>Hola {list.first_name}</h3>
                   <h2>{listproducts.campaign_name}</h2>
-                  <h4>{item.points} pts</h4>
-                </div>
-              ))}
-          </div>
-          <div className="background-reedem">
-            <div className="container">
-              <button className="btn btn-info" style={{position:"absolute", right:"5%",bottom:"5%", fontWeight:700,color:"white"}} onClick={handleShow} >Abrir</button>
-            </div>
-          </div>
+                  <h4>{list.points} pts</h4>
+              </div>
+              
+              <img alt="" src={Prosa1} style={{filter:listplantilla.color_footer_filter,width:"100%",height:"90vh",position:"absolute"}}></img>
+              <img alt="" src={Pmorado1} style={{filter:listplantilla.color_header_filter,width:"100%",height:"90vh",position:"absolute"}}></img>
+              <img alt="" src={Pazul1} style={{filter:listplantilla.secondary_color_filter,width:"100%",height:"90vh",position:"absolute"}}></img>
+              <img alt="" src={Pregalo} style={{filter:listplantilla.primary_color_filter,width:"100%",height:"90vh",position:"absolute"}}></img>
+              
+              
+            
+
+              <button className="btn" style={{position:"absolute", right:"5%",bottom:"5%", fontWeight:700,color:"white"}} onClick={handleShow} >Abrir</button>
+
+
+
+
+
 
           <Modal show={show} size="lg" onHide={handleClose}>
             <Modal.Body>
               <div>
-                <h3 style={{textAlign:"center"}}>Has recibido un regalo de la empresa "A"</h3>
+                <h3 style={{textAlign:"center"}}>¡Has recibido un regalo!</h3>
               </div>
               <div className="container">
                 <Row>
                   <Col>
                     <br/><br/><br/>
-                    {list.map((item) => (
-                        <h3 key={item.id}>Hola {item.first_name}</h3>
-                    ))}
+                    <h3>Hola {list.first_name}</h3>
                     <p style={{textAlign:"justify"}}>Ten un maravilloso día, puedes elejir este regalo clikeando en "Escoge este regalo" o selecciona otro de los productos de nuestro catalago <br/>Para ver otros regalos selecciona "Revisa otras opciones"</p><br/>
                     <p style={{margin:0}}>Tus amigos</p>
-                    <p><b>Empresa A</b></p>
+                    <p><b>{listproducts.campaign_name}</b></p>
                   </Col>
                   <Col>
                     <br/>
@@ -101,7 +117,7 @@ const FragmentReedem = () =>{
           </Modal>
 
 
-        </div>
+        </>
     )
 
 }

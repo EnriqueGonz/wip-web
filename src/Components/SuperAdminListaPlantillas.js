@@ -4,12 +4,18 @@ import axios from 'axios';
 import { MdEdit,MdDelete,MdSearch } from 'react-icons/md';
 import { PhotoshopPicker   } from 'react-color';
 import MenuSuperAdmin from './MenuSuperAdmin';
+import { hexToCSSFilter } from 'hex-to-css-filter';
 
 
 var token = localStorage.getItem('tokenSuperAdmin');
 let avatar ="";
 let idplantilla ="";
 let nombrePlantilla = "";
+
+var filter_primary_color = "";
+var filter_secundary_color = "";
+var filter_header_color = "";
+var filter_footer_color = "";
 
 const headers = {
     'Content-Type': 'application/json',
@@ -132,6 +138,18 @@ const SuperAdminListaPlantillas = () =>{
         let formData = new FormData();
         console.log(selectedFile);
         console.log(formData.getAll('image'));
+
+        filter_primary_color = (hexToCSSFilter(inputsPlantilla.primary_color).filter)
+        filter_primary_color = filter_primary_color.substring(0, filter_primary_color.length - 1).toString();
+
+        filter_secundary_color = (hexToCSSFilter(inputsPlantilla.secondary_color).filter)
+        filter_secundary_color = filter_secundary_color.substring(0, filter_secundary_color.length - 1).toString();
+
+        filter_header_color = (hexToCSSFilter(inputsPlantilla.color_header).filter)
+        filter_header_color = filter_header_color.substring(0, filter_header_color.length - 1).toString();
+        
+        filter_footer_color = (hexToCSSFilter(inputsPlantilla.color_footer).filter)
+        filter_footer_color = filter_footer_color.substring(0, filter_footer_color.length - 1).toString();
         
         formData.append('avatar', selectedFile)
         formData.append('template_name', inputsPlantilla.template_name)
@@ -139,6 +157,12 @@ const SuperAdminListaPlantillas = () =>{
         formData.append('secondary_color', inputsPlantilla.secondary_color)
         formData.append('color_header', inputsPlantilla.color_header)
         formData.append('color_footer', inputsPlantilla.color_footer)
+
+        formData.append('primary_color_filter', filter_primary_color)
+        formData.append('secondary_color_filter', filter_secundary_color)
+        formData.append('color_header_filter', filter_header_color)
+        formData.append('color_footer_filter', filter_footer_color)
+
         formData.append('description', inputsPlantilla.description)
 
             axios.put('https://wishesinpoints.herokuapp.com/plantillas/api/update/'+idplantilla+'/', 
@@ -204,6 +228,7 @@ const SuperAdminListaPlantillas = () =>{
                 <table className="table">
                     <thead className="thead-dark" style={{backgroundColor: "#BFB3CF", color:"black"}}>
                         <tr>
+                        <th scope="col">Id</th>
                         <th scope="col">Imagen</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Color primario</th>
@@ -216,6 +241,9 @@ const SuperAdminListaPlantillas = () =>{
                     <tbody>
                         {list.map((item,index) => (
                                 <tr key={index}>
+                                    <td>
+                                        {item.id}
+                                    </td>
                                     <td>
                                         {
                                             (item.avatar) === '' 

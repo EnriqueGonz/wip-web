@@ -38,6 +38,7 @@ import SuperAdminCrearProducto from './Components/SuperAdminCrearProducto';
 import SuperAdminPerfiles from './Components/SuperAdminPerfiles';
 import SuperAdminAddUser from './Components/SuperAdminAddUser';
 import SuperAdminUserCampana from './Components/SuperAdminUserCampana';
+import SuperAdminDelUserCampana from './Components/SuperAdminDelUserCampana';
 import SuperAdminEnviarInvitacion from './Components/SuperAdminEnviarInvitacion';
 import SuperAdminAddPlantilla from './Components/SuperAdminAddPlantilla';
 import SuperAdminListaPlantilla from './Components/SuperAdminListaPlantillas';
@@ -179,6 +180,9 @@ function App() {
         </Route>
         <Route path="/superadmin/AddUser-Campaña/">
           <SuperAdminUserCampana></SuperAdminUserCampana>
+        </Route>
+        <Route path="/superadmin/DelUser-Campaña/">
+          <SuperAdminDelUserCampana></SuperAdminDelUserCampana>
         </Route>
         <Route path="/superadmin/enviar-Invitacion/">
           <SuperAdminEnviarInvitacion></SuperAdminEnviarInvitacion>

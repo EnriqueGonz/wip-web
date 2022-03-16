@@ -1,11 +1,11 @@
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
-import { Form } from 'react-bootstrap';
+import { Form,Toast,ToastContainer } from 'react-bootstrap';
 import MenuSuperAdmin from './MenuSuperAdmin';
+import { MdOutlineLocalPolice,MdPerson } from 'react-icons/md';
 
 
 var token = localStorage.getItem('tokenSuperAdmin');
-let users = [];
 
 const headers = {
     'Content-Type': 'application/json',
@@ -13,9 +13,13 @@ const headers = {
 };
 
 
+
+
 const SuperAdminUserCampana = () =>{
     const [list, setList] = useState([]);
     const [listcampanas, setlistcampanas] = useState([]);
+    const [show, setShow] = useState(false);
+    const [show1, setShow1] = useState(false);
 
 
     
@@ -49,40 +53,39 @@ const SuperAdminUserCampana = () =>{
           });
     }
 
-    function agregarUser(id,boolean) {
-        let valor = id+"-"+boolean
-        
-        if(users.indexOf(valor) === -1){
-            users.push(valor);
-        }else{
-            users.splice(users.indexOf(valor), 1)
+    function agregarTodos() {
+        var checkboxes = document.getElementsByName('foo');
+        for(var i=0, n=checkboxes.length;i<n;i++) {
+            checkboxes[i].checked = document.getElementById('checkall').checked;
         }
-        
     }
 
     function postAgregar() {
         console.log('----')
 
-        users.forEach(function(elemento) {
-            const myArray = elemento.split("-");
-            let idUser = myArray[0];
-            let staff = myArray[1];
-            console.log(idUser +": "+staff);
-            axios.post('https://wishesinpoints.herokuapp.com/usercampaigns/api/register/',{
-                campaigns:document.getElementById('selectCategoriaBuscar').value,
-                user:idUser,
-                is_administrator:staff
-            },{headers})
-            .then((response) => {
-                console.log(response)
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-        })
-        window.location.href = "/superadmin/AddUser-Campaña/";
-        
+        var checkboxes = document.getElementsByName('foo');
+        for(var i=0, n=checkboxes.length;i<n;i++) {
+            if(checkboxes[i].checked === true){
+                const myArray = checkboxes[i].value.split("-");
+                let idUser = myArray[0];
+                let staff = myArray[1];
+                axios.post('https://wishesinpoints.herokuapp.com/usercampaigns/api/register/',{
+                    campaigns:document.getElementById('selectCategoriaBuscar').value,
+                    user:idUser,
+                    is_administrator:staff
+                },{headers})
+                .then((response) => {
+                    console.log(response)
+                    setShow(true)
+                    
+                })
+                .catch((error) => {
+                    setShow1(true)
+                });
+            } 
+        }
     }
+
 
     return(    
         <>
@@ -114,17 +117,38 @@ const SuperAdminUserCampana = () =>{
                 <p>- Selecciona los usuarios que decees agregar y presiona el boton de "agregar usuarios"</p>
 
                 <Form.Select id='selectCategoriaBuscar' onChange={BuscarPorCampana}>
-                    <option value="">Buscar por campaña</option>
+                    <option value="">Selecciona una campaña</option>
                     {listcampanas.map((item,index)=>(
                         <option key={index} value={item.id} >{item.campaign_name}</option>
                     ))}
                 </Form.Select>
                 <br></br>
+                <ToastContainer position="bottom-center" className="p-3">
+                    <Toast onClose={() => setShow(false)} show={show} delay={10000} autohide>
+                    <Toast.Header>
+                        <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                        <strong className="me-auto">wishes in points</strong>
+                        <small>Justo ahora</small>
+                    </Toast.Header>
+                    <Toast.Body>Usuarios agregados. Actualice la pagina para ver los cambios</Toast.Body>
+                    </Toast>
+                </ToastContainer>
+
+                <ToastContainer position="bottom-center" className="p-3">
+                    <Toast bg="danger" onClose1={() => setShow1(false)} show={show1} delay={10000} autohide>
+                    <Toast.Header>
+                        <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                        <strong className="me-auto">wishes in points</strong>
+                        <small>Justo ahora</small>
+                    </Toast.Header>
+                    <Toast.Body>Sucedio un error, intentalo mas tarde</Toast.Body>
+                    </Toast>
+                </ToastContainer>
 
                 <table className="table">
                     <thead className="thead-dark" style={{backgroundColor: "#BFB3CF", color:"black"}}>
                         <tr>
-                        <th scope="col">-</th>
+                        <th scope="col"><input style={{fontSize:25}} className="form-check-input" id='checkall' type="checkbox" onClick = {() => { agregarTodos()}}  ></input> </th>
                         <th scope="col">Imagen</th>
                         <th scope="col">Nombre completo</th>
                         <th scope="col">Correo</th>
@@ -136,7 +160,7 @@ const SuperAdminUserCampana = () =>{
                         {list.map((item,index) => (
                                 <tr key={index}>
                                     <td>
-                                        <input style={{fontSize:25}} className="form-check-input" type="checkbox" onClick = {() => { agregarUser(item[0][0].id,(item[0][0].is_staff).toString())}}  ></input> 
+                                        <input style={{fontSize:25}} className="form-check-input" type="checkbox" value={item[0][0].id+"-"+item[0][0].is_staff} name='foo' ></input> 
                                     </td>
                                     <td>
                                         {
@@ -155,7 +179,11 @@ const SuperAdminUserCampana = () =>{
                                         {item[1][0].phone}
                                     </td>
                                     <td>
-                                        {(item[0][0].is_staff).toString()}
+                                    {
+                                        (item[0][0].is_staff) === true 
+                                        ? <MdOutlineLocalPolice style={{fontSize:32,color:"purple"}} />
+                                        : <MdPerson style={{fontSize:32}} />
+                                    }
                                     </td>
                                 </tr>
                             ))}

@@ -12,7 +12,7 @@ const headers = {
 };
 
 
-const SuperAdminEnviarInvitacion = () =>{
+const SuperAdminDelUserCampana = () =>{
     const [list, setList] = useState([]);
     const [listcampanas, setlistcampanas] = useState([]);
     const [show, setShow] = useState(false);
@@ -63,9 +63,9 @@ const SuperAdminEnviarInvitacion = () =>{
         var checkboxes = document.getElementsByName('foo');
         for(var i=0, n=checkboxes.length;i<n;i++) {
             if(checkboxes[i].checked === true){
-                axios.post('https://wishesinpoints.herokuapp.com/emailer/api/sendgift/',{
+                axios.post('https://wishesinpoints.herokuapp.com/usercampaigns/api/delete/',{
                 campaign_id:document.getElementById('selectCategoriaBuscar').value,
-                email:checkboxes[i].value,
+                user_id:checkboxes[i].value,
                 },{headers})
                 .then((response) => {
                     console.log(response)
@@ -93,10 +93,10 @@ const SuperAdminEnviarInvitacion = () =>{
         <div className="height-100">
             <div className="container">
                     <div>
-                        <h4 style={{fontWeight: 300,paddingTop:15}}>Enviar</h4>
+                        <h4 style={{fontWeight: 300,paddingTop:15}}>Eliminar</h4>
                         <div className="row">
                                 <div className="col-4">
-                                    <h3 style={{fontSize:34, fontWeight:"bold"}}>Invitaciones</h3> 
+                                    <h3 style={{fontSize:34, fontWeight:"bold"}}>Usuarios de campañas</h3> 
                                     
                                 </div>
                             </div>
@@ -106,7 +106,7 @@ const SuperAdminEnviarInvitacion = () =>{
             
             <div className="container">
                 <p>- Selecciona la campaña para ver los usuarios</p>
-                <p>- Selecciona a los usuarios que decees enviarle la invitacion</p>
+                <p>- Selecciona a los usuarios que decees eliminar de la campaña seleccionada</p>
 
                 <Form.Select id='selectCategoriaBuscar' onChange={BuscarPorCampana}>
                     <option value="">Buscar por campaña</option>
@@ -122,12 +122,12 @@ const SuperAdminEnviarInvitacion = () =>{
                         <strong className="me-auto">wishes in points</strong>
                         <small>Justo ahora</small>
                     </Toast.Header>
-                    <Toast.Body>Invitaciones enviadas.</Toast.Body>
+                    <Toast.Body>Usuarios Eliminados.</Toast.Body>
                     </Toast>
                 </ToastContainer>
 
                 <ToastContainer position="bottom-center" className="p-3">
-                    <Toast bg="danger" onClose1={() => setShow1(false)} show={show1} delay={10000} autohide>
+                    <Toast bg="danger" onClose={() => setShow1(false)} show={show1} delay={10000} autohide>
                     <Toast.Header>
                         <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
                         <strong className="me-auto">wishes in points</strong>
@@ -151,7 +151,7 @@ const SuperAdminEnviarInvitacion = () =>{
                         {list.map((item,index) => (
                                 <tr key={index}>
                                     <td>
-                                        <input style={{fontSize:25}} className="form-check-input" type="checkbox" value={item[0][0].email}   name='foo'  ></input> 
+                                        <input style={{fontSize:25}} className="form-check-input" type="checkbox" value={item[0][0].id}   name='foo'  ></input> 
                                     </td>
                                     <td>
                                         {
@@ -185,4 +185,4 @@ const SuperAdminEnviarInvitacion = () =>{
     )
 
 }
-export default SuperAdminEnviarInvitacion;
+export default SuperAdminDelUserCampana;

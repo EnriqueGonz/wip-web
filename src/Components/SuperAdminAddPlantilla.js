@@ -3,7 +3,13 @@ import { Form,Button,Row,Col,Modal } from 'react-bootstrap';
 import axios from 'axios';
 import MenuSuperAdmin from './MenuSuperAdmin';
 import { PhotoshopPicker   } from 'react-color';
+import { hexToCSSFilter } from 'hex-to-css-filter';
 
+
+var filter_primary_color = "";
+var filter_secundary_color = "";
+var filter_header_color = "";
+var filter_footer_color = "";
 
 var token = localStorage.getItem('tokenSuperAdmin');
 
@@ -41,10 +47,24 @@ const SuperAdminAddPlantilla = () =>{
       }
 
     const submitPlantilla = (event) => {
+        filter_primary_color = (hexToCSSFilter(inputsPlantilla.primary_color).filter)
+        filter_primary_color = filter_primary_color.substring(0, filter_primary_color.length - 1).toString();
+
+        filter_secundary_color = (hexToCSSFilter(inputsPlantilla.secondary_color).filter)
+        filter_secundary_color = filter_secundary_color.substring(0, filter_secundary_color.length - 1).toString();
+
+        filter_header_color = (hexToCSSFilter(inputsPlantilla.color_header).filter)
+        filter_header_color = filter_header_color.substring(0, filter_header_color.length - 1).toString();
+        
+        filter_footer_color = (hexToCSSFilter(inputsPlantilla.color_footer).filter)
+        filter_footer_color = filter_footer_color.substring(0, filter_footer_color.length - 1).toString();
+        
+
         event.preventDefault()
         let formData = new FormData();
-        console.log(selectedFile);
-        console.log(formData.getAll('image'));
+        console.log(filter_header_color);
+        console.log(filter_footer_color);
+        
         
         formData.append('avatar', selectedFile)
         formData.append('template_name', inputsPlantilla.template_name)
@@ -52,7 +72,16 @@ const SuperAdminAddPlantilla = () =>{
         formData.append('secondary_color', inputsPlantilla.secondary_color)
         formData.append('color_header', inputsPlantilla.color_header)
         formData.append('color_footer', inputsPlantilla.color_footer)
+
+        formData.append('primary_color_filter', filter_primary_color)
+        formData.append('secondary_color_filter', filter_secundary_color)
+        formData.append('color_header_filter', filter_header_color)
+        formData.append('color_footer_filter', filter_footer_color)
+
+
+
         formData.append('description', inputsPlantilla.description)
+        
         
         axios.post('https://wishesinpoints.herokuapp.com/plantillas/api/register/', 
         formData    
@@ -116,6 +145,10 @@ const SuperAdminAddPlantilla = () =>{
 
             <div className='container' style={{width:"85%", marginTop:"50px"}}>
                 <Form onSubmit={submitPlantilla}>
+                    <Row>
+                        <Form.Label>Avatar/Image:</Form.Label>
+                        <input type="file" onChange={handleFileSelect}/><br></br><br></br>
+                    </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Nombre de la plantilla</Form.Label>
@@ -143,10 +176,6 @@ const SuperAdminAddPlantilla = () =>{
                         <Form.Label>Color footer:</Form.Label>
                         <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="color_footer" value={inputsPlantilla.color_footer} onChange={handleChange}/>
                         </Form.Group>
-                    </Row>
-                    <Row>
-                        <Form.Label>Avatar/Image:</Form.Label>
-                        <input type="file" onChange={handleFileSelect}/><br></br><br></br>
                     </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="">

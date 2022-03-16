@@ -79,7 +79,6 @@ const SuperAdminCrearCampana = () =>{
             brands: document.getElementById('selectMarca').value,
             plantillas: document.getElementById('selectPlantilla').value,
             campaign_name: inputs.campaign_name,
-            points: inputs.points,
             status: document.getElementById('selectStatus').value,
             slug: inputs.slug,
             start_date:document.getElementById('fechaInicio').value + ' 19:48:28.182647-05',
@@ -170,11 +169,6 @@ const SuperAdminCrearCampana = () =>{
                         <option value="true">Activa</option>
                         <option value="false">Desactivada</option>
                         </Form.Select>
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="">
-                        <Form.Label>Puntos</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="number" name="points" value={inputs.points} onChange={handleChange} />
                         </Form.Group>
                     </Row>
                     <Row className="mb-3">

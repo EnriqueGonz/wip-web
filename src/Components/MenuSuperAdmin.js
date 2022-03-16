@@ -15,6 +15,7 @@ import { ReactComponent as IconListaMarca } from '../images/iconos/ListaMarcas.s
 import { ReactComponent as IconListaCategoria } from '../images/iconos/ListaCategoria.svg';
 import { ReactComponent as IconSalir } from '../images/iconos/CerrarSesion.svg';
 import { ReactComponent as IconAddUserCampana} from '../images/iconos/AddUserCampana.svg'
+import { ReactComponent as IconDelUserCampana} from '../images/iconos/DelUserCampana.svg'
 import { ReactComponent as IconEnviarInvitacion} from '../images/iconos/EnviarInv.svg'
 
 const MenuSuperAdmin = () =>{
@@ -46,6 +47,11 @@ const MenuSuperAdmin = () =>{
             <OverlayTrigger placement="right" overlay={<Tooltip id="tooltip-disabled">Asignar campañas</Tooltip>}>
                 <span className="d-inline-block">
                     <a href="/superadmin/AddUser-Campaña/" className="nav_link"><IconAddUserCampana style={{width:26,height:"100%"}}/></a> 
+                </span>
+            </OverlayTrigger>
+            <OverlayTrigger placement="right" overlay={<Tooltip id="tooltip-disabled">Designar campañas</Tooltip>}>
+                <span className="d-inline-block">
+                    <a href="/superadmin/DelUser-Campaña/" className="nav_link"><IconDelUserCampana style={{width:26,height:"100%"}}/></a> 
                 </span>
             </OverlayTrigger>
             <OverlayTrigger placement="right" overlay={<Tooltip id="tooltip-disabled">Enviar Invitacion</Tooltip>}>

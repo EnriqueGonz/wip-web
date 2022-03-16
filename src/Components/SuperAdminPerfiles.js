@@ -259,7 +259,6 @@ const SuperAdminPerfiles = () =>{
                         (imagenPerfil) === '' 
                         ? <img style={{width:150}} alt='' src="https://wishesinpointsbucket.s3.amazonaws.com/assets/ProfilePic1.jpg"></img>
                         : <img style={{width:150}} alt='' src={'https://wishesinpointsbucket.s3.amazonaws.com/'+imagenPerfil}></img>
-
                     }
                     <img style={{width:150}} alt='' src=""></img>
                 </div>
@@ -299,7 +298,8 @@ const SuperAdminPerfiles = () =>{
                         <Form.Label>Nombre</Form.Label>
                         <Form.Control style={{backgroundColor:"#DFDFDF"}} required type="text" name="first_name" value={inputsUser.first_name} onChange={handleChange} />
                         </Form.Group>
-
+                    </Row>
+                    <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Apellido</Form.Label>
                         <Form.Control style={{backgroundColor:"#DFDFDF"}} required type="text" name="last_name" value={inputsUser.last_name} onChange={handleChange}  />
@@ -310,7 +310,8 @@ const SuperAdminPerfiles = () =>{
                         <Form.Label>Email</Form.Label>
                         <Form.Control style={{backgroundColor:"#DFDFDF"}} required type="text" name="email" value={inputsUser.email}  onChange={handleChange}/>
                         </Form.Group>
-
+                    </Row>
+                    <Row className="mb-3">
                         <Form.Group as={Col} controlId="passwordInput">
                         <Form.Label>Password</Form.Label>
                         <Form.Control style={{backgroundColor:"#DFDFDF"}} required type="text" name="password"/>
@@ -329,6 +330,9 @@ const SuperAdminPerfiles = () =>{
                     </Row>
                     <button className="btn" style={{marginLeft:10,float:"right",backgroundColor:"#7B3E90",color:"white"}} type="button"  onClick = {() => { methodUpdateUser()} }> 
                         Actualizar
+                    </button>
+                    <button className="btn" style={{marginLeft:10,float:"right",backgroundColor:"#7B3E90",color:"white"}} type="button"  onClick = {() => { methodUpdateUser()} }> 
+                        Editar campañas
                     </button>
                     <br></br>
                 </Form>
