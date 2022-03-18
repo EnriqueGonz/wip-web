@@ -153,7 +153,7 @@ const SuperAdminUserCampana = () =>{
                         <th scope="col">Nombre completo</th>
                         <th scope="col">Correo</th>
                         <th scope="col">Telefono</th>
-                        <th scope="col">¿Es admin?</th>
+                        <th scope="col">Rol</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -122,11 +122,11 @@ const FragmentPerfilUpdate = () =>{
         <nav className="nav">
             <div>
                 <div className="nav_list">
-                    <a href="http://localhost:3000/home" className="nav_link"> <i className='bx bx-home nav_icon'></i></a>
-                    <a href="http://localhost:3000/misregalos" className="nav_link"> <i className='bx bx-gift nav_icon'></i></a> 
-                    <a href="http://localhost:3000/miperfil" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-user bx-tada nav_icon'></i></a> 
-                    <a href="http://localhost:3000/misdirecciones" className="nav_link"> <i className='bx bx-directions nav_icon' ></i> </a> 
-                    <a href="http://localhost:3000/logout" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a> 
+                    <a href="http://localhost:3000/home/" className="nav_link"> <i className='bx bx-home nav_icon'></i></a>
+                    <a href="http://localhost:3000/misregalos/" className="nav_link"> <i className='bx bx-gift nav_icon'></i></a> 
+                    <a href="http://localhost:3000/miperfil/" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-user bx-tada nav_icon'></i></a> 
+                    <a href="http://localhost:3000/misdirecciones/" className="nav_link"> <i className='bx bx-directions nav_icon' ></i> </a> 
+                    <a href="http://localhost:3000/logout/" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a> 
                 </div>
             </div>
         </nav>
@@ -139,18 +139,22 @@ const FragmentPerfilUpdate = () =>{
                     </div>
             </div>
             <div className="container" style={{backgroundColor:"#BFB3CF"}}>
-                    <div  className="row">
-                        <div style={{paddingTop:10,paddingBottom:10}} className="col-sm">
-                                <img alt="" style={{width:"80%"}} src="https://image.shutterstock.com/z/stock-photo-the-word-example-is-written-on-a-magnifying-glass-on-a-yellow-background-1883859943.jpg"></img>
+                    <div className="row">
+                        <div style={{position:"relative"}} className="col-sm">
+                            {
+                                            (listImg.image) === '' 
+                                            ? <img style={{width:"80%"}} alt='' src="https://wishesinpointsbucket.s3.amazonaws.com/assets/ProfilePic1.jpg"></img>
+                                            : <img style={{width:"80%"}} alt='' src={'https://wishesinpointsbucket.s3.amazonaws.com/'+listImg.image}></img>
+                            }
+                            
                         </div>
                         <div style={{paddingTop:10,paddingBottom:10,textAlign:"center", alignSelf:"center"}} className="col-sm">
-                        <button style={{borderRadius:15,backgroundColor:"#7B3E90",color:"white"}} className="btn" >Actualizar informacion</button>
+                            <h3 style={{fontSize:34, fontWeight:"bold"}}>{listName.first_name + " "+ listName.last_name}</h3> 
                         </div>
                         <div style={{paddingTop:10,paddingBottom:10,textAlign:"right"}} className="col-sm">
                             <h4 style={{fontSize:34, fontWeight:"bold"}}><MdStars style={{color:"#7B3E90"}}/>{listImg.points + " pts"}</h4>     
                         </div>
                     </div>
-                
             </div>
             <div className="container"><br></br>
 

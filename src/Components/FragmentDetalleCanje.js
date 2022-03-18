@@ -1,7 +1,7 @@
-import { MdStars } from 'react-icons/md';
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { MdStars,MdDateRange,MdDirections,MdGroups,MdWorkspaces,MdSentimentSatisfiedAlt } from 'react-icons/md';
 
 const baseUrl = 'https://wishesinpoints.herokuapp.com/orders/api/specific/';
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
@@ -18,6 +18,7 @@ const FragmentDetalleCanje = () =>{
     var { idproduct } = useParams(); // params
     const [list, setList] = useState([]);
     const [list2, setList2] = useState([]);
+    const [list3, setList3] = useState([]);
 
     function methodName(id) {
         console.log(id);
@@ -28,10 +29,9 @@ const FragmentDetalleCanje = () =>{
         try {
           axios.get(baseUrl+idproduct+'/',{ headers })
           .then((response) => {
-            console.log(response.data[0][0]);
-            console.log(response.data[0][2][0]);
             setList2(response.data[0][0]);
             setList(response.data[0][2][0]);
+            setList3(response.data[0][1][0]);
             
           })
           .catch((error) => {
@@ -41,7 +41,7 @@ const FragmentDetalleCanje = () =>{
         } catch (error) {
           console.log(' . ', error);
         }// eslint-disable-next-line react-hooks/exhaustive-deps
-      },[setList],[setList2])
+      },[setList],[setList2],[setList3])
 
     return(    
         <>
@@ -49,11 +49,11 @@ const FragmentDetalleCanje = () =>{
         <nav className="nav">
             <div>
                 <div className="nav_list">
-                    <a href="http://localhost:3000/admin/home" className="nav_link"> <i className='bx bx-home nav_icon'></i></a>
-                    <a href="http://localhost:3000/admin/regalos" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-gift bx-tada nav_icon'></i></a> 
-                    <a href="http://localhost:3000/admin/" className="nav_link"> <i className='bx bx-user nav_icon'></i></a> 
-                    <a href="http://localhost:3000/admin/" className="nav_link"> <i className='bx bx-directions nav_icon' ></i> </a> 
-                    <a href="http://localhost:3000/admin/" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a> 
+                    <a href="http://localhost:3000/home/" className="nav_link"> <i className='bx bx-home nav_icon'></i></a>
+                    <a href="http://localhost:3000/regalos/" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-gift bx-tada nav_icon'></i></a> 
+                    <a href="http://localhost:3000/miperfil/" className="nav_link"> <i className='bx bx-user nav_icon'></i></a> 
+                    <a href="http://localhost:3000/misdirecciones/" className="nav_link"> <i className='bx bx-directions nav_icon' ></i> </a> 
+                    <a href="http://localhost:3000/logout/" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a> 
                 </div>
             </div>
         </nav>
@@ -80,17 +80,22 @@ const FragmentDetalleCanje = () =>{
     </div>
     <div className="container">
         <div>
-            <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Fecha de canje: </b>{list2.order_date}</p>
-            <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Fecha de entrega: </b>{list2.date_delivery}</p>
-            <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Status: </b>{list2.status}</p>
+            <p><b>Datos del pedido:</b></p>
+            <p><MdDateRange/> <b>Pedido Realizado:</b> {list2.order_date} &nbsp;&nbsp;&nbsp;<MdDirections/> <b>Fecha de entrega: </b> {list2.date_delivery}  </p>
+            <p><MdGroups/> <b>Producto de la campaña:</b> {list2.campaign}</p>
+            <p><MdWorkspaces/> <b>Cantidad: </b>{list3.amount}  &nbsp;&nbsp;&nbsp;  <MdStars/> <b>Puntos gastados: </b>{list3.total_price}  </p>
+            <p></p>
+            <p><MdSentimentSatisfiedAlt/> <b>Estatus:</b> {list2.status}</p>
+        
+
             <div className="row">
                 <div className="col">
-                    <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Status: </b>{list2.status}</p>
                 </div>
                 <div style={{textAlign:"right"}} className="col">
                     <button style={{borderRadius:15,backgroundColor:"#7B3E90",color:"white"}} className="btn" onClick = {() => { methodName(list2.id);} }>Cancelar canje</button>
                 </div>
             </div>
+
         </div>
         <hr style={{height: 9}}></hr>
     </div>

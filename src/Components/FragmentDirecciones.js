@@ -66,11 +66,11 @@ const FragmentDirecciones = () =>{
         <nav className="nav">
             <div>
                 <div className="nav_list">
-                    <a href="http://localhost:3000/home" className="nav_link"> <i className='bx bx-home nav_icon'></i></a>
-                    <a href="http://localhost:3000/misregalos" className="nav_link"> <i className='bx bx-gift nav_icon'></i></a> 
-                    <a href="http://localhost:3000/miperfil" className="nav_link"> <i className='bx bx-user nav_icon'></i></a> 
-                    <a href="http://localhost:3000/misdirecciones" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-directions bx-tada nav_icon' ></i> </a> 
-                    <a href="http://localhost:3000/logout" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a> 
+                    <a href="http://localhost:3000/home/" className="nav_link"> <i className='bx bx-home nav_icon'></i></a>
+                    <a href="http://localhost:3000/misregalos/" className="nav_link"> <i className='bx bx-gift nav_icon'></i></a> 
+                    <a href="http://localhost:3000/miperfil/" className="nav_link"> <i className='bx bx-user nav_icon'></i></a> 
+                    <a href="http://localhost:3000/misdirecciones/" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-directions bx-tada nav_icon' ></i> </a> 
+                    <a href="http://localhost:3000/logout/" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a> 
                 </div>
             </div>
         </nav>
@@ -85,7 +85,7 @@ const FragmentDirecciones = () =>{
                                     
                                 </div>
                                 <div style={{textAlign:"right"}} className="col">
-                                    <button style={{borderRadius:15,backgroundColor:"#7B3E90",color:"white"}} className="btn" onClick={event =>  window.location.href='/add-direccion'} >Agregar Direccion</button>
+                                    <button style={{borderRadius:15,backgroundColor:"#7B3E90",color:"white"}} className="btn" onClick={event =>  window.location.href='/add-direccion/'} >Agregar Direccion</button>
                                 </div>
                             </div>
                     </div>

@@ -18,12 +18,10 @@ const headers = {
 
 var user_id =0;
 var user_address=0;
-var product_campain =0;
+var campana_id =0;
 var product_points =0;
 var product_id = 0;
-var tiempoTranscurrido = Date.now();
 var user_points=0;
-const hoy = new Date(tiempoTranscurrido);
 
 const FragmentProductSpecific = () =>{
   const [list, setList] = useState([]);
@@ -42,7 +40,7 @@ const FragmentProductSpecific = () =>{
       .then((response) => {
         console.log(response.data[0]);
         product_id = response.data[0]["id"];
-        product_campain = response.data[0]["campaigns_id"];
+        campana_id = response.data[0]["campaigns_id"];
         product_points = response.data[0]["points"];
         setList(response.data);
       })
@@ -69,8 +67,6 @@ const FragmentProductSpecific = () =>{
 
   const postPedido = () => {
     var costo = (document.getElementById("number").value) * product_points;
-    const urlPedido = baseurl+'/orders/api/order/';
-
     var dato = "";
 
     list2.map((item) => (
@@ -85,21 +81,21 @@ const FragmentProductSpecific = () =>{
     }else{
       document.getElementById("alerta").style.display = "none"
 
-      console.log(user_address);
 
     if(user_points >= costo){
       console.log(user_id);
-      console.log(product_campain);
+      console.log(user_address);
+      console.log(campana_id);
       console.log(product_id);
-      console.log(hoy.toLocaleDateString());
       console.log(document.getElementById("number").value);
       console.log('Se puede comprar')
+      console.log(rtoken);
       
-      axios.post(urlPedido,{
+      axios.post('https://wishesinpoints.herokuapp.com/orders/api/order/',{
         user: user_id,
         useraddresses: user_address,
-        campaigns: product_campain,
-        date_delivery: hoy.toLocaleDateString(), // This field will be sent empty
+        campaigns: campana_id,
+        date_delivery: "", // This field will be sent empty
         status: 'Pendiente', // The default value of this field is "Pendiente"
         products: product_id,
         amount: document.getElementById("number").value,
@@ -133,17 +129,25 @@ const FragmentProductSpecific = () =>{
     return(
       
         <div>
-            <div className="container" style={{paddingTop:40, width:"65%"}}>
+            <div className="container" style={{paddingTop:40, width:"85%"}}>
                 <Row>
 
                     <Col>
                     {list.map((item) => (
-                    <div key={item.id} className="container">
+                    <div key={item.id} className="container" style={{textAlign:"center"}}>
                         <img className="imagentest" alt="" src={"https://wishesinpointsbucket.s3.amazonaws.com/"+item.image}></img>
                         
                         <h4>{item.product_name}</h4>
-                          <p style={{textAlign:"justify"}}>{item.description}</p>
-                          <p style={{textAlign:"end"}}><MdStars style={{fontSize:28,color:"#7B3E90"}}/>{item.points} puntos</p>
+                          <div className='row'>
+                            <div className='col-8'>
+                                <p style={{textAlign:"justify"}}>{item.description}</p>
+                            </div>
+                            <div className='col-4'>
+                                <p style={{textAlign:"end"}}><MdStars style={{fontSize:28,color:"#7B3E90"}}/>{item.points} puntos</p>
+                            </div>
+                            
+                          
+                          </div>
                     </div>
 
                     ))}

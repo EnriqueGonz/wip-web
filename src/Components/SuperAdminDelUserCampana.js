@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 import { Form,Toast,ToastContainer } from 'react-bootstrap';
 import MenuSuperAdmin from './MenuSuperAdmin';
-
+import { MdOutlineLocalPolice,MdPerson } from 'react-icons/md';
 
 var token = localStorage.getItem('tokenSuperAdmin');
 
@@ -40,7 +40,7 @@ const SuperAdminDelUserCampana = () =>{
       
 
     function BuscarPorCampana(evt) {
-        axios.get('https://wishesinpoints.herokuapp.com/usercampaigns/api/users-belonging-to-campaign/'+document.getElementById('selectCategoriaBuscar').value+'/',{headers})
+        axios.get('https://wishesinpoints.herokuapp.com/usercampaigns/api/users-belonging-to-campaign-all/'+document.getElementById('selectCategoriaBuscar').value+'/',{headers})
           .then((response) => {
               console.log(response)
               setList(response.data);
@@ -145,6 +145,7 @@ const SuperAdminDelUserCampana = () =>{
                         <th scope="col">Nombre completo</th>
                         <th scope="col">Correo</th>
                         <th scope="col">Telefono</th>
+                        <th scope="col">Rol</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -169,13 +170,20 @@ const SuperAdminDelUserCampana = () =>{
                                     <td>
                                         {item[1][0].phone}
                                     </td>
+                                    <td>
+                                    {
+                                        (item[0][0].is_staff) === true 
+                                        ? <MdOutlineLocalPolice style={{fontSize:32,color:"purple"}} />
+                                        : <MdPerson style={{fontSize:32}} />
+                                    }
+                                    </td>
                                 </tr>
                             ))}
                     </tbody>
                 </table>
                 <div className='container' style={{textAlign:"right"}}>
                     <button className="btn" style={{backgroundColor:"#7B3E90",color:"white"}} type="button" onClick = {() => { postAgregar()}} > 
-                        Enviar invitacion
+                        Eliminar de la campaña
                     </button>
                 </div>
             </div>

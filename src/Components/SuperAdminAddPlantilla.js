@@ -5,6 +5,11 @@ import MenuSuperAdmin from './MenuSuperAdmin';
 import { PhotoshopPicker   } from 'react-color';
 import { hexToCSSFilter } from 'hex-to-css-filter';
 
+import Prosa1 from '../images/Prosa.png';
+import Pmorado1 from '../images/Pmorado.png';
+import Pazul1 from '../images/Pazul.png';
+import Pregalo from '../images/Pregalo.png';
+
 
 var filter_primary_color = "";
 var filter_secundary_color = "";
@@ -21,6 +26,10 @@ const headers = {
 const SuperAdminAddPlantilla = () =>{
     const [color, setColor] = useState('#ff0000');
     const [selectedFile, setSelectedFile] = useState("");
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);  
 
     const [show1, setShow1] = useState(false);
     const handleClose1 = () => setShow1(false);
@@ -101,6 +110,32 @@ const SuperAdminAddPlantilla = () =>{
         });
       }
 
+
+      const viewModal = (event) => {
+        try {
+            filter_primary_color = (hexToCSSFilter(inputsPlantilla.primary_color).filter)
+            filter_primary_color = filter_primary_color.substring(0, filter_primary_color.length - 1).toString();
+
+            filter_secundary_color = (hexToCSSFilter(inputsPlantilla.secondary_color).filter)
+            filter_secundary_color = filter_secundary_color.substring(0, filter_secundary_color.length - 1).toString();
+
+            filter_header_color = (hexToCSSFilter(inputsPlantilla.color_header).filter)
+            filter_header_color = filter_header_color.substring(0, filter_header_color.length - 1).toString();
+            
+            filter_footer_color = (hexToCSSFilter(inputsPlantilla.color_footer).filter)
+            filter_footer_color = filter_footer_color.substring(0, filter_footer_color.length - 1).toString();
+
+            
+        } catch (error) {
+            console.log(error);
+            
+            
+        }
+        handleShow();
+    
+
+      }
+
       
     
 
@@ -120,10 +155,10 @@ const SuperAdminAddPlantilla = () =>{
                 <div>
                     <h4 style={{fontWeight: 300,paddingTop:15}}>Crear</h4>
                     <div className="row">
-                            <div className="col">
-                                <h3 style={{fontSize:34, fontWeight:"bold"}}>Nueva plantilla</h3> 
-                            </div>
+                        <div className="col">
+                            <h3 style={{fontSize:34, fontWeight:"bold"}}>Nueva plantilla</h3> 
                         </div>
+                    </div>
                 </div>
                 <hr style={{height: 9}}></hr>
             </div>
@@ -183,8 +218,11 @@ const SuperAdminAddPlantilla = () =>{
                         <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="description" value={inputsPlantilla.description} onChange={handleChange} />
                         </Form.Group>
                     </Row>
-                    <Button style={{float:"right",borderRadius:15,backgroundColor:"#7B3E90",color:"white"}} type="button" onClick={submitPlantilla}>
+                    <Button style={{marginLeft:20,border:"none",float:"right",borderRadius:15,backgroundColor:"#7B3E90",color:"white"}} type="button" onClick={submitPlantilla}>
                     Crear
+                    </Button>
+                    <Button style={{float:"right",border:"none",borderRadius:15,backgroundColor:"#7B3E90",color:"white"}} type="button" onClick={viewModal}>
+                    Ver preview
                     </Button>
                 </Form>  
             </div>
@@ -192,6 +230,19 @@ const SuperAdminAddPlantilla = () =>{
             </div>
             
         </div>
+
+        <Modal show={show} size="md" onHide={handleClose} >
+            <Modal.Body style={{backgroundColor:"#FFF"}}>
+                <div>
+                    <div style={{position:"relative",height:200}}>
+                        <img alt="" src={Prosa1} style={{filter:filter_footer_color,width:"100%",position:"absolute"}}></img>
+                        <img alt="" src={Pmorado1} style={{filter:filter_header_color,width:"100%",position:"absolute"}}></img>
+                        <img alt="" src={Pazul1} style={{filter:filter_secundary_color,width:"100%",position:"absolute"}}></img>
+                        <img alt="" src={Pregalo} style={{filter:filter_primary_color,width:"100%",position:"absolute"}}></img>
+                    </div>
+                </div>
+            </Modal.Body>
+        </Modal>
 
         <Modal show={show1} size="md" onHide={handleClose1} >
         <Modal.Body style={{backgroundColor:"#FFF"}}>

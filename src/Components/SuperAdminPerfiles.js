@@ -331,9 +331,6 @@ const SuperAdminPerfiles = () =>{
                     <button className="btn" style={{marginLeft:10,float:"right",backgroundColor:"#7B3E90",color:"white"}} type="button"  onClick = {() => { methodUpdateUser()} }> 
                         Actualizar
                     </button>
-                    <button className="btn" style={{marginLeft:10,float:"right",backgroundColor:"#7B3E90",color:"white"}} type="button"  onClick = {() => { methodUpdateUser()} }> 
-                        Editar campañas
-                    </button>
                     <br></br>
                 </Form>
                 

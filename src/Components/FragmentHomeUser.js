@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import { MdStars } from 'react-icons/md';
+import { MdStars,MdDelete } from 'react-icons/md';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
 
@@ -20,6 +20,8 @@ var campananombre = "";
 var campanainicio="";
 var campanafin ="";
 
+var numNotificaciones = 0;
+
 const headers = {
     'Content-Type': 'application/json',
     'Authorization': `Token ${token}`
@@ -32,6 +34,9 @@ const FragmentHomeUser = () =>{
     const [list, setList] = useState([]);
     const [listCampanas, setListCampanas] = useState([]); 
     const [listRegalos, setListRegalos] = useState([]); 
+    const [listNotificaciones, setlistNotificaciones] = useState([]); 
+
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);  
@@ -100,6 +105,23 @@ const FragmentHomeUser = () =>{
 
       useEffect(() =>{  
         try {
+          axios.get('https://wishesinpoints.herokuapp.com/inbox/api/notifications/'+id_usuario+'/',{ headers })
+          .then((response) => {
+            console.log(response.data)
+            numNotificaciones = response.data[1][0]["unread_notifications: "];
+            setlistNotificaciones(response.data[0])
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    
+        } catch (error) {
+          console.log(' . ', error);
+        }// eslint-disable-next-line react-hooks/exhaustive-deps
+      },[setlistNotificaciones])
+
+      useEffect(() =>{  
+        try {
           axios.get(baseUrl2+id_usuario+'/',{ headers })
           .then((response) => {
             setListCampanas(response.data[1]);
@@ -127,6 +149,7 @@ const FragmentHomeUser = () =>{
           console.log(' . ', error);
         }// eslint-disable-next-line react-hooks/exhaustive-deps
       },[setListRegalos])
+
 
     const bodyCampana=(
         <div>
@@ -166,6 +189,47 @@ const FragmentHomeUser = () =>{
                 </div>
         </div>
     )
+
+    function delNotificacion(id) {
+        console.log(id);
+        try {
+            axios.delete('https://wishesinpoints.herokuapp.com/inbox/api/delete_notifications/'+id+'/',{ headers })
+            .then((response) => {
+              console.log(response)
+              ActualizarNotificaciones();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+      
+          } catch (error) {
+            console.log(' . ', error);
+          }// eslint-disable-next-line react-hooks/exhaustive-deps
+      }
+
+      function ActualizarNotificaciones() {
+        axios.get('https://wishesinpoints.herokuapp.com/inbox/api/notifications/'+id_usuario+'/',{ headers })
+          .then((response) => {
+            console.log(response.data)
+            numNotificaciones = response.data[1][0]["unread_notifications: "];
+            setlistNotificaciones(response.data[0])
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    }
+
+    function readNotificacion(id,idorder){
+        console.log(id)
+        axios.put('https://wishesinpoints.herokuapp.com/inbox/api/mark_read_notifications/'+id+'/',{},{headers})
+          .then((response) => {
+            console.log(response)
+            window.location.href = '/detallescanje/'+idorder
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    }
     
 
     return(    
@@ -178,7 +242,7 @@ const FragmentHomeUser = () =>{
                     <a href="http://localhost:3000/misregalos" className="nav_link"> <i className='bx bx-gift nav_icon'></i></a> 
                     <a href="http://localhost:3000/miperfil" className="nav_link"> <i className='bx bx-user nav_icon'></i></a> 
                     <a href="http://localhost:3000/misdirecciones" className="nav_link"> <i className='bx bx-directions nav_icon' ></i> </a> 
-                    <a href="http://localhost:3000/logout" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a> 
+                    <a href="http://localhost:3000/logout" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a>
                 </div>
             </div>
         </nav>
@@ -187,7 +251,40 @@ const FragmentHomeUser = () =>{
         <div className="container">
                 <div>
                     <h4 style={{fontWeight: 300,paddingTop:15}}>¡Hola!</h4>
-                    <h3 style={{fontSize:34, fontWeight:"bold"}}>{list.first_name}</h3>     
+                    <div className="row">
+                        <div className="col">
+                            <h3 style={{fontSize:34, fontWeight:"bold"}}>{list.first_name}</h3>    
+                        </div>
+                        <div className="col" style={{textAlign:"end"}}>
+                        <div className="dropdown">
+                            <button style={{backgroundColor:"#7B3E90",color:"white"}} className="btn btn-secondary dropdown-toggle position-relative" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Notificaciones
+                                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {numNotificaciones}
+                                    <span className="visually-hidden">unread messages</span>
+                                </span>
+                            </button>
+                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                {listNotificaciones.map((item,index) => (
+                                    <div key={index}>
+                                        <div className='row'>
+                                            <div className='col-10'>
+                                                <button style={{whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}} className="btn dropdown-item" onClick = {() => { readNotificacion(item.id,item.actor_object_id)} }>{item.description}</button>
+                                            </div>
+                                            <div className='col-2'>
+                                                <button className='btn'  onClick = {() => { delNotificacion(item.id)} }><MdDelete className='btnDel' style={{width:"100%",fontSize:24}}></MdDelete></button>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    
+                     
                 </div>
             <div className="row">
                 <div className="col-sm-4">
@@ -230,8 +327,8 @@ const FragmentHomeUser = () =>{
                     <h3 style={{fontSize:34, fontWeight:"bold"}}>Campañas</h3>
                 </div>
                 <div className="row">
-                    {listCampanas.map((item) => (
-                        <div key={item.id} className="col-sm-3">
+                    {listCampanas.map((item,index) => (
+                        <div key={index} className="col-sm-3">
                             <div className="card">
                             <div className="card-body">
                                 <h5 className="card-title">{item.campaign_name}</h5>
@@ -252,8 +349,8 @@ const FragmentHomeUser = () =>{
                     <h3 style={{fontSize:34, fontWeight:"bold"}}>canjeados</h3>
                 </div>
                 <div className="row">
-                {listRegalos.map((item) => (
-                    <div key={item.id} style={{paddingTop:10}} className="col-sm-3">
+                {listRegalos.map((item,index) => (
+                    <div key={index} style={{paddingTop:10}} className="col-sm-3">
                         <div style={{height:"100%"}} className="card">
                         <div className="card-body">
                             <img alt="" style={{width:"100%"}} src={ imguRL + item.image }></img>
