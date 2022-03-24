@@ -78,17 +78,19 @@ const FragmentLogin = () => {
                                 <Form onSubmit={handleSubmit}>
                                     <Form.Group className="mb-3" controlId="email">
                                         <Form.Label>E-mail</Form.Label>
-                                        <Form.Control style={{ backgroundColor: "#BFBFBF", color: "#000", borderRadius: 20 }} required name="email" value={inputs.email} onChange={handleChange} />
+                                        <Form.Control style={{ backgroundColor: "#FFF", color: "#000", borderRadius: 20 }} required name="email" value={inputs.email} onChange={handleChange} />
                                     </Form.Group>
 
                                     <Form.Group className="mb-3" controlId="password">
                                         <Form.Label>Contraseña</Form.Label>
-                                        <Form.Control type="password" style={{ backgroundColor: "#BFBFBF", color: "#000", borderRadius: 20 }} required name="password" value={inputs.password} onChange={handleChange} />
+                                        <Form.Control type="password" style={{ backgroundColor: "#FFF", color: "#000", borderRadius: 20 }} required name="password" value={inputs.password} onChange={handleChange} />
                                     </Form.Group>
-
                                     <div>
-                                        <p>¿No tienes una cuenta? <a href='/registrarse'>Registrate</a></p>
+                                        <a href='/recover/password/'>¿Olvidaste tu contraseña?</a>
                                     </div>
+                                    <div>
+                                        <p>¿No tienes una cuenta? <a href='/registrarse'><b style={{color:"#614899",display:"inline-block"}}>Registrate</b></a></p>
+                                    </div>                                    
                                     
                                     <Button style={{float:"right",borderRadius:15}} variant="danger" type="button" onClick={handleSubmit}>
                                         Entrar

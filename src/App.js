@@ -20,6 +20,8 @@ import FragmentUpdateDirecciones from './Components/FragmentUpdateDireccion';
 import FragmentPerfilUpdate from './Components/FragmentPerfilUpdate';
 import FragmentLogout from './Components/FragmentLogout';
 import FragmentRegistro from './Components/FragmentRegister';
+import ForgotPassword from './Components/ForgotPassword';
+import RestorePassword from './Components/RestorePassword';
 
 
 //Fragmentos de administrador
@@ -51,12 +53,13 @@ import SuperAdminDetallesCanje from './Components/SuperAdminDetallesCanje';
 
 
 
+
 var token = localStorage.getItem('token');
 
 function App() {
   return (
     <div className="App" style={{width:"100%", height:"100vh"}}>
-      <Router>        
+      <Router >        
         <Switch>
         <Route exact path="/">
           <FragmentLogin />
@@ -82,6 +85,12 @@ function App() {
 
         <Route path="/registrarse">
           <FragmentRegistro></FragmentRegistro>
+        </Route>
+        <Route path="/recover/password/">
+          <ForgotPassword></ForgotPassword>
+        </Route>
+        <Route path="/password_reset/api/reset/:uuid/:rtoken">
+            <RestorePassword></RestorePassword>
         </Route>
 
         <Route path="/login" render={() => {

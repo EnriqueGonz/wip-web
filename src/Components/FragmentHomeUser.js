@@ -238,11 +238,11 @@ const FragmentHomeUser = () =>{
         <nav className="nav">
             <div>
                 <div className="nav_list">
-                    <a href="http://localhost:3000/home" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-home bx-tada nav_icon'></i></a>
-                    <a href="http://localhost:3000/misregalos" className="nav_link"> <i className='bx bx-gift nav_icon'></i></a> 
-                    <a href="http://localhost:3000/miperfil" className="nav_link"> <i className='bx bx-user nav_icon'></i></a> 
-                    <a href="http://localhost:3000/misdirecciones" className="nav_link"> <i className='bx bx-directions nav_icon' ></i> </a> 
-                    <a href="http://localhost:3000/logout" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a>
+                    <a href="/home" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-home bx-tada nav_icon'></i></a>
+                    <a href="/misregalos" className="nav_link"> <i className='bx bx-gift nav_icon'></i></a> 
+                    <a href="/miperfil" className="nav_link"> <i className='bx bx-user nav_icon'></i></a> 
+                    <a href="/misdirecciones" className="nav_link"> <i className='bx bx-directions nav_icon' ></i> </a> 
+                    <a href="/logout" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a>
                 </div>
             </div>
         </nav>

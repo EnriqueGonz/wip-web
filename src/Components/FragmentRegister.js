@@ -100,7 +100,7 @@ const FragmentLogin = () => {
                                         Entrar
                                     </Button>
 
-                                    <Button style={{float:"right",borderRadius:15, marginRight:10}} variant="primary" type="button" onClick={event =>  window.location.href='/login'} >
+                                    <Button style={{float:"right",borderRadius:15, marginRight:10}} variant="primary" type="button" onClick={event =>  window.location.href='/'} >
                                         Volver
                                     </Button>
                                 </Form>
