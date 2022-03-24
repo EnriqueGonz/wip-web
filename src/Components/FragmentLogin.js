@@ -4,16 +4,21 @@ import axios from 'axios'; // npm install axios
 import imgLogin from '../images/loginimg.png';
 
 
+var username = '';
 
-const loginUrl = 'https://wishesinpoints.herokuapp.com/access/api/login/';
 const FragmentLogin = () => {
     const [inputs, setInputs] = useState({
         email: "",
-        password: ""
+        password: "",
+        oldpassword:"",
+        newpassword:"",
     })
     const [show1, setShow1] = useState(false);
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);  
+
+    const [show, setShow] = useState(false);
+    const handleShow = () => setShow(true);  
 
 
     function handleChange(evt) {
@@ -24,7 +29,7 @@ const FragmentLogin = () => {
 
 
     const handleSubmit = (event) => {
-        axios.post(loginUrl,{
+        axios.post('https://wishesinpoints.herokuapp.com/access/api/login/',{
             email: inputs.email,
             password: inputs.password
         })
@@ -57,7 +62,32 @@ const FragmentLogin = () => {
                 
 
             })
-            .catch(err =>handleShow1());
+            .catch(err =>{
+                console.log(err.response.data.username);
+                if(err.response.status === 423){
+                    console.log('aca')
+                    username = err.response.data.username;
+                    handleShow();
+
+                }else{
+                    handleShow1();
+                }
+            });
+        return false;
+    }
+
+    
+    const submitSetpassword = (event) => {
+        axios.put('https://wishesinpoints.herokuapp.com/password_reset/api/change-password-ft/'+username+'/',{
+            old_password: inputs.oldpassword,
+            new_password: inputs.newpassword
+        })
+            .then((response) => {
+                console.log(response);
+                window.location.href = "/login"
+
+            })
+            .catch(err =>console.log(err));
         return false;
     }
 
@@ -108,6 +138,36 @@ const FragmentLogin = () => {
             <h4 style={{fontWeight: 300,paddingTop:15}}>Error</h4>
             <h3 style={{fontSize:34, fontWeight:"bold"}}>Upsss...</h3> 
             <p style={{fontSize:24, fontWeight:300}}>Ha ocurrido un error, intentalo mas tarde</p>    
+        </div>
+
+        </div>
+            </Modal.Body>
+        </Modal>
+
+
+        <Modal show={show} size="md" >
+        <Modal.Body style={{backgroundColor:"#FFF"}}>
+        <div>
+        <div>
+            <h4 style={{fontWeight: 300,paddingTop:15}}>¡Atencion!</h4>
+            <h3 style={{fontSize:34, fontWeight:"bold"}}>Para continuar debes actualizar tu contraseña.</h3> 
+
+            <Form onSubmit={submitSetpassword}>
+                <Form.Group className="mb-3" controlId="email">
+                    <Form.Label>Contraseña actual:</Form.Label>
+                    <Form.Control style={{ backgroundColor: "#FFF", color: "#000", borderRadius: 20 }} required name="oldpassword" value={inputs.oldpassword} onChange={handleChange} />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="password">
+                    <Form.Label>Nueva contraseña</Form.Label>
+                    <Form.Control type="password" style={{ backgroundColor: "#FFF", color: "#000", borderRadius: 20 }} required name="newpassword" value={inputs.newpassword} onChange={handleChange} />
+                </Form.Group>                               
+                
+                <Button style={{float:"right",borderRadius:15}} variant="danger" type="button" onClick={submitSetpassword}>
+                    Entrar
+                </Button>
+            </Form>
+            
         </div>
 
         </div>

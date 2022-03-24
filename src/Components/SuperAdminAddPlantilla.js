@@ -8,7 +8,8 @@ import { hexToCSSFilter } from 'hex-to-css-filter';
 import Prosa1 from '../images/Prosa.png';
 import Pmorado1 from '../images/Pmorado.png';
 import Pazul1 from '../images/Pazul.png';
-import Pregalo from '../images/Pregalo.png';
+import Pregalo from '../images/Pregalo1.png';
+import Pliston from '../images/Pliston.png';
 
 
 var filter_primary_color = "";
@@ -125,7 +126,6 @@ const SuperAdminAddPlantilla = () =>{
             filter_footer_color = (hexToCSSFilter(inputsPlantilla.color_footer).filter)
             filter_footer_color = filter_footer_color.substring(0, filter_footer_color.length - 1).toString();
 
-            
         } catch (error) {
             console.log(error);
             
@@ -192,24 +192,24 @@ const SuperAdminAddPlantilla = () =>{
                     </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
-                        <Form.Label>Color primario:</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="primary_color" value={inputsPlantilla.primary_color} onChange={handleChange} />
+                        <Form.Label>Color de regalo:</Form.Label>
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="primary_color" defaultValue="#000000" value={inputsPlantilla.primary_color} onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="">
-                        <Form.Label>Color secundario:</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="secondary_color" value={inputsPlantilla.secondary_color} onChange={handleChange} />
+                        <Form.Label>Color de botones:</Form.Label>
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="secondary_color" defaultValue="#000000" value={inputsPlantilla.secondary_color} onChange={handleChange} />
                         </Form.Group>
                     </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Color header:</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="color_header" value={inputsPlantilla.color_header} onChange={handleChange} />
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="color_header" defaultValue="#000000" value={inputsPlantilla.color_header} onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="">
-                        <Form.Label>Color footer:</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="color_footer" value={inputsPlantilla.color_footer} onChange={handleChange}/>
+                        <Form.Label>Color de liston:</Form.Label>
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="color_footer" defaultValue="#000000" value={inputsPlantilla.color_footer} onChange={handleChange}/>
                         </Form.Group>
                     </Row>
                     <Row className="mb-3">
@@ -238,7 +238,13 @@ const SuperAdminAddPlantilla = () =>{
                         <img alt="" src={Prosa1} style={{filter:filter_footer_color,width:"100%",position:"absolute"}}></img>
                         <img alt="" src={Pmorado1} style={{filter:filter_header_color,width:"100%",position:"absolute"}}></img>
                         <img alt="" src={Pazul1} style={{filter:filter_secundary_color,width:"100%",position:"absolute"}}></img>
+
+
                         <img alt="" src={Pregalo} style={{filter:filter_primary_color,width:"100%",position:"absolute"}}></img>
+                        <img alt="" src={Pliston} style={{filter:filter_footer_color,width:"100%",position:"absolute"}}></img>
+                        
+                        
+                        
                     </div>
                 </div>
             </Modal.Body>

@@ -6,7 +6,8 @@ import { useParams } from 'react-router-dom';
 import Prosa1 from '../images/Prosa.png';
 import Pmorado1 from '../images/Pmorado.png';
 import Pazul1 from '../images/Pazul.png';
-import Pregalo from '../images/Pregalo.png';
+import Pregalo from '../images/Pregalo1.png';
+import Pliston from '../images/Pliston.png';
 
 const giftUrl = 'https://wishesinpoints.herokuapp.com/products/gift/';
 const headers = {
@@ -59,7 +60,7 @@ const FragmentReedem = () =>{
         <>
 
           
-              <div className="navbar navbar-expand-lg navbar-light navContainer" style={{justifyContent: "space-around"}}>
+              <div className="navbar navbar-expand-lg navbar-light navContainer" style={{color:"white",backgroundColor:listplantilla.color_header,justifyContent: "space-around"}}>
                   <h3>Hola {list.first_name}</h3>
                   <h2>{listproducts.campaign_name}</h2>
                   <h4>{list.points} pts</h4>
@@ -69,11 +70,12 @@ const FragmentReedem = () =>{
               <img alt="" src={Pmorado1} style={{filter:listplantilla.color_header_filter,width:"100%",height:"90vh",position:"absolute"}}></img>
               <img alt="" src={Pazul1} style={{filter:listplantilla.secondary_color_filter,width:"100%",height:"90vh",position:"absolute"}}></img>
               <img alt="" src={Pregalo} style={{filter:listplantilla.primary_color_filter,width:"100%",height:"90vh",position:"absolute"}}></img>
+              <img alt="" src={Pliston} style={{filter:listplantilla.color_footer_filter,width:"100%",height:"90vh",position:"absolute"}}></img>
               
               
             
 
-              <button className="btn" style={{position:"absolute", right:"5%",bottom:"5%", fontWeight:700,color:"white"}} onClick={handleShow} >Abrir</button>
+              <button className="btn" style={{backgroundColor:listplantilla.secondary_color,position:"absolute", right:"5%",bottom:"5%", fontWeight:700,color:"white"}} onClick={handleShow} >Abrir</button>
 
 
 

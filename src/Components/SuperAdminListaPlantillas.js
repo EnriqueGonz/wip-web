@@ -231,10 +231,10 @@ const SuperAdminListaPlantillas = () =>{
                         <th scope="col">Id</th>
                         <th scope="col">Imagen</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Color primario</th>
-                        <th scope="col">Color secundario</th>
-                        <th scope="col">color header</th>
-                        <th scope="col">color footer</th>
+                        <th scope="col">Color de regalo</th>
+                        <th scope="col">Color de boton</th>
+                        <th scope="col">Color header</th>
+                        <th scope="col">Color de liston</th>
                         <th scope="col">Opciones</th>
                         </tr>
                     </thead>

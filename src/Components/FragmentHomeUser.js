@@ -139,6 +139,7 @@ const FragmentHomeUser = () =>{
         try {
           axios.get(baseUrl3+id_usuario+'/',{ headers })
           .then((response) => {
+            console.log(response)
             setListRegalos(response.data[3]);
           })
           .catch((error) => {

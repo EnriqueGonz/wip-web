@@ -4,7 +4,7 @@ import axios from 'axios'; // npm install axios
 import img from '../images/bg-register.png';
 import img2 from '../images/loginimg.png';
 
-const registerapi = 'https://wishesinpoints.herokuapp.com/users/api/register/win/';
+
 const FragmentLogin = () => {
     const [inputs, setInputs] = useState({
         first_name: "",
@@ -32,7 +32,7 @@ const FragmentLogin = () => {
 
     const handleSubmit = (event) => {
         if(inputs.password === inputs.password2){
-            axios.post(registerapi,{
+            axios.post('https://wishesinpoints.herokuapp.com/users/api/register/win/',{
                 first_name: inputs.first_name,
                 last_name: inputs.last_name,
                 email: inputs.email,
@@ -134,6 +134,7 @@ const FragmentLogin = () => {
                                 <br></br>
                                 <h5 style={{fontSize:30,fontWeight:30}}>Registro</h5>
                                 <h5 style={{fontSize:37,fontWeight:"bold"}}>Exitoso</h5><br></br>
+                                <p>Inicia sesion para acceder a la plataforma.</p>
                                 
                             </div>
                         </div>
