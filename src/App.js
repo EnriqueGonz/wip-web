@@ -5,7 +5,6 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 
 import FragmentReedem from './Components/FragmentReedem';
-import FragmentSendProduct from './Components/FragmentSendProduct';
 import FragmentCatalog from './Components/FragmentCatalog';
 import FragmentProductSpecific from './Components/FragmentProductSpecific';
 import FragmentHomeUser from './Components/FragmentHomeUser';
@@ -69,17 +68,11 @@ function App() {
         <Route path="/Reedem/:uuid/:rtoken">
             <FragmentReedem></FragmentReedem>
         </Route>
-        <Route path="/reedem-direccion">
-          <FragmentSendProduct></FragmentSendProduct>
-        </Route>
         <Route path="/catalogo">
           <FragmentCatalog></FragmentCatalog>
         </Route>
         <Route path="/product/">
           <FragmentProductSpecific></FragmentProductSpecific>
-        </Route>
-        <Route path="/add-direccion-api/">
-          <FragmentSendProduct></FragmentSendProduct>
         </Route>
 
 
