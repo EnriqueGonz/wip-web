@@ -2,7 +2,7 @@ import { MdStars } from 'react-icons/md';
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 
-const baseUrl = 'https://wishesinpoints.herokuapp.com/orders/api/get_index/';
+const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/get_index/';
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 
 var id_usuario = localStorage.getItem('id_usuario');

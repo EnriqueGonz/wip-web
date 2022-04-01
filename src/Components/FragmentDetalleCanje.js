@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { MdStars,MdDateRange,MdDirections,MdGroups,MdWorkspaces,MdSentimentSatisfiedAlt } from 'react-icons/md';
 
-const baseUrl = 'https://wishesinpoints.herokuapp.com/orders/api/specific/';
+const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/specific/';
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 
 var token = localStorage.getItem('token');

@@ -36,7 +36,7 @@ const SuperAdminListaCategoria = () =>{
 
     useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/categories/api/get_list/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/categories/api/get_list/',{
             category_name:"",
           },{headers})
           .then((response) => {
@@ -57,10 +57,11 @@ const SuperAdminListaCategoria = () =>{
         const value = evt.target.value;
         //console.log(name+': ' + value)
         setinputsCategoria(values => ({ ...values, [name]: value }))
+        console.log(name + ' '+value)
     }
 
     function methodPostCategoria(){
-        axios.post('https://wishesinpoints.herokuapp.com/categories/api/register/',{
+        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/categories/api/register/',{
             category_name:inputsCategoria.category_name,
             description:inputsCategoria.description
         },{headers})
@@ -82,7 +83,7 @@ const SuperAdminListaCategoria = () =>{
 
 
       function methodDelCategoria() {
-        axios.delete('https://wishesinpoints.herokuapp.com/categories/api/delete/'+idcategoria+'/',{headers})
+        axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/categories/api/delete/'+idcategoria+'/',{headers})
         .then((response) => {
             console.log(response);
             window.location.href = "/superadmin/lista-Categorias/";
@@ -95,7 +96,7 @@ const SuperAdminListaCategoria = () =>{
     function methodModalUpdateCategoria(id) {
         idcategoria = id
         try {
-            axios.get('https://wishesinpoints.herokuapp.com/categories/api/specific/'+id+'/',{headers})
+            axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/categories/api/specific/'+id+'/',{headers})
             .then((response) => {
                 //console.log(response.data);
                 setinputsCategoria(response.data[0]);
@@ -110,7 +111,7 @@ const SuperAdminListaCategoria = () =>{
       }
 
       function methodUpdateCategoria() {
-          axios.put('https://wishesinpoints.herokuapp.com/categories/api/update/'+idcategoria+'/',{
+          axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/categories/api/update/'+idcategoria+'/',{
               category_name:inputsCategoria.category_name,
               description:inputsCategoria.description
           },{headers})

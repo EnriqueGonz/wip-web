@@ -32,7 +32,7 @@ const SuperAdminCrearCampana = () =>{
 
     useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/brands/api/get_list/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/get_list/',{
             brand_name:""
           },{ headers })
           .then((response) => {
@@ -50,7 +50,7 @@ const SuperAdminCrearCampana = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/plantillas/api/get_list/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/plantillas/api/get_list/',{
             template_name:""
           },{ headers })
           .then((response) => {
@@ -75,7 +75,7 @@ const SuperAdminCrearCampana = () =>{
         console.log(document.getElementById('selectPlantilla').value);
         console.log(document.getElementById('selectStatus').value);
         
-        axios.post("https://wishesinpoints.herokuapp.com/campaigns/api/register/", {
+        axios.post("http://ec2-52-73-241-143.compute-1.amazonaws.com/campaigns/api/register/", {
             brands: document.getElementById('selectMarca').value,
             plantillas: document.getElementById('selectPlantilla').value,
             campaign_name: inputs.campaign_name,

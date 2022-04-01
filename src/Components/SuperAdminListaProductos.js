@@ -57,7 +57,7 @@ const SuperAdminListaProductos = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/categories/api/get_list/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/categories/api/get_list/',{
             category_name:""
           },{ headers })
           .then((response) => {
@@ -74,11 +74,16 @@ const SuperAdminListaProductos = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/usercampaigns/api/super-admin/all-campaigns/1/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/super-admin/all-campaigns/1/',{
             campaign_name:""
           },{ headers })
           .then((response) => {
-            setlistcampanas(response.data[1]);
+              if(response.status === 204){
+                  console.log('');
+              }else{
+                setlistcampanas(response.data[1]);
+              }
+            
           })
           .catch((error) => {
             console.log(error);
@@ -92,7 +97,7 @@ const SuperAdminListaProductos = () =>{
 
     useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/products/api/all_products/1/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/all_products/1/',{
             campaign_name:"",
             product_name:"",
           },{headers})
@@ -109,7 +114,7 @@ const SuperAdminListaProductos = () =>{
       },[setList])
 
       function BuscarPorNombre() {
-        axios.post('https://wishesinpoints.herokuapp.com/products/api/all_products/1/',{
+        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/all_products/1/',{
             product_name:document.getElementById("BuscarNombre").value,
             campaign_name:"",
           },{headers})
@@ -123,7 +128,7 @@ const SuperAdminListaProductos = () =>{
 
     function BuscarPorCampana(evt) {
         
-        axios.post('https://wishesinpoints.herokuapp.com/products/api/all_products/1/',{
+        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/all_products/1/',{
             product_name:"",
             campaign_name:document.getElementById('selectCategoriaBuscar').value,
           },{headers})
@@ -144,7 +149,7 @@ const SuperAdminListaProductos = () =>{
       }
 
       function methodDelProducto() {
-        axios.delete('https://wishesinpoints.herokuapp.com/products/api/delete/'+idproducto+'/',{headers})
+        axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/delete/'+idproducto+'/',{headers})
         .then((response) => {
             window.location.href = "/superadmin/lista-productos";
         })
@@ -159,7 +164,7 @@ const SuperAdminListaProductos = () =>{
         imgProducto = imagen;
         try {
 
-            axios.get('https://wishesinpoints.herokuapp.com/products/api/specific_product/'+idproducto+'/',{headers})
+            axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/specific_product/'+idproducto+'/',{headers})
             .then((response) => {
                 console.log(response.data);
                 setInputs(response.data[0])
@@ -192,7 +197,7 @@ const SuperAdminListaProductos = () =>{
         formData.append('brands', "3")
     
 
-        axios.put('https://wishesinpoints.herokuapp.com/products/api/update/'+idproducto+'/', 
+        axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/update/'+idproducto+'/', 
         formData    
         ,{headers})
         .then((response) => {

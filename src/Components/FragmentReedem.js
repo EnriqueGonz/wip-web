@@ -9,7 +9,7 @@ import Pazul1 from '../images/Pazul.png';
 import Pregalo from '../images/Pregalo1.png';
 import Pliston from '../images/Pliston.png';
 
-const giftUrl = 'https://wishesinpoints.herokuapp.com/products/gift/';
+const giftUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/products/gift/';
 const headers = {
     'Content-Type': 'application/json',
 };

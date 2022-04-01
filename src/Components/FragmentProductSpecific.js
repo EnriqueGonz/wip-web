@@ -7,7 +7,7 @@ const uuid = localStorage.getItem('uuid');
 const rtoken = localStorage.getItem('rtoken');
 const id_product = localStorage.getItem('producto');
 var id_usuario = localStorage.getItem('id_user_invitacion');
-const baseurl = 'https://wishesinpoints.herokuapp.com';
+const baseurl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/';
 
 
 const giftUrl = baseurl + '/products/api/specific_product/' + id_product + '/';
@@ -117,7 +117,7 @@ const FragmentProductSpecific = () => {
 
 
   const handleSubmit = (event) => {
-    axios.post('https://wishesinpoints.herokuapp.com/useraddresses/api/register/', {
+    axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/useraddresses/api/register/', {
       user: id_usuario,
       first_name: inputs.avenida,
       last_name: "",
@@ -159,7 +159,7 @@ const FragmentProductSpecific = () => {
       if(costo <= user_points){
         console.log('Se compra')
         document.getElementById('alertaCosto').style.display = 'none'
-        axios.post('https://wishesinpoints.herokuapp.com/orders/api/order/', {
+        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/order/', {
         user: user_id,
         useraddresses: user_address,
         campaigns: campana_id,

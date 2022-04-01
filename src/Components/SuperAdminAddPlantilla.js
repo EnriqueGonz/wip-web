@@ -93,7 +93,7 @@ const SuperAdminAddPlantilla = () =>{
         formData.append('description', inputsPlantilla.description)
         
         
-        axios.post('https://wishesinpoints.herokuapp.com/plantillas/api/register/', 
+        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/plantillas/api/register/', 
         formData    
         ,{headers})
         .then((response) => {

@@ -2,8 +2,6 @@ import React, {useState,useEffect} from 'react';
 import { MdStars } from 'react-icons/md';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
-import { Bar } from 'react-chartjs-2';
-import Chart from 'chart.js/auto';
 import MenuAdmin from './MenuAdmin';
 
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
@@ -40,11 +38,6 @@ const FragmentAdminHome = () =>{
     const [listRegalos, setListRegalos] = useState([]); 
 
 
-    const [listNombresCampanas, setlistNombresCampanas] = useState([]); 
-    const [listPuntos, setlistPuntos] = useState([]); 
-
-
-
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);  
@@ -52,31 +45,6 @@ const FragmentAdminHome = () =>{
     const [show1, setShow1] = useState(false);
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);  
-
-
-    const data = {
-        labels: listNombresCampanas,
-        datasets: [{
-          label: 'Puntos por campaña',
-          backgroundColor: '#603E84',
-          borderColor: 'rgb(255, 99, 132)',
-          data: listPuntos,
-        }]
-      };
-    
-      const config = {
-        type: 'bar',
-        data: data,
-        options: {
-          indexAxis: 'y',
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'top',
-            }
-          }
-        },
-      };   
 
     const openCampana = () => {
         var elemento1 = document.getElementById('campanas');
@@ -125,7 +93,7 @@ const FragmentAdminHome = () =>{
 
     useEffect(() =>{  
         try {
-          axios.get('https://wishesinpoints.herokuapp.com/users/api/user_datas/'+username+'/',{ headers })
+          axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/user_datas/'+username+'/',{ headers })
           .then((response) => {
             setList(response.data);
           })
@@ -140,22 +108,12 @@ const FragmentAdminHome = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/campaigns/api/get_list/'+id_usuario+'/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/campaigns/api/get_list/'+id_usuario+'/',{
             campaign_name:""
           },{ headers })
           .then((response) => {
             setListCampanas(response.data[1]);
             console.log(response.data[1]);
-            var respuesta = response.data[1];
-            var auxcampana=[];
-            var auxpuntos = [];
-            respuesta.map(elemento=>{
-                auxcampana.push(elemento.campaign_name)
-                auxpuntos.push(elemento.points)
-                return ""
-            });
-            setlistNombresCampanas(auxcampana);
-            setlistPuntos(auxpuntos);
 
           })
           .catch((error) => {
@@ -169,7 +127,7 @@ const FragmentAdminHome = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/orders/api/get_index_orders/'+id_usuario+'/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/get_index_orders/'+id_usuario+'/',{
               campaign_name:""
           },{ headers })
           .then((response) => {
@@ -335,7 +293,7 @@ const FragmentAdminHome = () =>{
                     <h3 style={{fontSize:34, fontWeight:"bold"}}>por campaña</h3>
                 </div>
                 <div className="container" style={{textAlign:"center"}}>
-                    <Bar options={config} data={data} ></Bar>
+                    
                 </div>
             </div>
 

@@ -4,7 +4,7 @@ import axios from 'axios';
 import MenuAdmin from './MenuAdmin';
 
 
-const baseUrl = 'https://wishesinpoints.herokuapp.com/orders/api/get_index_orders/';
+const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/get_index_orders/';
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 
 var token = localStorage.getItem('tokenAdmin');

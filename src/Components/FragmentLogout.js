@@ -36,15 +36,8 @@ const FragmentLogout = () => {
                     <h2 style={{ fontWeight: 300 }}>¿Seguro que quieres cerrar sesion?</h2>
                     <Button style={{ borderRadius: 20 }} onClick={() => history.goBack()} variant="secondary">Regresar</Button>
                     <Button style={{ marginLeft: 10, background: "#7B3E90", borderRadius: 20, borderColor: "white" }} type="button" onClick={() => { methodName(); }} >Cerrar Sesion</Button>
-
-
-
-
                 </div>
             </div>
-
-
-
 
         </>
     )

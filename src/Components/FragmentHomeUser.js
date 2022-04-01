@@ -3,9 +3,9 @@ import { MdStars,MdDelete } from 'react-icons/md';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
 
-const baseUrl = 'https://wishesinpoints.herokuapp.com/users/api/user_datas/';
-const baseUrl2 = 'https://wishesinpoints.herokuapp.com/usercampaigns/api/customercampaign/';
-const baseUrl3 = 'https://wishesinpoints.herokuapp.com/orders/api/get_index_customer/';
+const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/user_datas/';
+const baseUrl2 = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/customercampaign/';
+const baseUrl3 = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/get_index_customer/';
 
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 
@@ -105,9 +105,9 @@ const FragmentHomeUser = () =>{
 
       useEffect(() =>{  
         try {
-          axios.get('https://wishesinpoints.herokuapp.com/inbox/api/notifications/'+id_usuario+'/',{ headers })
+          axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/inbox/api/notifications/'+id_usuario+'/',{ headers })
           .then((response) => {
-            console.log(response.data)
+            //console.log(response.data)
             numNotificaciones = response.data[1][0]["unread_notifications: "];
             setlistNotificaciones(response.data[0])
           })
@@ -124,7 +124,13 @@ const FragmentHomeUser = () =>{
         try {
           axios.get(baseUrl2+id_usuario+'/',{ headers })
           .then((response) => {
-            setListCampanas(response.data[1]);
+            console.log(response)
+            if(response.status === 204){
+
+
+            }else{
+              setListCampanas(response.data[1]);
+            }
           })
           .catch((error) => {
             console.log(error);
@@ -139,7 +145,7 @@ const FragmentHomeUser = () =>{
         try {
           axios.get(baseUrl3+id_usuario+'/',{ headers })
           .then((response) => {
-            console.log(response)
+            //console.log(response)
             setListRegalos(response.data[3]);
           })
           .catch((error) => {
@@ -194,7 +200,7 @@ const FragmentHomeUser = () =>{
     function delNotificacion(id) {
         console.log(id);
         try {
-            axios.delete('https://wishesinpoints.herokuapp.com/inbox/api/delete_notifications/'+id+'/',{ headers })
+            axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/inbox/api/delete_notifications/'+id+'/',{ headers })
             .then((response) => {
               console.log(response)
               ActualizarNotificaciones();
@@ -209,7 +215,7 @@ const FragmentHomeUser = () =>{
       }
 
       function ActualizarNotificaciones() {
-        axios.get('https://wishesinpoints.herokuapp.com/inbox/api/notifications/'+id_usuario+'/',{ headers })
+        axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/inbox/api/notifications/'+id_usuario+'/',{ headers })
           .then((response) => {
             console.log(response.data)
             numNotificaciones = response.data[1][0]["unread_notifications: "];
@@ -328,15 +334,13 @@ const FragmentHomeUser = () =>{
                     <h3 style={{fontSize:34, fontWeight:"bold"}}>Campañas</h3>
                 </div>
                 <div className="row">
-                    {listCampanas.map((item,index) => (
-                        <div key={index} className="col-sm-3">
-                            <div className="card">
-                            <div className="card-body">
+                  {listCampanas.map((item,index) => (
+                        <div key={index} className="col-sm-3" style={{paddingBottom:20}}>
+                            <div className="card" style={{height:"100%"}}>
+                            <div className="card-body" style={{position:"relative",paddingBottom:40}}>
                                 <h5 className="card-title">{item.campaign_name}</h5>
                                 <p className="card-text">{item.slug}</p>
-                                <div style={{textAlign:"right"}} className="contianer">
-                                    <button className="btn btn-danger" style={{borderRadius:20}} onClick = {() => { methodName2(item.campaign_name,item.start_date,item.end_date);} }>Ver detalles</button>
-                                </div>
+                                <button className="btn btn-danger" style={{position:"absolute",right:"3%",bottom:"5%",borderRadius:20}} onClick = {() => { methodName2(item.campaign_name,item.start_date,item.end_date);} }>Ver detalles</button>
                             </div>
                             </div>
                         </div>

@@ -28,7 +28,7 @@ const FragmentAdminDetalleCanje = () =>{
 
     useEffect(() =>{  
         try {
-          axios.get('https://wishesinpoints.herokuapp.com/orders/api/specific/'+idorder+'/',{ headers })
+          axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/specific/'+idorder+'/',{ headers })
           .then((response) => {
             console.log(response.data[0][0]);
             console.log(response.data[0][2][0]);

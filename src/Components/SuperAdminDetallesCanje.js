@@ -30,7 +30,7 @@ const SuperAdminDetallesCanje = () =>{
 
     useEffect(() =>{  
         try {
-          axios.get('https://wishesinpoints.herokuapp.com/superadministrator/api/get-user/'+iduser+'/',{ headers })
+          axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/superadministrator/api/get-user/'+iduser+'/',{ headers })
           .then((response) => {
             //console.log(response.data); 
             setlistUserData(response.data[0][0])
@@ -47,7 +47,7 @@ const SuperAdminDetallesCanje = () =>{
 
     useEffect(() =>{  
         try {
-          axios.get('https://wishesinpoints.herokuapp.com/orders/api/specific/'+idorder+'/',{ headers })
+          axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/specific/'+idorder+'/',{ headers })
           .then((response) => {
             console.log(response.data[0][0].status);
             setList2(response.data[0][0]);
@@ -75,7 +75,7 @@ const SuperAdminDetallesCanje = () =>{
       }
 
       function methodCancelCanje() {
-        axios.put('https://wishesinpoints.herokuapp.com/orders/api/cancel/'+idorder+'/',{headers})
+        axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/cancel/'+idorder+'/',{headers})
         .then((response) => {
             //console.log(response);
             window.location.href = "/superadmin/lista-pedidos/";
@@ -90,7 +90,7 @@ const SuperAdminDetallesCanje = () =>{
         console.log(document.getElementById('fechaEntrega').value+' 19:48:28.182647-05')
         console.log(document.getElementById('selectStatus').value)
 
-        axios.put('https://wishesinpoints.herokuapp.com/orders/api/change_status/'+idorder+'/',{
+        axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/change_status/'+idorder+'/',{
             date_delivery: document.getElementById('fechaEntrega').value+' 19:48:28.182647-05',
             status:document.getElementById('selectStatus').value
         },{headers})
@@ -107,7 +107,7 @@ const SuperAdminDetallesCanje = () =>{
     }
 
     function ModalDateDelivery(){
-        console.log('Hola puto' +idorder);
+        console.log('Hola' +idorder);
         handleShow2();
     }
 

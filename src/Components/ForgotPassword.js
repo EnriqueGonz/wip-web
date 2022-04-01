@@ -22,7 +22,7 @@ const ForgotPassword = () => {
 
 
     const handleSubmit = (event) => {
-        axios.post('https://wishesinpoints.herokuapp.com/password_reset/api/request-reset/',{
+        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/password_reset/api/request-reset/',{
             email: inputs.email,
         })
         .then((response) => {

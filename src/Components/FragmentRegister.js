@@ -32,7 +32,7 @@ const FragmentLogin = () => {
 
     const handleSubmit = (event) => {
         if(inputs.password === inputs.password2){
-            axios.post('https://wishesinpoints.herokuapp.com/users/api/register/win/',{
+            axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/register/win/',{
                 first_name: inputs.first_name,
                 last_name: inputs.last_name,
                 email: inputs.email,

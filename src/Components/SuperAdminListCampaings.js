@@ -52,7 +52,7 @@ const SuperAdminListCampaings = () =>{
     
     useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/brands/api/get_list/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/get_list/',{
             brand_name:""
           },{ headers })
           .then((response) => {
@@ -70,12 +70,12 @@ const SuperAdminListCampaings = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/plantillas/api/get_list/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/plantillas/api/get_list/',{
             template_name:""
           },{ headers })
           .then((response) => {
             setlistPlantiallas(response.data);
-            //console.log(response.data);
+            console.log(response.data);
           })
           .catch((error) => {
             console.log(error);
@@ -88,12 +88,16 @@ const SuperAdminListCampaings = () =>{
 
     useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/usercampaigns/api/super-admin/all-campaigns/1/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/super-admin/all-campaigns/1/',{
             campaign_name:"",
           },{headers})
           .then((response) => {
-              console.log(response.data)
-              setList(response.data[1]);
+              if(response.status === 204){
+                console.log(response.statusText)
+              }else{
+                  setList(response.data[1])
+              }
+              
           })
           .catch((error) => {
             console.log(error);
@@ -105,12 +109,16 @@ const SuperAdminListCampaings = () =>{
       },[setList])
 
       function BuscarPorNombre() {
-        axios.post('https://wishesinpoints.herokuapp.com/usercampaigns/api/super-admin/all-campaigns/1/',{
+        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/super-admin/all-campaigns/1/',{
             campaign_name:document.getElementById("BuscarNombre").value,
           },{headers})
           .then((response) => {
-              console.log(response.data)
-              setList(response.data[1]);
+              if(response.status === 204){
+                console.log(response.statusText)
+              }else{
+                  setList(response.data[1])
+              }
+              
           })
           .catch((error) => {
             console.log(error);
@@ -125,7 +133,7 @@ const SuperAdminListCampaings = () =>{
       }
 
       function methodDelCampana() {
-        axios.delete('https://wishesinpoints.herokuapp.com/campaigns/api/delete/'+idCampana+'/',{headers})
+        axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/campaigns/api/delete/'+idCampana+'/',{headers})
         .then((response) => {
             console.log(response);
             window.location.href = "/superadmin/lista-campañas/";
@@ -138,7 +146,7 @@ const SuperAdminListCampaings = () =>{
 
     function methodModalUpdateCampana(id) {
         idCampana = id
-        axios.get('https://wishesinpoints.herokuapp.com/campaigns/api/specific/'+idCampana+'/',{headers})
+        axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/campaigns/api/specific/'+idCampana+'/',{headers})
         .then((response) => {
             console.log(response.data[0].status);
             idmarca = response.data[0].brands_id;
@@ -158,7 +166,7 @@ const SuperAdminListCampaings = () =>{
 
       function methodUpdateCampana() {
 
-        axios.put("https://wishesinpoints.herokuapp.com/campaigns/api/update/"+idCampana+"/", {
+        axios.put("http://ec2-52-73-241-143.compute-1.amazonaws.com/campaigns/api/update/"+idCampana+"/", {
             brands: document.getElementById('selectMarca').value,
             plantillas: document.getElementById('selectPlantilla').value,
             campaign_name: inputs.campaign_name,

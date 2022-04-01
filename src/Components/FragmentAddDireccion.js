@@ -3,7 +3,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 
-const baseUrl = 'https://wishesinpoints.herokuapp.com/useraddresses/api/register/';
+const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/useraddresses/api/register/';
 var id_usuario = localStorage.getItem('id_usuario');
 
 const FragmentAddDireccion = () => {

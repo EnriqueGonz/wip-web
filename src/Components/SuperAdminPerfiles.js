@@ -48,7 +48,7 @@ const SuperAdminPerfiles = () =>{
 
     useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/users/api/get_list/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/get_list/',{
               full_name:"",
               is_staff: boolean
           },{headers})
@@ -66,7 +66,7 @@ const SuperAdminPerfiles = () =>{
       },[setList])
       
     function BuscarPorNombre() {
-        axios.post('https://wishesinpoints.herokuapp.com/users/api/get_list/',{
+        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/get_list/',{
               full_name:document.getElementById("BuscarNombre").value,
               is_staff: boolean
           },{headers})
@@ -98,7 +98,7 @@ const SuperAdminPerfiles = () =>{
 
         try {
 
-            axios.get('https://wishesinpoints.herokuapp.com/users/api/profile/'+usernameUs+'/',{headers})
+            axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/profile/'+usernameUs+'/',{headers})
             .then((response) => {
                 console.log(response.data);
                 setinputsUser(response.data[0][0])
@@ -117,7 +117,7 @@ const SuperAdminPerfiles = () =>{
       function methodUpdateUser() {
           console.log(document.getElementById('passwordInput').value);
           console.log(inputsUser.first_name +"-"+inputsUser.last_name+"-"+inputsUser.email+"-"+inputsUser2.phone+"-"+inputsUser2.points);
-        axios.put('https://wishesinpoints.herokuapp.com/superadministrator/api/update-account/'+varusernameUs+'/',{
+        axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/superadministrator/api/update-account/'+varusernameUs+'/',{
             first_name: inputsUser.first_name,
             last_name: inputsUser.last_name,
             email: inputsUser.email,
@@ -137,7 +137,7 @@ const SuperAdminPerfiles = () =>{
       function methodDelUser() {
           
           console.log(iduser);
-          axios.delete('https://wishesinpoints.herokuapp.com/superadministrator/api/delete_userOradmin/'+iduser+'/',{headers})
+          axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/superadministrator/api/delete_userOradmin/'+iduser+'/',{headers})
           .then((response) => {
               console.log(response);
               window.location.href = "/superadmin/administrarperfiles";

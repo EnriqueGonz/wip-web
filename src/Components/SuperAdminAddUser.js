@@ -35,7 +35,7 @@ const SuperAdminAddUser = () =>{
 
 
     const handleSubmit = (event) => {
-      axios.post('https://wishesinpoints.herokuapp.com/users/api/register-admin/win/',{
+      axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/register-admin/win/',{
         first_name:inputs.first_name,
         last_name:inputs.last_name,
         email:inputs.email,
@@ -62,7 +62,7 @@ const SuperAdminAddUser = () =>{
         let formData = new FormData();
         formData.append('pathfile', selectedFile)
 
-        axios.post('https://wishesinpoints.herokuapp.com/uploadfiles/api/upload-customer/', 
+        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/uploadfiles/api/upload-customer/', 
         formData    
         ,{headers})
         .then((response) => {

@@ -21,7 +21,7 @@ const FragmentPerfil = () => {
 
     useEffect(() => {
         try {
-            axios.get('https://wishesinpoints.herokuapp.com/users/api/profile/' + username + '/', { headers })
+            axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/profile/' + username + '/', { headers })
                 .then((response) => {
                     setListName(response.data[0][0]);
                     setListImg(response.data[1][0]);
@@ -47,7 +47,7 @@ const FragmentPerfil = () => {
         formData.append('image', selectedFile)
 
         try {
-            axios.post('https://wishesinpoints.herokuapp.com/users/api/update_profile/' + username + '/',
+            axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/update_profile/' + username + '/',
                 formData
                 , { headers })
                 .then((response) => {

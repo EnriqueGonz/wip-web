@@ -3,7 +3,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory, useParams } from "react-router-dom";
 
-const baseUrl = 'https://wishesinpoints.herokuapp.com/useraddresses/api/update/';
+const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/useraddresses/api/update/';
 var token = localStorage.getItem('token');
 var id_usuario = localStorage.getItem('id_usuario');
 var calle = "";
@@ -34,7 +34,7 @@ const FragmentUpdateDireccion = () => {
     useEffect(() => {
         console.log(iddireccion);
         try {
-            axios.get('https://wishesinpoints.herokuapp.com/useraddresses/api/specific/' + iddireccion + "/", { headers })
+            axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/useraddresses/api/specific/' + iddireccion + "/", { headers })
                 .then((response) => {
                     setInputs(response.data[0]);
 

@@ -14,12 +14,17 @@ const FragmentAdminPerfiles = () =>{
     const [list, setList] = useState([]);
     useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/usercampaigns/api/admin-campaign-users/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/admin-campaign-users/',{
               full_name:""
           },{headers})
           .then((response) => {
               console.log(response.data)
-              setList(response.data);
+              if(response.status === 204){
+                  console.log(response.statusText);
+              }else{
+                setList(response.data);
+              }
+              
           })
           .catch((error) => {
             console.log(error);
@@ -31,12 +36,16 @@ const FragmentAdminPerfiles = () =>{
       },[setList])
 
       function BuscarPorNombre() {
-        axios.post('https://wishesinpoints.herokuapp.com/usercampaigns/api/admin-campaign-users/',{
+        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/admin-campaign-users/',{
               full_name:document.getElementById("BuscarNombre").value,
           },{headers})
           .then((response) => {
               console.log(response.data)
-              setList(response.data);
+              if(response.status === 204){
+                console.log(response.statusText);
+                }else{
+                setList(response.data);
+                }
           })
           .catch((error) => {
             console.log(error);

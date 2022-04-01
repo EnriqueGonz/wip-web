@@ -37,7 +37,7 @@ const SuperAdminListaMarca = () =>{
 
     useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/brands/api/get_list/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/get_list/',{
             brand_name:"",
           },{headers})
           .then((response) => {
@@ -74,7 +74,7 @@ const SuperAdminListaMarca = () =>{
         formData.append('brand_name', inputsMarca.brand_name)
         formData.append('description', inputsMarca.description)
         
-        axios.post('https://wishesinpoints.herokuapp.com/brands/api/register/', 
+        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/register/', 
         formData    
         ,{headers})
         .then((response) => {
@@ -93,7 +93,7 @@ const SuperAdminListaMarca = () =>{
       }
 
       function BuscarPorNombre() {
-        axios.post('https://wishesinpoints.herokuapp.com/brands/api/get_list/',{
+        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/get_list/',{
             brand_name:document.getElementById("BuscarNombre").value,
           },{headers})
           .then((response) => {
@@ -113,7 +113,7 @@ const SuperAdminListaMarca = () =>{
       }
 
       function methodDelMarca() {
-        axios.delete('https://wishesinpoints.herokuapp.com/brands/api/delete/'+idmarca+'/',{headers})
+        axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/delete/'+idmarca+'/',{headers})
         .then((response) => {
             console.log(response);
             window.location.href = "/superadmin/lista-Marcas/";
@@ -126,7 +126,7 @@ const SuperAdminListaMarca = () =>{
     function methodModalUpdateMarca(id) {
         idmarca = id
         try {
-            axios.get('https://wishesinpoints.herokuapp.com/brands/api/specific/'+id+'/',{headers})
+            axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/specific/'+id+'/',{headers})
             .then((response) => {
                 console.log(response.data);
                 setinputsMarca(response.data[0])
@@ -150,7 +150,7 @@ const SuperAdminListaMarca = () =>{
         formData.append('brand_name', inputsMarca.brand_name)
         formData.append('description', inputsMarca.description)
 
-            axios.put('https://wishesinpoints.herokuapp.com/brands/api/update/'+idmarca+'/', 
+            axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/update/'+idmarca+'/', 
             formData    
             ,{headers})
             .then((response) => {

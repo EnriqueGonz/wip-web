@@ -46,7 +46,7 @@ class FragmentCatalog extends Component {
                 <div>
                     <div className="grid-container-products">
                         {this.state.products.map(p =>
-                        <Button style={{backgroundColor:"transparent", borderColor:"black",color:"black"}} className="content-product" onClick={() => this.redirection(p.id)}>
+                        <Button style={{backgroundColor:"transparent", borderColor:"black",color:"black"}} className="content-product card__content" onClick={() => this.redirection(p.id)}>
                             <div key={p.id}>
                             <div style={{textAlign:"center"}}>
                                 <img style={{width:"50%", height:160}} src={ imguRL + p.image } alt="products"></img>

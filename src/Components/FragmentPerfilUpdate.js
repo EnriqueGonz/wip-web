@@ -3,9 +3,9 @@ import { MdStars } from 'react-icons/md';
 import axios from 'axios';
 import { Form, Button, Row, Col, Modal } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
-const baseUrl = 'https://wishesinpoints.herokuapp.com/users/api/profile/';
-const urlUpdate = 'https://wishesinpoints.herokuapp.com/users/api/update_email_phone/';
-const urlUpdatepass = 'https://wishesinpoints.herokuapp.com/password_reset/api/change-password/';
+const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/profile/';
+const urlUpdate = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/update_email_phone/';
+const urlUpdatepass = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/password_reset/api/change-password/';
 
 //const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 

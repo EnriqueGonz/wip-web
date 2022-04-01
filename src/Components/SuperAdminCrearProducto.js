@@ -43,7 +43,7 @@ const SuperAdminCrearProducto = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/categories/api/get_list/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/categories/api/get_list/',{
             category_name:""
           },{ headers })
           .then((response) => {
@@ -61,12 +61,16 @@ const SuperAdminCrearProducto = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/usercampaigns/api/super-admin/all-campaigns/1/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/super-admin/all-campaigns/1/',{
             campaign_name:""
           },{ headers })
           .then((response) => {
-            setlistcampanas(response.data[1]);
-            console.log(response.data);
+            if(response.status === 204){
+              console.log(response.data);
+            }else{
+              setlistcampanas(response.data[1]);
+            }
+            
           })
           .catch((error) => {
             console.log(error);
@@ -100,7 +104,7 @@ const SuperAdminCrearProducto = () =>{
             formData.append('amount', inputs.amount)
             formData.append('status', inputs.amount)
 
-            axios.post('https://wishesinpoints.herokuapp.com/products/api/register/', 
+            axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/register/', 
             formData    
             ,{headers})
             .then((response) => {
@@ -122,7 +126,7 @@ const SuperAdminCrearProducto = () =>{
       let formData = new FormData();
       formData.append('pathfile', selectedFile)
 
-      axios.post('https://wishesinpoints.herokuapp.com/uploadfiles/api/upload-products/', 
+      axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/uploadfiles/api/upload-products/', 
       formData    
       ,{headers})
       .then((response) => {

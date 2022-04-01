@@ -26,11 +26,16 @@ const SuperAdminUserCampana = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('https://wishesinpoints.herokuapp.com/usercampaigns/api/super-admin/all-campaigns/1/',{
+          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/super-admin/all-campaigns/1/',{
             campaign_name:""
           },{ headers })
           .then((response) => {
-            setlistcampanas(response.data[1]);
+              if(response.status === 204){
+                  console.log('')
+              }else{
+                    setlistcampanas(response.data[1]);
+              }
+            
           })
           .catch((error) => {
             console.log(error);
@@ -43,7 +48,7 @@ const SuperAdminUserCampana = () =>{
       
 
     function BuscarPorCampana(evt) {
-        axios.get('https://wishesinpoints.herokuapp.com/usercampaigns/api/campaign-user-not-belong/'+document.getElementById('selectCategoriaBuscar').value+'/',{headers})
+        axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/campaign-user-not-belong/'+document.getElementById('selectCategoriaBuscar').value+'/',{headers})
           .then((response) => {
               console.log(response)
               setList(response.data);
@@ -69,7 +74,7 @@ const SuperAdminUserCampana = () =>{
                 const myArray = checkboxes[i].value.split("-");
                 let idUser = myArray[0];
                 let staff = myArray[1];
-                axios.post('https://wishesinpoints.herokuapp.com/usercampaigns/api/register/',{
+                axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/register/',{
                     campaigns:document.getElementById('selectCategoriaBuscar').value,
                     user:idUser,
                     is_administrator:staff

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Modal, Button } from 'react-bootstrap';
 
-const baseUrl = 'https://wishesinpoints.herokuapp.com/useraddresses/api/my_addresses/';
-const baseUrldel = 'https://wishesinpoints.herokuapp.com/useraddresses/api/delete/';
+const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/useraddresses/api/my_addresses/';
+const baseUrldel = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/useraddresses/api/delete/';
 var token = localStorage.getItem('token');
 var id_usuario = localStorage.getItem('id_usuario');
 var id_direccion = "";

@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 import MenuAdmin from './MenuAdmin';
 
-const baseUrl = 'https://wishesinpoints.herokuapp.com/products/api/all_products/';
+const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/all_products/';
 
 var token = localStorage.getItem('tokenAdmin');
 var id_usuarioAdmin = localStorage.getItem('id_usuarioAdmin');

@@ -3,8 +3,8 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 
-const url1 = 'https://wishesinpoints.herokuapp.com/users/api/check_password/';
-const baseUrl = 'https://wishesinpoints.herokuapp.com/orders/api/cancel/';
+const url1 = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/check_password/';
+const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/cancel/';
 var token = localStorage.getItem('token');
 var id_usuario = localStorage.getItem('id_usuario');
 
