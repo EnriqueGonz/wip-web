@@ -19,13 +19,12 @@ const FragmentLogin = () => {
     const handleShow1 = () => setShow1(true);  
 
     const [show2, setShow2] = useState(false);
-    const handleClose2 = () => setShow2(false);
     const handleShow2 = () => setShow2(true); 
 
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
-        console.log(name+value);
+        //console.log(name+value);
         setInputs(values => ({ ...values, [name]: value }))
     }
 
@@ -40,7 +39,7 @@ const FragmentLogin = () => {
                 phone: inputs.phone
             })
             .then((response) => {
-                console.log(response);
+                //console.log(response);
                 handleShow2();
             })
             .catch(err =>handleShow1());
@@ -65,32 +64,32 @@ const FragmentLogin = () => {
                                 <h5 style={{fontSize:30,fontWeight:30}}>¡Bienvenido a</h5>
                                 <h5 style={{fontSize:37,fontWeight:"bold"}}>Wishes in Points</h5><br></br>
                                 <Form onSubmit={handleSubmit}>
-                                    <Form.Group className="mb-3" controlId="email">
+                                    <Form.Group className="mb-3">
                                         <Form.Label>Nombre</Form.Label>
                                         <Form.Control style={{  color: "#000", borderRadius: 20 }} required name="first_name" value={inputs.first_name} onChange={handleChange} />
                                     </Form.Group>
 
-                                    <Form.Group className="mb-3" controlId="password">
+                                    <Form.Group className="mb-3" >
                                         <Form.Label>Apellidos</Form.Label>
                                         <Form.Control type="text" style={{  color: "#000", borderRadius: 20 }} required name="last_name" value={inputs.last_name} onChange={handleChange} />
                                     </Form.Group>
 
-                                    <Form.Group className="mb-3" controlId="password">
+                                    <Form.Group className="mb-3">
                                         <Form.Label>Email</Form.Label>
                                         <Form.Control type="text" style={{  color: "#000", borderRadius: 20 }} required name="email" value={inputs.email} onChange={handleChange} />
                                     </Form.Group>
 
-                                    <Form.Group className="mb-3" controlId="password">
+                                    <Form.Group className="mb-3">
                                         <Form.Label>Telefono</Form.Label>
                                         <Form.Control type="number" style={{ color: "#000", borderRadius: 20 }} required name="phone" value={inputs.phone} onChange={handleChange} />
                                     </Form.Group>
 
-                                    <Form.Group className="mb-3" controlId="password">
+                                    <Form.Group className="mb-3">
                                         <Form.Label>Contraseña</Form.Label>
                                         <Form.Control type="password" style={{ color: "#000", borderRadius: 20 }} required name="password" value={inputs.password} onChange={handleChange} />
                                     </Form.Group>
 
-                                    <Form.Group className="mb-3" controlId="password">
+                                    <Form.Group className="mb-3" >
                                         <Form.Label>Repetir Contraseña</Form.Label>
                                         <Form.Control type="password" style={{color: "#000", borderRadius: 20 }} required name="password2" value={inputs.password2} onChange={handleChange} />
                                     </Form.Group>
@@ -123,8 +122,8 @@ const FragmentLogin = () => {
         </Modal>
 
 
-        <Modal show={show2} size="md" onHide={handleClose2} >
-        <Modal.Body style={{backgroundColor:"#C5C5C5",borderRadius:15}} className="card">
+        <Modal show={show2} size="md"  >
+        <Modal.Body style={{backgroundColor:"#C5C5C5"}} className="card">
                     <div className="card-body">
                         <div className="grid-login">
                             <div style={{alignSelf:"center"}}>
@@ -135,6 +134,8 @@ const FragmentLogin = () => {
                                 <h5 style={{fontSize:30,fontWeight:30}}>Registro</h5>
                                 <h5 style={{fontSize:37,fontWeight:"bold"}}>Exitoso</h5><br></br>
                                 <p>Inicia sesion para acceder a la plataforma.</p>
+
+                                <button style={{ float:"right",borderRadius: 15, backgroundColor: "#7B3E90", color: "white" }} className="btn" onClick={event => window.location.href = '/Login'} >OK</button>
                                 
                             </div>
                         </div>

@@ -28,7 +28,6 @@ const FragmentAddDireccion = () => {
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
-        console.log(name + value)
         setInputs(values => ({ ...values, [name]: value }))
     }
 
@@ -50,7 +49,7 @@ const FragmentAddDireccion = () => {
             email: inputs.email
         })
             .then((response) => {
-                console.log(response);
+                //console.log(response);
                 window.location.href = "/misdirecciones/";
             })
             .catch(err => console.log(err));

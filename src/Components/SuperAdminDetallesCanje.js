@@ -49,7 +49,7 @@ const SuperAdminDetallesCanje = () =>{
         try {
           axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/specific/'+idorder+'/',{ headers })
           .then((response) => {
-            console.log(response.data[0][0].status);
+            
             setList2(response.data[0][0]);
             setList(response.data[0][2][0]);
             setList3(response.data[0][1][0]);
@@ -86,16 +86,13 @@ const SuperAdminDetallesCanje = () =>{
     }
 
     function setDateDelivery(){
-        console.log('okok');
-        console.log(document.getElementById('fechaEntrega').value+' 19:48:28.182647-05')
-        console.log(document.getElementById('selectStatus').value)
 
         axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/change_status/'+idorder+'/',{
             date_delivery: document.getElementById('fechaEntrega').value+' 19:48:28.182647-05',
             status:document.getElementById('selectStatus').value
         },{headers})
         .then((response) => {
-            console.log(response);
+            //console.log(response);
             window.location.href = "/superadmin/detallescanje/"+idorder+'/'+iduser+'/';
         })
         .catch((error) => {
@@ -107,7 +104,6 @@ const SuperAdminDetallesCanje = () =>{
     }
 
     function ModalDateDelivery(){
-        console.log('Hola' +idorder);
         handleShow2();
     }
 

@@ -12,7 +12,6 @@ const FragmentProductDetails = () =>{
     
 
     function methodName(id) {
-        console.log(id);
         window.location.href = "/detallescanje/"+id;
     }
 
@@ -20,7 +19,7 @@ const FragmentProductDetails = () =>{
         try {
           axios.get(baseUrl+id_usuario+'/')
           .then((response) => {
-            console.log(response.data);
+            //console.log(response.data);
             setList(response.data);
 
           })

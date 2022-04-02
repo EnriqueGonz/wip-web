@@ -52,7 +52,7 @@ const SuperAdminRegalos = () =>{
               campaign_name:""
           },{ headers })
           .then((response) => {
-            console.log(response.data);
+            //console.log(response.data);
             setList(response.data);
 
           })
@@ -71,7 +71,7 @@ const SuperAdminRegalos = () =>{
             campaign_name:document.getElementById('selectCampanaBuscar').value
           },{headers})
           .then((response) => {
-              console.log(response.data);
+              //console.log(response.data);
               setList(response.data);
           })
           .catch((error) => {

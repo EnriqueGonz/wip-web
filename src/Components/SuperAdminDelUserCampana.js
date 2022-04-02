@@ -47,7 +47,7 @@ const SuperAdminDelUserCampana = () =>{
     function BuscarPorCampana(evt) {
         axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/users-belonging-to-campaign-all/'+document.getElementById('selectCategoriaBuscar').value+'/',{headers})
           .then((response) => {
-              console.log(response)
+              //console.log(response)
               setList(response.data);
           })
           .catch((error) => {
@@ -73,7 +73,7 @@ const SuperAdminDelUserCampana = () =>{
                 user_id:checkboxes[i].value,
                 },{headers})
                 .then((response) => {
-                    console.log(response)
+                    //console.log(response)
                     setShow(true)
                 })
                 .catch((error) => {

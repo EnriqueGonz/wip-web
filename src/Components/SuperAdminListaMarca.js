@@ -41,7 +41,7 @@ const SuperAdminListaMarca = () =>{
             brand_name:"",
           },{headers})
           .then((response) => {
-              console.log(response.data)
+              //console.log(response.data)
               setList(response.data);
           })
           .catch((error) => {
@@ -56,7 +56,7 @@ const SuperAdminListaMarca = () =>{
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
-        console.log(name + value)
+        //console.log(name + value)
         setinputsMarca(values => ({ ...values, [name]: value }))
     }
 
@@ -78,7 +78,7 @@ const SuperAdminListaMarca = () =>{
         formData    
         ,{headers})
         .then((response) => {
-            console.log(response);
+            //console.log(response);
             window.location.href = "/superadmin/lista-Marcas/";
 
         })
@@ -97,7 +97,7 @@ const SuperAdminListaMarca = () =>{
             brand_name:document.getElementById("BuscarNombre").value,
           },{headers})
           .then((response) => {
-              console.log(response.data)
+              //console.log(response.data)
               setList(response.data);
           })
           .catch((error) => {
@@ -115,7 +115,7 @@ const SuperAdminListaMarca = () =>{
       function methodDelMarca() {
         axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/delete/'+idmarca+'/',{headers})
         .then((response) => {
-            console.log(response);
+            //console.log(response);
             window.location.href = "/superadmin/lista-Marcas/";
         })
         .catch((error) => {
@@ -128,7 +128,7 @@ const SuperAdminListaMarca = () =>{
         try {
             axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/specific/'+id+'/',{headers})
             .then((response) => {
-                console.log(response.data);
+                //console.log(response.data);
                 setinputsMarca(response.data[0])
             })
             .catch((error) => {
@@ -154,7 +154,7 @@ const SuperAdminListaMarca = () =>{
             formData    
             ,{headers})
             .then((response) => {
-                console.log(response);
+                //console.log(response);
                 window.location.href = "/superadmin/lista-Marcas/";
             })
             .catch(err => {

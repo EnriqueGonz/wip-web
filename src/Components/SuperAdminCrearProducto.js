@@ -37,7 +37,6 @@ const SuperAdminCrearProducto = () =>{
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
-        console.log(name + value)
         setInputs(values => ({ ...values, [name]: value }))
     }
 
@@ -48,7 +47,7 @@ const SuperAdminCrearProducto = () =>{
           },{ headers })
           .then((response) => {
             setlistCategoria(response.data);
-            console.log(response.data);
+            //console.log(response.data);
           })
           .catch((error) => {
             console.log(error);
@@ -66,7 +65,7 @@ const SuperAdminCrearProducto = () =>{
           },{ headers })
           .then((response) => {
             if(response.status === 204){
-              console.log(response.data);
+              //console.log(response.data);
             }else{
               setlistcampanas(response.data[1]);
             }
@@ -108,7 +107,7 @@ const SuperAdminCrearProducto = () =>{
             formData    
             ,{headers})
             .then((response) => {
-                console.log(response);
+                //console.log(response);
                 window.location.href = "/superadmin/lista-productos/";
             })
             .catch(err => {
@@ -130,7 +129,7 @@ const SuperAdminCrearProducto = () =>{
       formData    
       ,{headers})
       .then((response) => {
-          console.log(response);
+          //console.log(response);
           window.location.href = "/superadmin/lista-Productos/";
 
       }).catch(err => {

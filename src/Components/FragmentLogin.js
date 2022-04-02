@@ -34,7 +34,7 @@ const FragmentLogin = () => {
             password: inputs.password
         })
             .then((response) => {
-                console.log(response);
+                //console.log(response);
                 localStorage.clear();
                 if(response.data.is_admin){
                     if(response.data.is_super){
@@ -44,14 +44,11 @@ const FragmentLogin = () => {
                         window.location.href = "/superadmin/home";
 
                     }else{
-                        console.log('is admin');
                         localStorage.setItem('tokenAdmin',response.data["token"]);
                         localStorage.setItem('id_usuarioAdmin',response.data["pk"]);
                         localStorage.setItem('usernameAdmin',response.data["username"]);
                         window.location.href = "/admin/home";
                     }
-                    
-
                     
                 }else{
                     localStorage.setItem('token',response.data["token"]);
@@ -63,9 +60,7 @@ const FragmentLogin = () => {
 
             })
             .catch(err =>{
-                console.log(err.response.data.username);
                 if(err.response.status === 423){
-                    console.log('aca')
                     username = err.response.data.username;
                     handleShow();
 
@@ -83,7 +78,7 @@ const FragmentLogin = () => {
             new_password: inputs.newpassword
         })
             .then((response) => {
-                console.log(response);
+                //console.log(response);
                 window.location.href = "/login"
 
             })

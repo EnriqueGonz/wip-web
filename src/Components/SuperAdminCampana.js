@@ -26,7 +26,6 @@ const SuperAdminCrearCampana = () =>{
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
-        console.log(name + value)
         setInputs(values => ({ ...values, [name]: value }))
     }
 
@@ -37,7 +36,7 @@ const SuperAdminCrearCampana = () =>{
           },{ headers })
           .then((response) => {
             setListMarcas(response.data);
-            console.log(response.data);
+            //console.log(response.data);
           })
           .catch((error) => {
             console.log(error);
@@ -55,7 +54,7 @@ const SuperAdminCrearCampana = () =>{
           },{ headers })
           .then((response) => {
             setlistPlantiallas(response.data);
-            console.log(response.data);
+            //console.log(response.data);
           })
           .catch((error) => {
             console.log(error);
@@ -85,7 +84,7 @@ const SuperAdminCrearCampana = () =>{
             end_date:document.getElementById('fechaFin').value+' 19:48:28.182647-05',
         },{headers})
         .then((response) => {
-            console.log(response);
+            //console.log(response);
             window.location.href = "/superadmin/lista-Campañas/";
         })
         .catch(err => console.log(err));

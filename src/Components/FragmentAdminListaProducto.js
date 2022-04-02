@@ -23,7 +23,7 @@ const FragmentAdminListaProductos = () =>{
             campaign_name:""
           },{ headers })
           .then((response) => {
-            console.log(response.data);
+            //console.log(response.data);
             setList(response.data);
           })
           .catch((error) => {
@@ -67,7 +67,12 @@ const FragmentAdminListaProductos = () =>{
                 {list.map((item,index) => (
                     <tr key={index}>
                         <td>
-                            <img style={{width:60}} alt='' src={'https://wishesinpointsbucket.s3.amazonaws.com/' + item.image}></img>  
+                            {
+                                (item.image) === '' 
+                                ? <img style={{width:50}} alt='' src="https://wishesinpointsbucket.s3.amazonaws.com/assets/ProfilePic1.jpg"></img>
+                                : <img style={{width:50}} alt='' src={'https://wishesinpointsbucket.s3.amazonaws.com/'+item.image}></img>
+                            }
+                            
                         </td>
                         <td>
                             {item.product_name}

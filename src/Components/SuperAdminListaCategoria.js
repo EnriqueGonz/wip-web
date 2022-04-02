@@ -57,7 +57,6 @@ const SuperAdminListaCategoria = () =>{
         const value = evt.target.value;
         //console.log(name+': ' + value)
         setinputsCategoria(values => ({ ...values, [name]: value }))
-        console.log(name + ' '+value)
     }
 
     function methodPostCategoria(){
@@ -85,7 +84,7 @@ const SuperAdminListaCategoria = () =>{
       function methodDelCategoria() {
         axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/categories/api/delete/'+idcategoria+'/',{headers})
         .then((response) => {
-            console.log(response);
+            //console.log(response);
             window.location.href = "/superadmin/lista-Categorias/";
         })
         .catch((error) => {

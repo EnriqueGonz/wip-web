@@ -53,7 +53,6 @@ const SuperAdminListaPlantillas = () =>{
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
-        console.log(name + value)
         setinputsPlantilla(values => ({ ...values, [name]: value }))
     }
 
@@ -69,7 +68,7 @@ const SuperAdminListaPlantillas = () =>{
             template_name:"",
           },{headers})
           .then((response) => {
-              console.log(response.data)
+              //console.log(response.data)
               setList(response.data);
           })
           .catch((error) => {
@@ -86,7 +85,7 @@ const SuperAdminListaPlantillas = () =>{
             template_name:document.getElementById("BuscarNombre").value,
           },{headers})
           .then((response) => {
-              console.log(response.data)
+              //console.log(response.data)
               setList(response.data);
           })
           .catch((error) => {
@@ -106,7 +105,7 @@ const SuperAdminListaPlantillas = () =>{
       function methodDelPlantilla() {
         axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/plantillas/api/delete/'+idplantilla+'/',{headers})
         .then((response) => {
-            console.log(response);
+            //console.log(response);
             window.location.href = "/superadmin/lista-Plantillas/";
         })
         .catch((error) => {
@@ -121,7 +120,7 @@ const SuperAdminListaPlantillas = () =>{
 
             axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/plantillas/api/specific/'+idplantilla+'/',{headers})
             .then((response) => {
-                console.log(response.data);
+                //console.log(response.data);
                 setinputsPlantilla(response.data[0])
             })
             .catch((error) => {
@@ -169,7 +168,7 @@ const SuperAdminListaPlantillas = () =>{
             formData    
             ,{headers})
             .then((response) => {
-                console.log(response);
+                //console.log(response);
                 window.location.href = "/superadmin/lista-Plantillas/";
             })
             .catch(err => {
@@ -359,12 +358,12 @@ const SuperAdminListaPlantillas = () =>{
                     </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
-                        <Form.Label>Color primario:</Form.Label>
+                        <Form.Label>Color de regalo:</Form.Label>
                         <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="primary_color" value={inputsPlantilla.primary_color} onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="">
-                        <Form.Label>Color secundario:</Form.Label>
+                        <Form.Label>Color de boton:</Form.Label>
                         <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="secondary_color" value={inputsPlantilla.secondary_color} onChange={handleChange} />
                         </Form.Group>
                     </Row>
@@ -375,7 +374,7 @@ const SuperAdminListaPlantillas = () =>{
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="">
-                        <Form.Label>Color footer:</Form.Label>
+                        <Form.Label>Color de liston</Form.Label>
                         <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="color_footer" value={inputsPlantilla.color_footer} onChange={handleChange}/>
                         </Form.Group>
                     </Row>

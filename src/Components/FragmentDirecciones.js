@@ -23,7 +23,6 @@ const FragmentDirecciones = () => {
     try {
       axios.get(baseUrl + id_usuario + '/', { headers })
         .then((response) => {
-          console.log(response);
           setListName(response.data);
         })
         .catch((error) => {
@@ -36,22 +35,19 @@ const FragmentDirecciones = () => {
   }, [setListName])
 
   function methodName(id) {
-    console.log(id);
     id_direccion = id;
     handleShow();
   }
 
   function methodUpdate(id) {
-    console.log(id);
     window.location.href = "/update-direccion/" + id;
 
   }
 
   function eliminar() {
-    console.log(id_direccion);
     axios.delete(baseUrldel + id_direccion + '/', { headers })
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         window.location.href = "/misdirecciones";
       })
       .catch((error) => {

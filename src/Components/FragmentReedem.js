@@ -100,7 +100,11 @@ const FragmentReedem = () =>{
                     <br/>
                     <p style={{textAlign:"center"}}>{listproducts.product_name}</p>
                     <div className="container" style={{textAlign:"center"}}>
-                      <img alt="" style={{width:"100%"}} src={"https://wishesinpointsbucket.s3.amazonaws.com/"+listproducts.image}></img>
+                        {
+                            (listproducts.image) === '' 
+                            ? <img style={{width:"100%"}} alt='' src="https://wishesinpointsbucket.s3.amazonaws.com/assets/ProfilePic1.jpg"></img>
+                            : <img style={{width:"100"}} alt='' src={'https://wishesinpointsbucket.s3.amazonaws.com/'+listproducts.image}></img>
+                        }
                     </div>
                     
                   </Col>

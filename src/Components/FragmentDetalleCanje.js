@@ -21,7 +21,6 @@ const FragmentDetalleCanje = () =>{
     const [list3, setList3] = useState([]);
 
     function methodName(id) {
-        console.log(id);
         window.location.href = "/cancelarcanje/"+id;
       }
 

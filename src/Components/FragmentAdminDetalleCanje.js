@@ -30,8 +30,6 @@ const FragmentAdminDetalleCanje = () =>{
         try {
           axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/specific/'+idorder+'/',{ headers })
           .then((response) => {
-            console.log(response.data[0][0]);
-            console.log(response.data[0][2][0]);
             setList2(response.data[0][0]);
             setList(response.data[0][2][0]);
             

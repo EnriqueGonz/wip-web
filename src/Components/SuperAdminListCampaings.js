@@ -45,7 +45,6 @@ const SuperAdminListCampaings = () =>{
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
-        console.log(name + value)
         setInputs(values => ({ ...values, [name]: value }))
     }
 
@@ -57,7 +56,7 @@ const SuperAdminListCampaings = () =>{
           },{ headers })
           .then((response) => {
             setListMarcas(response.data);
-            console.log(response.data);
+            //console.log(response.data);
           })
           .catch((error) => {
             console.log(error);
@@ -75,7 +74,7 @@ const SuperAdminListCampaings = () =>{
           },{ headers })
           .then((response) => {
             setlistPlantiallas(response.data);
-            console.log(response.data);
+            //console.log(response.data);
           })
           .catch((error) => {
             console.log(error);
@@ -93,7 +92,7 @@ const SuperAdminListCampaings = () =>{
           },{headers})
           .then((response) => {
               if(response.status === 204){
-                console.log(response.statusText)
+                //console.log(response.statusText)
               }else{
                   setList(response.data[1])
               }
@@ -113,8 +112,9 @@ const SuperAdminListCampaings = () =>{
             campaign_name:document.getElementById("BuscarNombre").value,
           },{headers})
           .then((response) => {
+              //console.log(response);
               if(response.status === 204){
-                console.log(response.statusText)
+                //console.log(response.statusText)
               }else{
                   setList(response.data[1])
               }
@@ -135,7 +135,7 @@ const SuperAdminListCampaings = () =>{
       function methodDelCampana() {
         axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/campaigns/api/delete/'+idCampana+'/',{headers})
         .then((response) => {
-            console.log(response);
+            //console.log(response);
             window.location.href = "/superadmin/lista-campañas/";
         })
         .catch((error) => {
@@ -148,7 +148,7 @@ const SuperAdminListCampaings = () =>{
         idCampana = id
         axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/campaigns/api/specific/'+idCampana+'/',{headers})
         .then((response) => {
-            console.log(response.data[0].status);
+            //console.log(response.data[0].status);
             idmarca = response.data[0].brands_id;
             idplantilla = response.data[0].plantillas_id;
             fechaInicial = response.data[0].start_date;
@@ -176,7 +176,7 @@ const SuperAdminListCampaings = () =>{
             end_date:document.getElementById('fechaFin').value+' 19:48:28.182647-05',
         },{headers})
         .then((response) => {
-            console.log(response);
+            //console.log(response);
             window.location.href = "/superadmin/lista-Campañas/";
         })
         .catch(err => console.log(err));

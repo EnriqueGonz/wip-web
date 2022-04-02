@@ -45,9 +45,6 @@ const FragmentPerfilUpdate = () => {
         try {
             axios.get(baseUrl + username + '/', { headers })
                 .then((response) => {
-
-                    console.log(response.data[0][0]);
-                    console.log(response.data[1][0]);
                     setListName(response.data[0][0]);
                     setListImg(response.data[1][0]);
                     setInputs2(response.data[0][0]);
@@ -68,7 +65,6 @@ const FragmentPerfilUpdate = () => {
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
-        console.log(name + value)
         setInputs1(values => ({ ...values, [name]: value }))
         setInputs2(values => ({ ...values, [name]: value }))
         setInputs3(values => ({ ...values, [name]: value }))
@@ -84,7 +80,7 @@ const FragmentPerfilUpdate = () => {
             }
         })
             .then((response) => {
-                console.log(response);
+                //console.log(response);
                 window.location.href = "/miperfil";
             })
             .catch(err => console.log(err));
@@ -94,7 +90,6 @@ const FragmentPerfilUpdate = () => {
 
     const handleSubmitPassword = (event) => {
         if (inputs3.new_password === inputs3.new_password1) {
-            console.log("iguales");
             axios.put(urlUpdatepass + username + "/", {
                 old_password: inputs3.old_password,
                 new_password: inputs3.new_password
@@ -104,7 +99,7 @@ const FragmentPerfilUpdate = () => {
                 }
             })
                 .then((response) => {
-                    console.log(response);
+                    //console.log(response);
                     handleShow();
                     localStorage.clear();
                     //window.location.href = "/miperfil";w
@@ -160,23 +155,23 @@ const FragmentPerfilUpdate = () => {
 
                     <Form style={{ width: "50%" }}>
                         <Row className="mb-3">
-                            <Form.Group as={Col} controlId="">
+                            <Form.Group as={Col}>
                                 <Form.Label>Nombre</Form.Label>
                                 <Form.Control style={{ backgroundColor: "#BFBFBF", borderRadius: 20 }} disabled={true} required type="text" value={listName.first_name} name="street" />
                             </Form.Group>
 
-                            <Form.Group as={Col} controlId="">
+                            <Form.Group as={Col}>
                                 <Form.Label>Apellido</Form.Label>
                                 <Form.Control style={{ backgroundColor: "#BFBFBF", borderRadius: 20 }} disabled={true} required type="text" value={listName.last_name} name="first_name" />
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">
-                            <Form.Group as={Col} controlId="">
+                            <Form.Group as={Col}>
                                 <Form.Label>Telefono</Form.Label>
                                 <Form.Control style={{ backgroundColor: "#BFBFBF", borderRadius: 20 }} required type="number" name="phone" value={inputs1.phone} onChange={handleChange} />
                             </Form.Group>
 
-                            <Form.Group as={Col} controlId="">
+                            <Form.Group as={Col} >
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control style={{ backgroundColor: "#BFBFBF", borderRadius: 20 }} required type="text" name="email" value={inputs2.email} onChange={handleChange} />
                             </Form.Group>
@@ -210,7 +205,7 @@ const FragmentPerfilUpdate = () => {
 
                     <Form style={{ width: "50%" }}>
                         <Row className="mb-3">
-                            <Form.Group as={Col} controlId="">
+                            <Form.Group as={Col} >
                                 <Form.Label>Actual contraseña</Form.Label>
                                 <Form.Control style={{ backgroundColor: "#BFBFBF", borderRadius: 20 }} required type="password" name="old_password" value={inputs3.old_password} onChange={handleChange} />
                             </Form.Group>
@@ -218,12 +213,12 @@ const FragmentPerfilUpdate = () => {
                         <Row className="mb-3">
 
 
-                            <Form.Group as={Col} controlId="">
+                            <Form.Group as={Col} >
                                 <Form.Label>Nueva contraseña</Form.Label>
                                 <Form.Control style={{ backgroundColor: "#BFBFBF", borderRadius: 20 }} required type="password" name="new_password" value={inputs3.new_password} onChange={handleChange} />
                             </Form.Group>
 
-                            <Form.Group as={Col} controlId="">
+                            <Form.Group as={Col} >
                                 <Form.Label>Repetir nueva contraseña</Form.Label>
                                 <Form.Control style={{ backgroundColor: "#BFBFBF", borderRadius: 20 }} required type="password" name="new_password1" value={inputs3.new_password1} onChange={handleChange} />
                             </Form.Group>

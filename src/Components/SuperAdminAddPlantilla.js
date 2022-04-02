@@ -48,7 +48,7 @@ const SuperAdminAddPlantilla = () =>{
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
-        console.log(name + value)
+        //console.log(name + value)
         setinputsPlantilla(values => ({ ...values, [name]: value }))
     }
 
@@ -72,8 +72,6 @@ const SuperAdminAddPlantilla = () =>{
 
         event.preventDefault()
         let formData = new FormData();
-        console.log(filter_header_color);
-        console.log(filter_footer_color);
         
         
         formData.append('avatar', selectedFile)
@@ -97,13 +95,13 @@ const SuperAdminAddPlantilla = () =>{
         formData    
         ,{headers})
         .then((response) => {
-            console.log(response);
+            //console.log(response);
             window.location.href= '/superadmin/lista-plantillas/'
 
         })
         .catch(err => {
             if(err.response.status === 409){
-                console.log(err.response.status)
+                //console.log(err.response.status)
                 handleShow1();
             }else{
                 console.log(err.response.status)

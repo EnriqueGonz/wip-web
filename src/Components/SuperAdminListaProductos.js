@@ -47,7 +47,6 @@ const SuperAdminListaProductos = () =>{
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
-        console.log(name + value)
         setInputs(values => ({ ...values, [name]: value }))
     }
 
@@ -79,7 +78,7 @@ const SuperAdminListaProductos = () =>{
           },{ headers })
           .then((response) => {
               if(response.status === 204){
-                  console.log('');
+                  console.log('ok');
               }else{
                 setlistcampanas(response.data[1]);
               }
@@ -166,7 +165,7 @@ const SuperAdminListaProductos = () =>{
 
             axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/specific_product/'+idproducto+'/',{headers})
             .then((response) => {
-                console.log(response.data);
+                
                 setInputs(response.data[0])
                 categoria =response.data[0].categories_id;
                 campana = response.data[0].campaigns_id;

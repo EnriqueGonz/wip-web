@@ -113,7 +113,7 @@ const FragmentAdminHome = () =>{
           },{ headers })
           .then((response) => {
             setListCampanas(response.data[1]);
-            console.log(response.data[1]);
+            //console.log(response.data[1]);
 
           })
           .catch((error) => {
@@ -131,7 +131,7 @@ const FragmentAdminHome = () =>{
               campaign_name:""
           },{ headers })
           .then((response) => {
-              console.log(response);
+              //console.log(response);
               regaloscanjeados = response.data.length;
 
             setListRegalos(response.data);

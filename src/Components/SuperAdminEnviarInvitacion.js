@@ -46,7 +46,7 @@ const SuperAdminEnviarInvitacion = () =>{
     function BuscarPorCampana(evt) {
         axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/users-belonging-to-campaign/'+document.getElementById('selectCategoriaBuscar').value+'/',{headers})
           .then((response) => {
-              console.log(response)
+              //console.log(response)
               setList(response.data);
           })
           .catch((error) => {
@@ -62,8 +62,7 @@ const SuperAdminEnviarInvitacion = () =>{
     }
 
     function postAgregar() {
-        console.log('----')
-
+        
         var checkboxes = document.getElementsByName('foo');
         for(var i=0, n=checkboxes.length;i<n;i++) {
             if(checkboxes[i].checked === true){
@@ -72,7 +71,7 @@ const SuperAdminEnviarInvitacion = () =>{
                 email:checkboxes[i].value,
                 },{headers})
                 .then((response) => {
-                    console.log(response)
+                    //console.log(response)
                     setShow(true)
                 })
                 .catch((error) => {

@@ -119,7 +119,7 @@ const SuperAdminHome = () =>{
             campaign_name:""
           },{ headers })
           .then((response) => {
-              console.log(response)
+              //console.log(response)
               if(response.status === 204){
                   console.log('No content');
 
@@ -142,7 +142,7 @@ const SuperAdminHome = () =>{
               campaign_name:""
           },{ headers })
           .then((response) => {
-              console.log(response);
+              //console.log(response);
               regaloscanjeados = response.data.length;
 
             setListRegalos(response.data);

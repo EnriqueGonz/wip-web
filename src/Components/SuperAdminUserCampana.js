@@ -50,7 +50,7 @@ const SuperAdminUserCampana = () =>{
     function BuscarPorCampana(evt) {
         axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/campaign-user-not-belong/'+document.getElementById('selectCategoriaBuscar').value+'/',{headers})
           .then((response) => {
-              console.log(response)
+              //console.log(response)
               setList(response.data);
           })
           .catch((error) => {
@@ -80,7 +80,7 @@ const SuperAdminUserCampana = () =>{
                     is_administrator:staff
                 },{headers})
                 .then((response) => {
-                    console.log(response)
+                    //console.log(response)
                     setShow(true)
                     
                 })

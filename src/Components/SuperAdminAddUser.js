@@ -29,7 +29,6 @@ const SuperAdminAddUser = () =>{
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
-        console.log(name + value)
         setInputs(values => ({ ...values, [name]: value }))
     }
 
@@ -44,7 +43,7 @@ const SuperAdminAddUser = () =>{
       }    
       ,{headers})
       .then((response) => {
-          console.log(response);
+          //console.log(response);
           window.location.href = "/superadmin/administrarperfiles/"
       })
       .catch(err => {
@@ -66,7 +65,7 @@ const SuperAdminAddUser = () =>{
         formData    
         ,{headers})
         .then((response) => {
-            console.log(response);
+            //console.log(response);
             window.location.href = "/superadmin/administrarperfiles/";
 
         }).catch(err => {

@@ -124,7 +124,7 @@ const FragmentHomeUser = () =>{
         try {
           axios.get(baseUrl2+id_usuario+'/',{ headers })
           .then((response) => {
-            console.log(response)
+            //console.log(response)
             if(response.status === 204){
 
 

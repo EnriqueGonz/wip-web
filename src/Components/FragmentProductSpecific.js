@@ -82,7 +82,6 @@ const FragmentProductSpecific = () => {
   useEffect(() => {
     axios.get(giftUrl, { headers })
       .then((response) => {
-        console.log(response.data[0]);
         product_id = response.data[0]["id"];
         campana_id = response.data[0]["campaigns_id"];
         product_points = response.data[0]["points"];
@@ -99,7 +98,6 @@ const FragmentProductSpecific = () => {
       .then((response) => {
         user_id = response.data[0][0]["id"];
         user_points = response.data[0][0]["points"];
-        console.log(response.data);
         setList2(response.data[1]);
       })
       .catch((error) => {
@@ -111,7 +109,6 @@ const FragmentProductSpecific = () => {
   function handleChange(evt) {
     const name = evt.target.name;
     const value = evt.target.value;
-    console.log(name + value)
     setInputs(values => ({ ...values, [name]: value }))
   }
 
@@ -133,7 +130,6 @@ const FragmentProductSpecific = () => {
       email: inputs.email
     })
       .then((response) => {
-        console.log(response);
         window.location.href = "/product/" + id_product;
       })
       .catch(err => console.log(err));
@@ -157,7 +153,6 @@ const FragmentProductSpecific = () => {
     }else{
       document.getElementById('alerta').style.display = 'none'
       if(costo <= user_points){
-        console.log('Se compra')
         document.getElementById('alertaCosto').style.display = 'none'
         axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/order/', {
         user: user_id,

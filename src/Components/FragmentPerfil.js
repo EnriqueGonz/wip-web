@@ -25,7 +25,6 @@ const FragmentPerfil = () => {
                 .then((response) => {
                     setListName(response.data[0][0]);
                     setListImg(response.data[1][0]);
-                    console.log(response.data);
 
                 })
                 .catch((error) => {
@@ -51,7 +50,7 @@ const FragmentPerfil = () => {
                 formData
                 , { headers })
                 .then((response) => {
-                    console.log(response);
+                    //console.log(response);
                     window.location.href = "/miperfil/";
 
                 })

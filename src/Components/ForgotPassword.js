@@ -13,6 +13,9 @@ const ForgotPassword = () => {
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);  
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true); 
 
     function handleChange(evt) {
         const name = evt.target.name;
@@ -26,10 +29,9 @@ const ForgotPassword = () => {
             email: inputs.email,
         })
         .then((response) => {
-            console.log(response);
             handleShow1()
         })
-        .catch(err =>console.log(err));
+        .catch(err =>handleShow());
         
     }
 
@@ -73,6 +75,21 @@ const ForgotPassword = () => {
             <p style={{fontSize:24, fontWeight:300}}>Los pasos para restablecer tu contraseña se han enviado al correo</p>    
         </div>
 
+        </div>
+            </Modal.Body>
+        </Modal>
+
+        <Modal show={show}  size="md" onHide={handleClose}>
+        <Modal.Body style={{backgroundColor:"#FFF"}}>
+        <div>
+            <div>
+                <h4 style={{fontWeight: 300,paddingTop:15}}>Error</h4>
+                <h3 style={{fontSize:34, fontWeight:"bold"}}>Upsss...</h3> 
+                <p style={{fontSize:24, fontWeight:300}}>Ha ocurrido un error, intentalo mas tarde</p>    
+            </div>
+            <Button style={{float:"right",borderRadius:15}} variant="danger" type="button" onClick={handleClose} >
+                OK
+            </Button>
         </div>
             </Modal.Body>
         </Modal>

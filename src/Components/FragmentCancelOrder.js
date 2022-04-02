@@ -17,7 +17,6 @@ const FragmentCancelOrder = () =>{
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
-        console.log(value);
         setInputs(values => ({ ...values, [name]: value }))
     }
 
@@ -39,7 +38,7 @@ const FragmentCancelOrder = () =>{
                 }
             })
             .then((response) => {
-                console.log(response);
+                //console.log(response);
             })
             .catch(err => console.log(err));
         })

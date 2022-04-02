@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Button,Row,Col } from 'react-bootstrap';
 import { MdStars } from 'react-icons/md';
 
-const giftUrl = 'https://wishesinpoints.herokuapp.com/products/api/get_catalog/';
+const giftUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/get_catalog/';
 var id = localStorage.getItem('id_user_invitacion');
 
 
@@ -14,7 +14,6 @@ class FragmentCatalog extends Component {
     }
 
     redirection = (parametro) => {
-        console.log('Hola'+ parametro);
         localStorage.setItem('producto', parametro);
 
         window.location.href = "/product/"+parametro;
@@ -26,7 +25,6 @@ class FragmentCatalog extends Component {
         })
             .then(res => {
                 const products = res.data;
-                console.log(res)
                 this.setState({
                     products: products
                 });

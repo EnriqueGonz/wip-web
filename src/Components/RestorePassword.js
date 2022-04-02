@@ -15,13 +15,16 @@ const RestorePassword = () => {
 
     const [show1, setShow1] = useState(false);
     const handleShow1 = () => setShow1(true);  
+/* 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);   */
 
 
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
         setInputs(values => ({ ...values, [name]: value }))
-        console.log(name + ' ' + value);
     }
 
 
@@ -30,7 +33,6 @@ const RestorePassword = () => {
             password: inputs.password,
         })
         .then((response) => {
-            console.log(response);
             handleShow1()
         })
         .catch(err =>console.log(err));
@@ -55,7 +57,7 @@ const RestorePassword = () => {
                                 <Form onSubmit={handleSubmit}>
                                     <Form.Group className="mb-3" controlId="email">
                                         <Form.Label>Ingresa tu nueva contraseña:</Form.Label>
-                                        <Form.Control style={{ backgroundColor: "white", color: "black", borderRadius: 20 }} required name="password" value={inputs.password} onChange={handleChange} />
+                                        <Form.Control style={{ backgroundColor: "white", color: "black", borderRadius: 20 }} required name="password" type='text' value={inputs.password} onChange={handleChange} />
                                     </Form.Group>
                                     
                                     <Button style={{float:"right",borderRadius:15}} variant="danger" type="button" onClick={handleSubmit}>
@@ -81,6 +83,21 @@ const RestorePassword = () => {
         </div>
             </Modal.Body>
         </Modal>
+
+        {/* <Modal show={show}  size="md" onHide={handleClose}>
+        <Modal.Body style={{backgroundColor:"#FFF"}}>
+        <div>
+            <div>
+                <h4 style={{fontWeight: 300,paddingTop:15}}>Error</h4>
+                <h3 style={{fontSize:34, fontWeight:"bold"}}>Upsss...</h3> 
+                <p style={{fontSize:24, fontWeight:300}}>Ha ocurrido un error, intentalo mas tarde</p>    
+            </div>
+            <Button style={{float:"right",borderRadius:15}} variant="danger" type="button" onClick={handleClose} >
+                OK
+            </Button>
+        </div>
+            </Modal.Body>
+        </Modal> */}
         </>
     )
 

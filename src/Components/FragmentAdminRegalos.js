@@ -20,7 +20,6 @@ const FragmentAdminRegalos = () =>{
     
 
     function methodName(id) {
-        console.log(id);
         window.location.href = "/admin/detallescanje/"+id;
     }
 
@@ -30,7 +29,7 @@ const FragmentAdminRegalos = () =>{
               campaign_name:""
           },{ headers })
           .then((response) => {
-            console.log(response.data);
+            //console.log(response.data);
             setList(response.data);
 
           })

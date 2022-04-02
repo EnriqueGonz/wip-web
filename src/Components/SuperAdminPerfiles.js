@@ -41,7 +41,6 @@ const SuperAdminPerfiles = () =>{
     function handleChange(evt) {
         const name = evt.target.name;
         const value = evt.target.value;
-        console.log(name + value)
         setinputsUser(values => ({ ...values, [name]: value }))
         setinputsUser2(values => ({ ...values, [name]: value }))
     }
@@ -53,7 +52,7 @@ const SuperAdminPerfiles = () =>{
               is_staff: boolean
           },{headers})
           .then((response) => {
-              console.log(response.data)
+              //console.log(response.data)
               setList(response.data);
           })
           .catch((error) => {
@@ -71,7 +70,7 @@ const SuperAdminPerfiles = () =>{
               is_staff: boolean
           },{headers})
           .then((response) => {
-              console.log(response.data)
+              //console.log(response.data)
               setList(response.data);
           })
           .catch((error) => {
@@ -100,7 +99,7 @@ const SuperAdminPerfiles = () =>{
 
             axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/profile/'+usernameUs+'/',{headers})
             .then((response) => {
-                console.log(response.data);
+                //console.log(response.data);
                 setinputsUser(response.data[0][0])
                 setinputsUser2(response.data[1][0])
             })
@@ -127,7 +126,7 @@ const SuperAdminPerfiles = () =>{
             },{headers})
             .then((response) => {
                 window.location.href = "/superadmin/administrarperfiles";
-                console.log(response);
+                //console.log(response);
             })
             .catch((error) => {
                 console.log(error);
@@ -139,7 +138,7 @@ const SuperAdminPerfiles = () =>{
           console.log(iduser);
           axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/superadministrator/api/delete_userOradmin/'+iduser+'/',{headers})
           .then((response) => {
-              console.log(response);
+              //console.log(response);
               window.location.href = "/superadmin/administrarperfiles";
           })
           .catch((error) => {

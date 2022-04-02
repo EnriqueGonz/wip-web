@@ -18,9 +18,9 @@ const FragmentAdminPerfiles = () =>{
               full_name:""
           },{headers})
           .then((response) => {
-              console.log(response.data)
+              //console.log(response.data)
               if(response.status === 204){
-                  console.log(response.statusText);
+                  //console.log(response.statusText);
               }else{
                 setList(response.data);
               }
@@ -40,9 +40,9 @@ const FragmentAdminPerfiles = () =>{
               full_name:document.getElementById("BuscarNombre").value,
           },{headers})
           .then((response) => {
-              console.log(response.data)
+              //console.log(response.data)
               if(response.status === 204){
-                console.log(response.statusText);
+                //console.log(response.statusText);
                 }else{
                 setList(response.data);
                 }
