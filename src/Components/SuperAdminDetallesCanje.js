@@ -49,8 +49,7 @@ const SuperAdminDetallesCanje = () =>{
         try {
           axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/specific/'+idorder+'/',{ headers })
           .then((response) => {
-            
-            setList2(response.data[0][0]);
+            setList2(response.data[0][0][0]);
             setList(response.data[0][2][0]);
             setList3(response.data[0][1][0]);
             if(response.data[0][0].status === 'Pendiente' ||  response.data[0][0].status === 'En camino'){
@@ -75,7 +74,8 @@ const SuperAdminDetallesCanje = () =>{
       }
 
       function methodCancelCanje() {
-        axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/cancel/'+idorder+'/',{headers})
+        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/cancel-an-order/'+idorder+'/',{
+        },{headers})
         .then((response) => {
             //console.log(response);
             window.location.href = "/superadmin/lista-pedidos/";

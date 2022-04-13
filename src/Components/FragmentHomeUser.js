@@ -107,7 +107,7 @@ const FragmentHomeUser = () =>{
         try {
           axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/inbox/api/notifications/'+id_usuario+'/',{ headers })
           .then((response) => {
-            //console.log(response.data)
+              console.log(response.data);
             numNotificaciones = response.data[1][0]["unread_notifications: "];
             setlistNotificaciones(response.data[0])
           })
@@ -202,7 +202,6 @@ const FragmentHomeUser = () =>{
         try {
             axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/inbox/api/delete_notifications/'+id+'/',{ headers })
             .then((response) => {
-              console.log(response)
               ActualizarNotificaciones();
             })
             .catch((error) => {
@@ -217,7 +216,6 @@ const FragmentHomeUser = () =>{
       function ActualizarNotificaciones() {
         axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/inbox/api/notifications/'+id_usuario+'/',{ headers })
           .then((response) => {
-            console.log(response.data)
             numNotificaciones = response.data[1][0]["unread_notifications: "];
             setlistNotificaciones(response.data[0])
           })
@@ -228,15 +226,14 @@ const FragmentHomeUser = () =>{
 
     function readNotificacion(id,idorder){
         console.log(id)
-        axios.put('https://wishesinpoints.herokuapp.com/inbox/api/mark_read_notifications/'+id+'/',{},{headers})
-          .then((response) => {
-            console.log(response)
-            window.location.href = '/detallescanje/'+idorder
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-    }
+        axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/inbox/api/mark_read_notifications/'+id+'/')
+            .then((response) => {
+                window.location.href = '/detallescanje/'+idorder
+            })
+            .catch((error) => {
+            console.log(error.response);
+            });
+}
     
 
     return(    
@@ -274,16 +271,31 @@ const FragmentHomeUser = () =>{
                             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 {listNotificaciones.map((item,index) => (
                                     <div key={index}>
-                                        <div className='row'>
-                                            <div className='col-10'>
-                                                <button style={{whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}} className="btn dropdown-item" onClick = {() => { readNotificacion(item.id,item.actor_object_id)} }>{item.description}</button>
+                                        {
+                                        item.unread === true
+                                        ? <div>
+                                                <div className='row'>
+                                                    <div className='col-10'>
+                                                        <button style={{whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}} className="btn dropdown-item" onClick = {() => { readNotificacion(item.id,item.actor_object_id)} }>{item.description}</button>
+                                                    </div>
+                                                    <div className='col-2'>
+                                                        <button className='btn'  onClick = {() => { delNotificacion(item.id)} }><MdDelete className='btnDel' style={{width:"100%",fontSize:24}}></MdDelete></button>
+                                                        
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className='col-2'>
-                                                <button className='btn'  onClick = {() => { delNotificacion(item.id)} }><MdDelete className='btnDel' style={{width:"100%",fontSize:24}}></MdDelete></button>
-                                                
+                                        : <div style={{backgroundColor:"beige"}} >
+                                                <div className='row'>
+                                                    <div className='col-10'>
+                                                        <button style={{whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}} className="btn dropdown-item" onClick = {() => { readNotificacion(item.id,item.actor_object_id)} }>{item.description}</button>
+                                                    </div>
+                                                    <div className='col-2'>
+                                                        <button className='btn'  onClick = {() => { delNotificacion(item.id)} }><MdDelete className='btnDel' style={{width:"100%",fontSize:24}}></MdDelete></button>
+                                                        
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        
+                                        }
                                     </div>
                                 ))}
                             </div>

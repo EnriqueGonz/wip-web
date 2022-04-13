@@ -49,7 +49,7 @@ const FragmentDetalleCanje = () =>{
             <div>
                 <div className="nav_list">
                     <a href="/home/" className="nav_link"> <i className='bx bx-home nav_icon'></i></a>
-                    <a href="/regalos/" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-gift bx-tada nav_icon'></i></a> 
+                    <a href="/misregalos/" style={{color:"blueviolet"}} className="nav_link"> <i className='bx bx-gift bx-tada nav_icon'></i></a> 
                     <a href="/miperfil/" className="nav_link"> <i className='bx bx-user nav_icon'></i></a> 
                     <a href="/misdirecciones/" className="nav_link"> <i className='bx bx-directions nav_icon' ></i> </a> 
                     <a href="/logout/" className="nav_link"> <i className='bx bx-log-out-circle nav_icon'></i></a> 

@@ -57,7 +57,7 @@ const RestorePassword = () => {
                                 <Form onSubmit={handleSubmit}>
                                     <Form.Group className="mb-3" controlId="email">
                                         <Form.Label>Ingresa tu nueva contraseña:</Form.Label>
-                                        <Form.Control style={{ backgroundColor: "white", color: "black", borderRadius: 20 }} required name="password" type='text' value={inputs.password} onChange={handleChange} />
+                                        <Form.Control style={{ backgroundColor: "white", color: "black", borderRadius: 20 }} required name="password" type='password' value={inputs.password} onChange={handleChange} />
                                     </Form.Group>
                                     
                                     <Button style={{float:"right",borderRadius:15}} variant="danger" type="button" onClick={handleSubmit}>

@@ -52,7 +52,7 @@ const SuperAdminRegalos = () =>{
               campaign_name:""
           },{ headers })
           .then((response) => {
-            //console.log(response.data);
+            console.log(response.data);
             setList(response.data);
 
           })
@@ -144,7 +144,7 @@ const SuperAdminRegalos = () =>{
                             <MdStars style={{fontSize:28,color:"#7B3E90"}}/>{item[2][0]["points"]}
                         </td>
                         <td>
-                            Empleado #{item[0][0]["user_id"]}
+                            {item[3][0]["first_name"]}
                         </td>
                         <td>
                             {item[0][0]["order_date"]}

@@ -7,7 +7,7 @@ const uuid = localStorage.getItem('uuid');
 const rtoken = localStorage.getItem('rtoken');
 const id_product = localStorage.getItem('producto');
 var id_usuario = localStorage.getItem('id_user_invitacion');
-const baseurl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/';
+const baseurl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com';
 
 
 const giftUrl = baseurl + '/products/api/specific_product/' + id_product + '/';
@@ -299,7 +299,7 @@ const FragmentProductSpecific = () => {
 
                 <div className="container" style={{ paddingRight: 0, textAlign: "right" }}>
                   <br></br>
-                  <Button style={{ marginRight: 10 }} variant="secondary" onClick={event => window.location.href = '/catalogo'}>Regresar</Button>
+                  <Button style={{ marginRight: 10 }} variant="secondary" onClick={event =>  window.location.href='/Reedem/'+uuid+'/'+rtoken}>Regresar</Button>
                   <Button variant="danger" onClick={postPedido}>Escoge este regalo</Button>
                   <p id='alertaCosto' style={{display:"none",color:"red"}}>No cuenta con los puntos suficientes</p>
                 </div><br />

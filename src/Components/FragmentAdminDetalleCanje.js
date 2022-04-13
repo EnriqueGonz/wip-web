@@ -18,20 +18,16 @@ const FragmentAdminDetalleCanje = () =>{
     var { idorder } = useParams(); // params
     const [list, setList] = useState([]);
     const [list2, setList2] = useState([]);
+    const [listUser, setlistUser] = useState([]);
 
-    /*
-    function methodName(id) {
-        console.log(id);
-        //window.location.href = "/cancelarcanje/"+id;
-      }
-      */
 
     useEffect(() =>{  
         try {
           axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/specific/'+idorder+'/',{ headers })
           .then((response) => {
-            setList2(response.data[0][0]);
+            setList2(response.data[0][0][0]);
             setList(response.data[0][2][0]);
+            setlistUser(response.data[0][3][0])
             
           })
           .catch((error) => {
@@ -41,7 +37,7 @@ const FragmentAdminDetalleCanje = () =>{
         } catch (error) {
           console.log(' . ', error);
         }// eslint-disable-next-line react-hooks/exhaustive-deps
-      },[setList],[setList2])
+      },[setList],[setList2],[setlistUser])
 
     return(    
         <>
@@ -76,7 +72,7 @@ const FragmentAdminDetalleCanje = () =>{
         </div>
         <div className="container">
             <div>
-            <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Canjeado por: </b>Empleado #{list2.user_id}</p>
+            <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Canjeado por: </b>{listUser.first_name + ' '+listUser.last_name}</p>
                 <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Fecha de canje: </b>{list2.order_date}</p>
                 <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Fecha de entrega: </b>{list2.date_delivery}</p>
                 <p style={{fontSize:"1.5rem", fontWeight: 300,paddingTop:15}}><b style={{fontWeight: 700}}>Status: </b>{list2.status}</p>

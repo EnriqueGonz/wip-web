@@ -6,6 +6,9 @@ import { MdStars } from 'react-icons/md';
 const giftUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/get_catalog/';
 var id = localStorage.getItem('id_user_invitacion');
 
+var uuid = localStorage.getItem('uuid');
+var rtoken = localStorage.getItem('rtoken');
+
 
 
 class FragmentCatalog extends Component {    
@@ -39,15 +42,24 @@ class FragmentCatalog extends Component {
             <div>
             <div>
 
-                <h6>Productos disponibles</h6>
+                <div className='row'>
+                    <div className='col'>
+                        <h3 style={{margin:40}}>Productos disponibles</h3>
+                    </div>
+                    <div className='col'>
+                        <div style={{padding:40}}>
+                            <button className='btn' style={{float:"right",backgroundColor:"#DC3545",color:"white"}} onClick={event =>  window.location.href='/Reedem/'+uuid+'/'+rtoken}>Volver</button>
+                        </div>
+                    </div>
+                </div>
 
-                <div>
+                <div style={{paddingBottom:40}}>
                     <div className="grid-container-products">
                         {this.state.products.map(p =>
                         <Button style={{backgroundColor:"transparent", borderColor:"black",color:"black"}} className="content-product card__content" onClick={() => this.redirection(p.id)}>
                             <div key={p.id}>
                             <div style={{textAlign:"center"}}>
-                                <img style={{width:"50%", height:160}} src={ imguRL + p.image } alt="products"></img>
+                                <img style={{width:200, height:200}} src={ imguRL + p.image } alt="products"></img>
                             </div>
                             <div>
                                 <Row>

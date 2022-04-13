@@ -150,7 +150,7 @@ const FragmentLogin = () => {
             <Form onSubmit={submitSetpassword}>
                 <Form.Group className="mb-3" controlId="email">
                     <Form.Label>Contraseña actual:</Form.Label>
-                    <Form.Control style={{ backgroundColor: "#FFF", color: "#000", borderRadius: 20 }} required name="oldpassword" value={inputs.oldpassword} onChange={handleChange} />
+                    <Form.Control type="password" style={{ backgroundColor: "#FFF", color: "#000", borderRadius: 20 }} required name="oldpassword" value={inputs.oldpassword} onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="password">

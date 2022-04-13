@@ -86,7 +86,7 @@ const FragmentAdminRegalos = () =>{
                             {item[0][0]["order_date"]}
                         </td>
                         <td>
-                            Empleado #{item[0][0]["user_id"]}
+                            {item[3][0]["first_name"]}
                         </td>
                         <td >
                             <MdStars style={{fontSize:28,color:"#7B3E90"}}/>{item[2][0]["points"]}

@@ -68,7 +68,6 @@ const SuperAdminListaPlantillas = () =>{
             template_name:"",
           },{headers})
           .then((response) => {
-              //console.log(response.data)
               setList(response.data);
           })
           .catch((error) => {
