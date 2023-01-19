@@ -3,6 +3,8 @@ import { Form,Button,Row,Col,Modal } from 'react-bootstrap';
 import axios from 'axios';
 import MenuSuperAdmin from './MenuSuperAdmin';
 
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 var token = localStorage.getItem('tokenSuperAdmin');
 
@@ -34,7 +36,7 @@ const SuperAdminAddUser = () =>{
 
 
     const handleSubmit = (event) => {
-      axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/register-admin/win/',{
+      axios.post(baseUrl+'/users/api/register-admin/win/',{
         first_name:inputs.first_name,
         last_name:inputs.last_name,
         email:inputs.email,
@@ -61,7 +63,7 @@ const SuperAdminAddUser = () =>{
         let formData = new FormData();
         formData.append('pathfile', selectedFile)
 
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/uploadfiles/api/upload-customer/', 
+        axios.post(baseUrl+'/uploadfiles/api/upload-customer/', 
         formData    
         ,{headers})
         .then((response) => {

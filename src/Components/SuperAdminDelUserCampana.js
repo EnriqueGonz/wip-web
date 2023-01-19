@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Form,Toast,ToastContainer } from 'react-bootstrap';
 import MenuSuperAdmin from './MenuSuperAdmin';
 import { MdOutlineLocalPolice,MdPerson } from 'react-icons/md';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 var token = localStorage.getItem('tokenSuperAdmin');
 
@@ -23,7 +25,7 @@ const SuperAdminDelUserCampana = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/super-admin/all-campaigns/1/',{
+          axios.post(baseUrl+'/usercampaigns/api/super-admin/all-campaigns/1/',{
             campaign_name:""
           },{ headers })
           .then((response) => {
@@ -45,7 +47,7 @@ const SuperAdminDelUserCampana = () =>{
       
 
     function BuscarPorCampana(evt) {
-        axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/users-belonging-to-campaign-all/'+document.getElementById('selectCategoriaBuscar').value+'/',{headers})
+        axios.get(baseUrl+'/usercampaigns/api/users-belonging-to-campaign-all/'+document.getElementById('selectCategoriaBuscar').value+'/',{headers})
           .then((response) => {
               //console.log(response)
               setList(response.data);
@@ -68,7 +70,7 @@ const SuperAdminDelUserCampana = () =>{
         var checkboxes = document.getElementsByName('foo');
         for(var i=0, n=checkboxes.length;i<n;i++) {
             if(checkboxes[i].checked === true){
-                axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/delete/',{
+                axios.post(baseUrl+'/usercampaigns/api/delete/',{
                 campaign_id:document.getElementById('selectCategoriaBuscar').value,
                 user_id:checkboxes[i].value,
                 },{headers})

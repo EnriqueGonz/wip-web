@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Button,Row,Col } from 'react-bootstrap';
 import { MdStars } from 'react-icons/md';
+import '../config';
 
-const giftUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/get_catalog/';
+var baseUrl = global.config.wishes.inPoints.url;
 var id = localStorage.getItem('id_user_invitacion');
 
 var uuid = localStorage.getItem('uuid');
@@ -23,7 +24,7 @@ class FragmentCatalog extends Component {
     }
 
     componentDidMount() {
-        axios.post(giftUrl+id+"/",{
+        axios.post(baseUrl+'/products/api/get_catalog/'+id+"/",{
             product_name: '',
         })
             .then(res => {

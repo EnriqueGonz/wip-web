@@ -3,6 +3,8 @@ import { Modal,Button,Form,Col,Row } from 'react-bootstrap';
 import axios from 'axios';
 import { MdEdit,MdDelete,MdSearch } from 'react-icons/md';
 import MenuSuperAdmin from './MenuSuperAdmin';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 var token = localStorage.getItem('tokenSuperAdmin');
 
@@ -51,7 +53,7 @@ const SuperAdminListCampaings = () =>{
     
     useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/get_list/',{
+          axios.post(baseUrl+'/brands/api/get_list/',{
             brand_name:""
           },{ headers })
           .then((response) => {
@@ -69,7 +71,7 @@ const SuperAdminListCampaings = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/plantillas/api/get_list/',{
+          axios.post(baseUrl+'/plantillas/api/get_list/',{
             template_name:""
           },{ headers })
           .then((response) => {
@@ -87,7 +89,7 @@ const SuperAdminListCampaings = () =>{
 
     useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/super-admin/all-campaigns/1/',{
+          axios.post(baseUrl+'/usercampaigns/api/super-admin/all-campaigns/1/',{
             campaign_name:"",
           },{headers})
           .then((response) => {
@@ -108,7 +110,7 @@ const SuperAdminListCampaings = () =>{
       },[setList])
 
       function BuscarPorNombre() {
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/super-admin/all-campaigns/1/',{
+        axios.post(baseUrl+'/usercampaigns/api/super-admin/all-campaigns/1/',{
             campaign_name:document.getElementById("BuscarNombre").value,
           },{headers})
           .then((response) => {
@@ -133,7 +135,7 @@ const SuperAdminListCampaings = () =>{
       }
 
       function methodDelCampana() {
-        axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/campaigns/api/delete/'+idCampana+'/',{headers})
+        axios.delete(baseUrl+'/campaigns/api/delete/'+idCampana+'/',{headers})
         .then((response) => {
             //console.log(response);
             window.location.href = "/superadmin/lista-campañas/";
@@ -146,7 +148,7 @@ const SuperAdminListCampaings = () =>{
 
     function methodModalUpdateCampana(id) {
         idCampana = id
-        axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/campaigns/api/specific/'+idCampana+'/',{headers})
+        axios.get(baseUrl+'/campaigns/api/specific/'+idCampana+'/',{headers})
         .then((response) => {
             //console.log(response.data[0].status);
             idmarca = response.data[0].brands_id;
@@ -166,7 +168,7 @@ const SuperAdminListCampaings = () =>{
 
       function methodUpdateCampana() {
 
-        axios.put("http://ec2-52-73-241-143.compute-1.amazonaws.com/campaigns/api/update/"+idCampana+"/", {
+        axios.put(baseUrl+"/campaigns/api/update/"+idCampana+"/", {
             brands: document.getElementById('selectMarca').value,
             plantillas: document.getElementById('selectPlantilla').value,
             campaign_name: inputs.campaign_name,

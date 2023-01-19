@@ -3,11 +3,9 @@ import { MdStars } from 'react-icons/md';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
 import MenuSuperAdmin from './MenuSuperAdmin';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
-
-const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/user_datas/';
-const baseUrl2 = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/super-admin/all-campaigns/';
-const baseUrl3 = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/get_index_orders/';
 
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 //npm i chart.js
@@ -99,7 +97,7 @@ const SuperAdminHome = () =>{
 
     useEffect(() =>{  
         try {
-          axios.get(baseUrl+username+'/',{ headers })
+          axios.get(baseUrl+'/users/api/user_datas/'+username+'/',{ headers })
           .then((response) => {
               //console.log(response);
             setList(response.data);
@@ -115,7 +113,7 @@ const SuperAdminHome = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post(baseUrl2+id_usuario+'/',{
+          axios.post(baseUrl+'/usercampaigns/api/super-admin/all-campaigns/'+id_usuario+'/',{
             campaign_name:""
           },{ headers })
           .then((response) => {
@@ -138,7 +136,7 @@ const SuperAdminHome = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post(baseUrl3+id_usuario+'/',{
+          axios.post(baseUrl+'/orders/api/get_index_orders/'+id_usuario+'/',{
               campaign_name:""
           },{ headers })
           .then((response) => {

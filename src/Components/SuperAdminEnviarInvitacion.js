@@ -2,6 +2,8 @@ import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 import { Form,Toast,ToastContainer } from 'react-bootstrap';
 import MenuSuperAdmin from './MenuSuperAdmin';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 
 var token = localStorage.getItem('tokenSuperAdmin');
@@ -23,7 +25,7 @@ const SuperAdminEnviarInvitacion = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/super-admin/all-campaigns/1/',{
+          axios.post(baseUrl+'/usercampaigns/api/super-admin/all-campaigns/1/',{
             campaign_name:""
           },{ headers })
           .then((response) => {
@@ -44,7 +46,7 @@ const SuperAdminEnviarInvitacion = () =>{
       
 
     function BuscarPorCampana(evt) {
-        axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/users-belonging-to-campaign/'+document.getElementById('selectCategoriaBuscar').value+'/',{headers})
+        axios.get(baseUrl+'/usercampaigns/api/users-belonging-to-campaign/'+document.getElementById('selectCategoriaBuscar').value+'/',{headers})
           .then((response) => {
               //console.log(response)
               setList(response.data);
@@ -66,7 +68,7 @@ const SuperAdminEnviarInvitacion = () =>{
         var checkboxes = document.getElementsByName('foo');
         for(var i=0, n=checkboxes.length;i<n;i++) {
             if(checkboxes[i].checked === true){
-                axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/emailer/api/sendgift/',{
+                axios.post(baseUrl+'/emailer/api/sendgift/',{
                 campaign_id:document.getElementById('selectCategoriaBuscar').value,
                 email:checkboxes[i].value,
                 },{headers})

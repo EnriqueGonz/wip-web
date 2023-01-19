@@ -11,6 +11,9 @@ import Pazul1 from '../images/Pazul.png';
 import Pregalo from '../images/Pregalo1.png';
 import Pliston from '../images/Pliston.png';
 
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
+
 
 var filter_primary_color = "";
 var filter_secundary_color = "";
@@ -91,7 +94,7 @@ const SuperAdminAddPlantilla = () =>{
         formData.append('description', inputsPlantilla.description)
         
         
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/plantillas/api/register/', 
+        axios.post(baseUrl+'/plantillas/api/register/', 
         formData    
         ,{headers})
         .then((response) => {

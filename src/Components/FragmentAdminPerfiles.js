@@ -2,8 +2,11 @@ import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 import { MdStars,MdSearch } from 'react-icons/md';
 import MenuAdmin from './MenuAdmin';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 var token = localStorage.getItem('tokenAdmin');
+
 
 const headers = {
     'Content-Type': 'application/json',
@@ -14,7 +17,7 @@ const FragmentAdminPerfiles = () =>{
     const [list, setList] = useState([]);
     useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/admin-campaign-users/',{
+          axios.post(baseUrl+'/usercampaigns/api/admin-campaign-users/',{
               full_name:""
           },{headers})
           .then((response) => {
@@ -36,7 +39,7 @@ const FragmentAdminPerfiles = () =>{
       },[setList])
 
       function BuscarPorNombre() {
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/admin-campaign-users/',{
+        axios.post(baseUrl+'/usercampaigns/api/admin-campaign-users/',{
               full_name:document.getElementById("BuscarNombre").value,
           },{headers})
           .then((response) => {

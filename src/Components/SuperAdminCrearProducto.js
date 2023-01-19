@@ -2,7 +2,8 @@ import React, {useState,useEffect} from 'react';
 import { Form,Button,Row,Col,Modal } from 'react-bootstrap';
 import axios from 'axios';
 import MenuSuperAdmin from './MenuSuperAdmin';
-
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 var token = localStorage.getItem('tokenSuperAdmin');
 
@@ -42,7 +43,7 @@ const SuperAdminCrearProducto = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/categories/api/get_list/',{
+          axios.post(baseUrl+'/categories/api/get_list/',{
             category_name:""
           },{ headers })
           .then((response) => {
@@ -60,7 +61,7 @@ const SuperAdminCrearProducto = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/super-admin/all-campaigns/1/',{
+          axios.post(baseUrl+'/usercampaigns/api/super-admin/all-campaigns/1/',{
             campaign_name:""
           },{ headers })
           .then((response) => {
@@ -103,7 +104,7 @@ const SuperAdminCrearProducto = () =>{
             formData.append('amount', inputs.amount)
             formData.append('status', inputs.amount)
 
-            axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/register/', 
+            axios.post(baseUrl+'/products/api/register/', 
             formData    
             ,{headers})
             .then((response) => {
@@ -125,7 +126,7 @@ const SuperAdminCrearProducto = () =>{
       let formData = new FormData();
       formData.append('pathfile', selectedFile)
 
-      axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/uploadfiles/api/upload-products/', 
+      axios.post(baseUrl+'/uploadfiles/api/upload-products/', 
       formData    
       ,{headers})
       .then((response) => {

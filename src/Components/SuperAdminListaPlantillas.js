@@ -6,6 +6,9 @@ import { PhotoshopPicker   } from 'react-color';
 import MenuSuperAdmin from './MenuSuperAdmin';
 import { hexToCSSFilter } from 'hex-to-css-filter';
 
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
+
 
 var token = localStorage.getItem('tokenSuperAdmin');
 let avatar ="";
@@ -64,7 +67,7 @@ const SuperAdminListaPlantillas = () =>{
 
     useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/plantillas/api/get_list/',{
+          axios.post(baseUrl+'/plantillas/api/get_list/',{
             template_name:"",
           },{headers})
           .then((response) => {
@@ -80,7 +83,7 @@ const SuperAdminListaPlantillas = () =>{
       },[setList])
 
       function BuscarPorNombre() {
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/plantillas/api/get_list/',{
+        axios.post(baseUrl+'/plantillas/api/get_list/',{
             template_name:document.getElementById("BuscarNombre").value,
           },{headers})
           .then((response) => {
@@ -102,7 +105,7 @@ const SuperAdminListaPlantillas = () =>{
       }
 
       function methodDelPlantilla() {
-        axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/plantillas/api/delete/'+idplantilla+'/',{headers})
+        axios.delete(baseUrl+'/plantillas/api/delete/'+idplantilla+'/',{headers})
         .then((response) => {
             //console.log(response);
             window.location.href = "/superadmin/lista-Plantillas/";
@@ -117,7 +120,7 @@ const SuperAdminListaPlantillas = () =>{
         idplantilla = id
         try {
 
-            axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/plantillas/api/specific/'+idplantilla+'/',{headers})
+            axios.get(baseUrl+'/plantillas/api/specific/'+idplantilla+'/',{headers})
             .then((response) => {
                 //console.log(response.data);
                 setinputsPlantilla(response.data[0])
@@ -163,7 +166,7 @@ const SuperAdminListaPlantillas = () =>{
 
         formData.append('description', inputsPlantilla.description)
 
-            axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/plantillas/api/update/'+idplantilla+'/', 
+            axios.put(baseUrl+'/plantillas/api/update/'+idplantilla+'/', 
             formData    
             ,{headers})
             .then((response) => {

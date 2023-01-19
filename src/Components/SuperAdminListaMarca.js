@@ -3,6 +3,8 @@ import { Form,Button,Row,Col,Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { MdEdit,MdDelete,MdSearch } from 'react-icons/md';
 import MenuSuperAdmin from './MenuSuperAdmin';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 var token = localStorage.getItem('tokenSuperAdmin');
 let idmarca ="";
@@ -37,7 +39,7 @@ const SuperAdminListaMarca = () =>{
 
     useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/get_list/',{
+          axios.post(baseUrl+'/brands/api/get_list/',{
             brand_name:"",
           },{headers})
           .then((response) => {
@@ -74,7 +76,7 @@ const SuperAdminListaMarca = () =>{
         formData.append('brand_name', inputsMarca.brand_name)
         formData.append('description', inputsMarca.description)
         
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/register/', 
+        axios.post(baseUrl+'/brands/api/register/', 
         formData    
         ,{headers})
         .then((response) => {
@@ -93,7 +95,7 @@ const SuperAdminListaMarca = () =>{
       }
 
       function BuscarPorNombre() {
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/get_list/',{
+        axios.post(baseUrl+'/brands/api/get_list/',{
             brand_name:document.getElementById("BuscarNombre").value,
           },{headers})
           .then((response) => {
@@ -113,7 +115,7 @@ const SuperAdminListaMarca = () =>{
       }
 
       function methodDelMarca() {
-        axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/delete/'+idmarca+'/',{headers})
+        axios.delete(baseUrl+'/brands/api/delete/'+idmarca+'/',{headers})
         .then((response) => {
             //console.log(response);
             window.location.href = "/superadmin/lista-Marcas/";
@@ -126,7 +128,7 @@ const SuperAdminListaMarca = () =>{
     function methodModalUpdateMarca(id) {
         idmarca = id
         try {
-            axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/specific/'+id+'/',{headers})
+            axios.get(baseUrl+'/brands/api/specific/'+id+'/',{headers})
             .then((response) => {
                 //console.log(response.data);
                 setinputsMarca(response.data[0])
@@ -150,7 +152,7 @@ const SuperAdminListaMarca = () =>{
         formData.append('brand_name', inputsMarca.brand_name)
         formData.append('description', inputsMarca.description)
 
-            axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/update/'+idmarca+'/', 
+            axios.put(baseUrl+'/brands/api/update/'+idmarca+'/', 
             formData    
             ,{headers})
             .then((response) => {

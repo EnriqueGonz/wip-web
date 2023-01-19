@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import MenuSuperAdmin from './MenuSuperAdmin';
 import { Modal,Button } from 'react-bootstrap';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 var token = localStorage.getItem('tokenSuperAdmin');
 
@@ -30,7 +32,7 @@ const SuperAdminDetallesCanje = () =>{
 
     useEffect(() =>{  
         try {
-          axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/superadministrator/api/get-user/'+iduser+'/',{ headers })
+          axios.get(baseUrl+'/superadministrator/api/get-user/'+iduser+'/',{ headers })
           .then((response) => {
             //console.log(response.data); 
             setlistUserData(response.data[0][0])
@@ -47,7 +49,7 @@ const SuperAdminDetallesCanje = () =>{
 
     useEffect(() =>{  
         try {
-          axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/specific/'+idorder+'/',{ headers })
+          axios.get(baseUrl+'/orders/api/specific/'+idorder+'/',{ headers })
           .then((response) => {
             setList2(response.data[0][0][0]);
             setList(response.data[0][2][0]);
@@ -74,7 +76,7 @@ const SuperAdminDetallesCanje = () =>{
       }
 
       function methodCancelCanje() {
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/cancel-an-order/'+idorder+'/',{
+        axios.post(baseUrl+'/orders/api/cancel-an-order/'+idorder+'/',{
         },{headers})
         .then((response) => {
             //console.log(response);
@@ -87,7 +89,7 @@ const SuperAdminDetallesCanje = () =>{
 
     function setDateDelivery(){
 
-        axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/change_status/'+idorder+'/',{
+        axios.put('baseUrl+/orders/api/change_status/'+idorder+'/',{
             date_delivery: document.getElementById('fechaEntrega').value+' 19:48:28.182647-05',
             status:document.getElementById('selectStatus').value
         },{headers})

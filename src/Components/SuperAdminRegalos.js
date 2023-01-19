@@ -3,6 +3,8 @@ import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 import { Form } from 'react-bootstrap';
 import MenuSuperAdmin from './MenuSuperAdmin';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 var token = localStorage.getItem('tokenSuperAdmin');
 
@@ -26,7 +28,7 @@ const SuperAdminRegalos = () =>{
 
     useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/super-admin/all-campaigns/1/',{
+          axios.post(baseUrl+'/usercampaigns/api/super-admin/all-campaigns/1/',{
             campaign_name:""
           },{ headers })
           .then((response) => {
@@ -48,7 +50,7 @@ const SuperAdminRegalos = () =>{
 
     useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/get_index_orders/1/',{
+          axios.post(baseUrl+'/orders/api/get_index_orders/1/',{
               campaign_name:""
           },{ headers })
           .then((response) => {
@@ -67,7 +69,7 @@ const SuperAdminRegalos = () =>{
 
       function BuscarPorCampana(evt) {
         
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/get_index_orders/1/',{
+        axios.post(baseUrl+'/orders/api/get_index_orders/1/',{
             campaign_name:document.getElementById('selectCampanaBuscar').value
           },{headers})
           .then((response) => {

@@ -9,8 +9,11 @@ import Pazul1 from '../images/Pazul.png';
 import Pregalo from '../images/Pregalo1.png';
 import Pliston from '../images/Pliston.png';
 
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
+
 var bolean = false;
-const giftUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/products/gift/';
+
 const headers = {
     'Content-Type': 'application/json',
 };
@@ -29,7 +32,7 @@ const FragmentReedem = () =>{
   var { rtoken } = useParams(); // params 
   useEffect(() =>{  
     try {
-      axios.get(giftUrl + uuid + '/' + rtoken + '/', { headers })
+      axios.get(baseUrl+'/products/gift/' + uuid + '/' + rtoken + '/', { headers })
       .then((response) => {
           if(response.status === 204){
             bolean = true;

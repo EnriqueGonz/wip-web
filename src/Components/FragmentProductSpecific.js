@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Button, Row, Col, Modal, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { MdStars, MdAdd, MdRemove } from 'react-icons/md';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 const uuid = localStorage.getItem('uuid');
 const rtoken = localStorage.getItem('rtoken');
 const id_product = localStorage.getItem('producto');
-var id_usuario = localStorage.getItem('id_user_invitacion');
-const baseurl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com';
+var id_usuario = localStorage.getItem('id_user_invitacion');;
 
 
-const giftUrl = baseurl + '/products/api/specific_product/' + id_product + '/';
-const url = baseurl + '/products/gift/' + uuid + '/' + rtoken + '/';
+
+
 const headers = {
   'Content-Type': 'application/json',
 };
@@ -80,7 +81,7 @@ const FragmentProductSpecific = () => {
   };
 
   useEffect(() => {
-    axios.get(giftUrl, { headers })
+    axios.get(baseUrl + '/products/api/specific_product/' + id_product + '/', { headers })
       .then((response) => {
         product_id = response.data[0]["id"];
         campana_id = response.data[0]["campaigns_id"];
@@ -94,7 +95,7 @@ const FragmentProductSpecific = () => {
   }, [setList]);
 
   useEffect(() => {
-    axios.get(url, { headers })
+    axios.get(baseUrl + '/products/gift/' + uuid + '/' + rtoken + '/', { headers })
       .then((response) => {
         user_id = response.data[0][0]["id"];
         user_points = response.data[0][0]["points"];
@@ -114,7 +115,7 @@ const FragmentProductSpecific = () => {
 
 
   const handleSubmit = (event) => {
-    axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/useraddresses/api/register/', {
+    axios.post(baseUrl+'/useraddresses/api/register/', {
       user: id_usuario,
       first_name: inputs.avenida,
       last_name: "",
@@ -154,7 +155,7 @@ const FragmentProductSpecific = () => {
       document.getElementById('alerta').style.display = 'none'
       if(costo <= user_points){
         document.getElementById('alertaCosto').style.display = 'none'
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/order/', {
+        axios.post(baseUrl+'/orders/api/order/', {
         user: user_id,
         useraddresses: user_address,
         campaigns: campana_id,

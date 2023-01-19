@@ -3,6 +3,8 @@ import { Form,Button,Row,Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import MenuSuperAdmin from './MenuSuperAdmin';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 var token = localStorage.getItem('tokenSuperAdmin');
 
@@ -31,7 +33,7 @@ const SuperAdminCrearCampana = () =>{
 
     useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/brands/api/get_list/',{
+          axios.post(baseUrl+'/brands/api/get_list/',{
             brand_name:""
           },{ headers })
           .then((response) => {
@@ -49,7 +51,7 @@ const SuperAdminCrearCampana = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/plantillas/api/get_list/',{
+          axios.post(baseUrl+'/plantillas/api/get_list/',{
             template_name:""
           },{ headers })
           .then((response) => {
@@ -74,7 +76,7 @@ const SuperAdminCrearCampana = () =>{
         console.log(document.getElementById('selectPlantilla').value);
         console.log(document.getElementById('selectStatus').value);
         
-        axios.post("http://ec2-52-73-241-143.compute-1.amazonaws.com/campaigns/api/register/", {
+        axios.post(baseUrl+"/campaigns/api/register/", {
             brands: document.getElementById('selectMarca').value,
             plantillas: document.getElementById('selectPlantilla').value,
             campaign_name: inputs.campaign_name,

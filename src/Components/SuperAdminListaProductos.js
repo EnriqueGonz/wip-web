@@ -3,6 +3,8 @@ import { Modal,Button,Form,Col,Row } from 'react-bootstrap';
 import axios from 'axios';
 import { MdEdit,MdDelete,MdSearch } from 'react-icons/md';
 import MenuSuperAdmin from './MenuSuperAdmin';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 var token = localStorage.getItem('tokenSuperAdmin');
 let imgProducto ="";
@@ -56,7 +58,7 @@ const SuperAdminListaProductos = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/categories/api/get_list/',{
+          axios.post(baseUrl+'/categories/api/get_list/',{
             category_name:""
           },{ headers })
           .then((response) => {
@@ -73,7 +75,7 @@ const SuperAdminListaProductos = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/super-admin/all-campaigns/1/',{
+          axios.post(baseUrl+'/usercampaigns/api/super-admin/all-campaigns/1/',{
             campaign_name:""
           },{ headers })
           .then((response) => {
@@ -96,7 +98,7 @@ const SuperAdminListaProductos = () =>{
 
     useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/all_products/1/',{
+          axios.post(baseUrl+'/products/api/all_products/1/',{
             campaign_name:"",
             product_name:"",
           },{headers})
@@ -113,7 +115,7 @@ const SuperAdminListaProductos = () =>{
       },[setList])
 
       function BuscarPorNombre() {
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/all_products/1/',{
+        axios.post(baseUrl+'/products/api/all_products/1/',{
             product_name:document.getElementById("BuscarNombre").value,
             campaign_name:"",
           },{headers})
@@ -127,7 +129,7 @@ const SuperAdminListaProductos = () =>{
 
     function BuscarPorCampana(evt) {
         
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/all_products/1/',{
+        axios.post(baseUrl+'/products/api/all_products/1/',{
             product_name:"",
             campaign_name:document.getElementById('selectCategoriaBuscar').value,
           },{headers})
@@ -148,7 +150,7 @@ const SuperAdminListaProductos = () =>{
       }
 
       function methodDelProducto() {
-        axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/delete/'+idproducto+'/',{headers})
+        axios.delete(baseUrl+'/products/api/delete/'+idproducto+'/',{headers})
         .then((response) => {
             window.location.href = "/superadmin/lista-productos";
         })
@@ -163,7 +165,7 @@ const SuperAdminListaProductos = () =>{
         imgProducto = imagen;
         try {
 
-            axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/specific_product/'+idproducto+'/',{headers})
+            axios.get(baseUrl+'/products/api/specific_product/'+idproducto+'/',{headers})
             .then((response) => {
                 
                 setInputs(response.data[0])
@@ -196,7 +198,7 @@ const SuperAdminListaProductos = () =>{
         formData.append('brands', "3")
     
 
-        axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/update/'+idproducto+'/', 
+        axios.put(baseUrl+'/products/api/update/'+idproducto+'/', 
         formData    
         ,{headers})
         .then((response) => {
@@ -281,7 +283,7 @@ const SuperAdminListaProductos = () =>{
                                         {
                                             (item.image) === '' 
                                             ? <img style={{width:50}} alt='' src="https://wishesinpointsbucket.s3.amazonaws.com/assets/ProfilePic1.jpg"></img>
-                                            : <img style={{width:50}} alt='' src={'https://wishesinpointsbucket.s3.amazonaws.com/'+item.image}></img>
+                                            : <img style={{width:50,height:50,objectFit:"cover"}} alt='' src={'https://wishesinpointsbucket.s3.amazonaws.com/'+item.image}></img>
                                         }
                                     </td>
                                     <td>

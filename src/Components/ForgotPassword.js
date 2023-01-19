@@ -2,6 +2,8 @@ import { Form, Button,Modal } from 'react-bootstrap';
 import React, { useState } from 'react';
 import axios from 'axios'; // npm install axios
 import imgLogin from '../images/loginimg.png';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 
 
@@ -25,7 +27,7 @@ const ForgotPassword = () => {
 
 
     const handleSubmit = (event) => {
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/password_reset/api/request-reset/',{
+        axios.post(baseUrl+'/password_reset/api/request-reset/',{
             email: inputs.email,
         })
         .then((response) => {

@@ -3,6 +3,8 @@ import { Form,Button,Row,Col,Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { MdEdit,MdDelete } from 'react-icons/md';
 import MenuSuperAdmin from './MenuSuperAdmin';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 var token = localStorage.getItem('tokenSuperAdmin');
 let idcategoria ="";
@@ -36,7 +38,7 @@ const SuperAdminListaCategoria = () =>{
 
     useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/categories/api/get_list/',{
+          axios.post(baseUrl+'/categories/api/get_list/',{
             category_name:"",
           },{headers})
           .then((response) => {
@@ -60,7 +62,7 @@ const SuperAdminListaCategoria = () =>{
     }
 
     function methodPostCategoria(){
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/categories/api/register/',{
+        axios.post(baseUrl+'/categories/api/register/',{
             category_name:inputsCategoria.category_name,
             description:inputsCategoria.description
         },{headers})
@@ -82,7 +84,7 @@ const SuperAdminListaCategoria = () =>{
 
 
       function methodDelCategoria() {
-        axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/categories/api/delete/'+idcategoria+'/',{headers})
+        axios.delete(baseUrl+'/categories/api/delete/'+idcategoria+'/',{headers})
         .then((response) => {
             //console.log(response);
             window.location.href = "/superadmin/lista-Categorias/";
@@ -95,7 +97,7 @@ const SuperAdminListaCategoria = () =>{
     function methodModalUpdateCategoria(id) {
         idcategoria = id
         try {
-            axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/categories/api/specific/'+id+'/',{headers})
+            axios.get(baseUrl+'/categories/api/specific/'+id+'/',{headers})
             .then((response) => {
                 //console.log(response.data);
                 setinputsCategoria(response.data[0]);
@@ -110,7 +112,7 @@ const SuperAdminListaCategoria = () =>{
       }
 
       function methodUpdateCategoria() {
-          axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/categories/api/update/'+idcategoria+'/',{
+          axios.put(baseUrl+'/categories/api/update/'+idcategoria+'/',{
               category_name:inputsCategoria.category_name,
               description:inputsCategoria.description
           },{headers})

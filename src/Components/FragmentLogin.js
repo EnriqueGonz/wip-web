@@ -2,7 +2,8 @@ import { Form, Button,Modal } from 'react-bootstrap';
 import React, { useState } from 'react';
 import axios from 'axios'; // npm install axios
 import imgLogin from '../images/loginimg.png';
-
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 var username = '';
 
@@ -29,7 +30,7 @@ const FragmentLogin = () => {
 
 
     const handleSubmit = (event) => {
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/access/api/login/',{
+        axios.post(baseUrl+'/access/api/login/',{
             email: inputs.email,
             password: inputs.password
         })
@@ -73,7 +74,7 @@ const FragmentLogin = () => {
 
     
     const submitSetpassword = (event) => {
-        axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/password_reset/api/change-password-ft/'+username+'/',{
+        axios.put(baseUrl+'/password_reset/api/change-password-ft/'+username+'/',{
             old_password: inputs.oldpassword,
             new_password: inputs.newpassword
         })

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory, useParams } from "react-router-dom";
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
-const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/useraddresses/api/update/';
+
 var token = localStorage.getItem('token');
 var id_usuario = localStorage.getItem('id_usuario');
 var calle = "";
@@ -34,7 +36,7 @@ const FragmentUpdateDireccion = () => {
     useEffect(() => {
         console.log(iddireccion);
         try {
-            axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/useraddresses/api/specific/' + iddireccion + "/", { headers })
+            axios.get(baseUrl+'/useraddresses/api/specific/' + iddireccion + "/", { headers })
                 .then((response) => {
                     setInputs(response.data[0]);
 
@@ -59,7 +61,7 @@ const FragmentUpdateDireccion = () => {
 
 
     const handleSubmit = (event) => {
-        axios.put(baseUrl + iddireccion + "/", {
+        axios.put(baseUrl+'/useraddresses/api/update/' + iddireccion + "/", {
             user: id_usuario,
             first_name: inputs.first_name,
             last_name: "",

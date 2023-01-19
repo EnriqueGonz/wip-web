@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Modal, Button } from 'react-bootstrap';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
-const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/useraddresses/api/my_addresses/';
-const baseUrldel = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/useraddresses/api/delete/';
+
 var token = localStorage.getItem('token');
 var id_usuario = localStorage.getItem('id_usuario');
 var id_direccion = "";
@@ -21,7 +22,7 @@ const FragmentDirecciones = () => {
 
   useEffect(() => {
     try {
-      axios.get(baseUrl + id_usuario + '/', { headers })
+      axios.get(baseUrl+'/useraddresses/api/my_addresses/' + id_usuario + '/', { headers })
         .then((response) => {
           setListName(response.data);
         })
@@ -45,7 +46,7 @@ const FragmentDirecciones = () => {
   }
 
   function eliminar() {
-    axios.delete(baseUrldel + id_direccion + '/', { headers })
+    axios.delete(baseUrl+'/useraddresses/api/delete/' + id_direccion + '/', { headers })
       .then((response) => {
         //console.log(response);
         window.location.href = "/misdirecciones";

@@ -1,8 +1,11 @@
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 import MenuAdmin from './MenuAdmin';
+import '../config';
 
-const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/products/api/all_products/';
+var baseUrl = global.config.wishes.inPoints.url;
+
+
 
 var token = localStorage.getItem('tokenAdmin');
 var id_usuarioAdmin = localStorage.getItem('id_usuarioAdmin');
@@ -18,7 +21,7 @@ const FragmentAdminListaProductos = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post(baseUrl+id_usuarioAdmin+'/',{
+          axios.post(baseUrl+'/products/api/all_products/'+id_usuarioAdmin+'/',{
             product_name:"",
             campaign_name:""
           },{ headers })

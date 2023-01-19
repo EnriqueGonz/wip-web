@@ -3,8 +3,11 @@ import { MdStars } from 'react-icons/md';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
 import MenuAdmin from './MenuAdmin';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
+
 //npm i chart.js
 //npm install --save react-chartjs-2 chart.js
 //npm install react-color --save
@@ -93,7 +96,7 @@ const FragmentAdminHome = () =>{
 
     useEffect(() =>{  
         try {
-          axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/user_datas/'+username+'/',{ headers })
+          axios.get(baseUrl+'/users/api/user_datas/'+username+'/',{ headers })
           .then((response) => {
             setList(response.data);
           })
@@ -108,7 +111,7 @@ const FragmentAdminHome = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/campaigns/api/get_list/'+id_usuario+'/',{
+          axios.post(baseUrl+'/campaigns/api/get_list/'+id_usuario+'/',{
             campaign_name:""
           },{ headers })
           .then((response) => {
@@ -127,7 +130,7 @@ const FragmentAdminHome = () =>{
 
       useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/get_index_orders/'+id_usuario+'/',{
+          axios.post(baseUrl+'/orders/api/get_index_orders/'+id_usuario+'/',{
               campaign_name:""
           },{ headers })
           .then((response) => {

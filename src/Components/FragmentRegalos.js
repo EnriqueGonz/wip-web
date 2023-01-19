@@ -1,8 +1,10 @@
 import { MdStars } from 'react-icons/md';
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
-const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/get_index/';
+
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 
 var id_usuario = localStorage.getItem('id_usuario');
@@ -17,7 +19,7 @@ const FragmentProductDetails = () =>{
 
     useEffect(() =>{  
         try {
-          axios.get(baseUrl+id_usuario+'/')
+          axios.get(baseUrl+'/orders/api/get_index/'+id_usuario+'/')
           .then((response) => {
             //console.log(response.data);
             setList(response.data);

@@ -3,8 +3,11 @@ import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import MenuAdmin from './MenuAdmin';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
+
 
 var token = localStorage.getItem('tokenAdmin');
 
@@ -23,7 +26,7 @@ const FragmentAdminDetalleCanje = () =>{
 
     useEffect(() =>{  
         try {
-          axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/specific/'+idorder+'/',{ headers })
+          axios.get(baseUrl+'/orders/api/specific/'+idorder+'/',{ headers })
           .then((response) => {
             setList2(response.data[0][0][0]);
             setList(response.data[0][2][0]);

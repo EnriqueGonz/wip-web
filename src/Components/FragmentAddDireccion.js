@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
-const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/useraddresses/api/register/';
+
 var id_usuario = localStorage.getItem('id_usuario');
 
 const FragmentAddDireccion = () => {
@@ -33,7 +35,7 @@ const FragmentAddDireccion = () => {
 
 
     const handleSubmit = (event) => {
-        axios.post(baseUrl, {
+        axios.post(baseUrl+'/useraddresses/api/register/', {
             user: id_usuario,
             first_name: inputs.avenida,
             last_name: "",

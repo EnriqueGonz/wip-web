@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Modal,Button,Col,Form,Row } from 'react-bootstrap';
 import { MdStars,MdEdit,MdDelete,MdSearch } from 'react-icons/md';
 import MenuSuperAdmin from './MenuSuperAdmin';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 
 var token = localStorage.getItem('tokenSuperAdmin');
@@ -47,7 +49,7 @@ const SuperAdminPerfiles = () =>{
 
     useEffect(() =>{  
         try {
-          axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/get_list/',{
+          axios.post(baseUrl+'/users/api/get_list/',{
               full_name:"",
               is_staff: boolean
           },{headers})
@@ -65,7 +67,7 @@ const SuperAdminPerfiles = () =>{
       },[setList])
       
     function BuscarPorNombre() {
-        axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/get_list/',{
+        axios.post(baseUrl+'/users/api/get_list/',{
               full_name:document.getElementById("BuscarNombre").value,
               is_staff: boolean
           },{headers})
@@ -97,7 +99,7 @@ const SuperAdminPerfiles = () =>{
 
         try {
 
-            axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/profile/'+usernameUs+'/',{headers})
+            axios.get(baseUrl+'/users/api/profile/'+usernameUs+'/',{headers})
             .then((response) => {
                 //console.log(response.data);
                 setinputsUser(response.data[0][0])
@@ -116,7 +118,7 @@ const SuperAdminPerfiles = () =>{
       function methodUpdateUser() {
           console.log(document.getElementById('passwordInput').value);
           console.log(inputsUser.first_name +"-"+inputsUser.last_name+"-"+inputsUser.email+"-"+inputsUser2.phone+"-"+inputsUser2.points);
-        axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/superadministrator/api/update-account/'+varusernameUs+'/',{
+        axios.put(baseUrl+'/superadministrator/api/update-account/'+varusernameUs+'/',{
             first_name: inputsUser.first_name,
             last_name: inputsUser.last_name,
             email: inputsUser.email,
@@ -136,7 +138,7 @@ const SuperAdminPerfiles = () =>{
       function methodDelUser() {
           
           console.log(iduser);
-          axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/superadministrator/api/delete_userOradmin/'+iduser+'/',{headers})
+          axios.delete(baseUrl+'/superadministrator/api/delete_userOradmin/'+iduser+'/',{headers})
           .then((response) => {
               //console.log(response);
               window.location.href = "/superadmin/administrarperfiles";
@@ -213,7 +215,7 @@ const SuperAdminPerfiles = () =>{
                                         {
                                             (item[1][0].image) === '' 
                                             ? <img style={{width:50}} alt='' src="https://wishesinpointsbucket.s3.amazonaws.com/assets/ProfilePic1.jpg"></img>
-                                            : <img style={{width:50}} alt='' src={'https://wishesinpointsbucket.s3.amazonaws.com/'+item[1][0].image}></img>
+                                            : <img style={{width:50,height:50,objectFit:"cover"}} alt='' src={'https://wishesinpointsbucket.s3.amazonaws.com/'+item[1][0].image}></img>
                                         }
                                     </td>
                                     <td>

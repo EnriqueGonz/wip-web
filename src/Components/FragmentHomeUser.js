@@ -3,9 +3,9 @@ import { MdStars,MdDelete } from 'react-icons/md';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
 
-const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/user_datas/';
-const baseUrl2 = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/usercampaigns/api/customercampaign/';
-const baseUrl3 = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/orders/api/get_index_customer/';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
+
 
 const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 
@@ -90,7 +90,7 @@ const FragmentHomeUser = () =>{
 
     useEffect(() =>{  
         try {
-          axios.get(baseUrl+username+'/',{ headers })
+          axios.get(baseUrl+'/users/api/user_datas/'+username+'/',{ headers })
           .then((response) => {
             setList(response.data);
           })
@@ -105,7 +105,7 @@ const FragmentHomeUser = () =>{
 
       useEffect(() =>{  
         try {
-          axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/inbox/api/notifications/'+id_usuario+'/',{ headers })
+          axios.get(baseUrl+'/inbox/api/notifications/'+id_usuario+'/',{ headers })
           .then((response) => {
               console.log(response.data);
             numNotificaciones = response.data[1][0]["unread_notifications: "];
@@ -122,7 +122,7 @@ const FragmentHomeUser = () =>{
 
       useEffect(() =>{  
         try {
-          axios.get(baseUrl2+id_usuario+'/',{ headers })
+          axios.get(baseUrl+'/usercampaigns/api/customercampaign/'+id_usuario+'/',{ headers })
           .then((response) => {
             //console.log(response)
             if(response.status === 204){
@@ -143,7 +143,7 @@ const FragmentHomeUser = () =>{
 
       useEffect(() =>{  
         try {
-          axios.get(baseUrl3+id_usuario+'/',{ headers })
+          axios.get(baseUrl+'/orders/api/get_index_customer/'+id_usuario+'/',{ headers })
           .then((response) => {
             //console.log(response)
             setListRegalos(response.data[3]);
@@ -200,7 +200,7 @@ const FragmentHomeUser = () =>{
     function delNotificacion(id) {
         console.log(id);
         try {
-            axios.delete('http://ec2-52-73-241-143.compute-1.amazonaws.com/inbox/api/delete_notifications/'+id+'/',{ headers })
+            axios.delete(baseUrl+'/inbox/api/delete_notifications/'+id+'/',{ headers })
             .then((response) => {
               ActualizarNotificaciones();
             })
@@ -214,7 +214,7 @@ const FragmentHomeUser = () =>{
       }
 
       function ActualizarNotificaciones() {
-        axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/inbox/api/notifications/'+id_usuario+'/',{ headers })
+        axios.get(baseUrl+'/inbox/api/notifications/'+id_usuario+'/',{ headers })
           .then((response) => {
             numNotificaciones = response.data[1][0]["unread_notifications: "];
             setlistNotificaciones(response.data[0])
@@ -226,7 +226,7 @@ const FragmentHomeUser = () =>{
 
     function readNotificacion(id,idorder){
         console.log(id)
-        axios.put('http://ec2-52-73-241-143.compute-1.amazonaws.com/inbox/api/mark_read_notifications/'+id+'/')
+        axios.put(baseUrl+'/inbox/api/mark_read_notifications/'+id+'/')
             .then((response) => {
                 window.location.href = '/detallescanje/'+idorder
             })

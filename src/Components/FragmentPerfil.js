@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { MdStars } from 'react-icons/md';
 import axios from 'axios';
 import { Button, Modal } from 'react-bootstrap';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 var token = localStorage.getItem('token');
 
@@ -21,7 +23,7 @@ const FragmentPerfil = () => {
 
     useEffect(() => {
         try {
-            axios.get('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/profile/' + username + '/', { headers })
+            axios.get(baseUrl+'/users/api/profile/' + username + '/', { headers })
                 .then((response) => {
                     setListName(response.data[0][0]);
                     setListImg(response.data[1][0]);
@@ -46,7 +48,7 @@ const FragmentPerfil = () => {
         formData.append('image', selectedFile)
 
         try {
-            axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/update_profile/' + username + '/',
+            axios.post(baseUrl+'/users/api/update_profile/' + username + '/',
                 formData
                 , { headers })
                 .then((response) => {

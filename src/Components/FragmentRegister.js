@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import axios from 'axios'; // npm install axios
 import img from '../images/bg-register.png';
 import img2 from '../images/loginimg.png';
+import '../config';
+var baseUrl = global.config.wishes.inPoints.url;
 
 
 const FragmentLogin = () => {
@@ -31,7 +33,7 @@ const FragmentLogin = () => {
 
     const handleSubmit = (event) => {
         if(inputs.password === inputs.password2){
-            axios.post('http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/register/win/',{
+            axios.post(baseUrl+'/users/api/register/win/',{
                 first_name: inputs.first_name,
                 last_name: inputs.last_name,
                 email: inputs.email,

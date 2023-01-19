@@ -3,9 +3,10 @@ import { MdStars } from 'react-icons/md';
 import axios from 'axios';
 import { Form, Button, Row, Col, Modal } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
-const baseUrl = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/profile/';
-const urlUpdate = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/users/api/update_email_phone/';
-const urlUpdatepass = 'http://ec2-52-73-241-143.compute-1.amazonaws.com/password_reset/api/change-password/';
+import '../config';
+
+var baseUrl = global.config.wishes.inPoints.url;
+
 
 //const imguRL = 'https://wishesinpointsbucket.s3.amazonaws.com/';
 
@@ -43,7 +44,7 @@ const FragmentPerfilUpdate = () => {
 
     useEffect(() => {
         try {
-            axios.get(baseUrl + username + '/', { headers })
+            axios.get(baseUrl+'/users/api/profile/' + username + '/', { headers })
                 .then((response) => {
                     setListName(response.data[0][0]);
                     setListImg(response.data[1][0]);
@@ -71,7 +72,7 @@ const FragmentPerfilUpdate = () => {
     }
 
     const handleSubmit = (event) => {
-        axios.put(urlUpdate + username + '/', {
+        axios.put(baseUrl+'/users/api/update_email_phone/' + username + '/', {
             phone: inputs1.phone,
             email: inputs2.email
         }, {
@@ -90,7 +91,7 @@ const FragmentPerfilUpdate = () => {
 
     const handleSubmitPassword = (event) => {
         if (inputs3.new_password === inputs3.new_password1) {
-            axios.put(urlUpdatepass + username + "/", {
+            axios.put(baseUrl+'/password_reset/api/change-password/' + username + "/", {
                 old_password: inputs3.old_password,
                 new_password: inputs3.new_password
             }, {
