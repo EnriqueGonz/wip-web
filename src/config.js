@@ -1,7 +1,7 @@
 module.exports = global.config = {
     wishes: {
         inPoints: {
-            url: "http://ec2-35-173-174-111.compute-1.amazonaws.com",
+            url: "https://wishesinpoints-app-4ro5j.ondigitalocean.app",
         }
         // rest of your translation object
     }

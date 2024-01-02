@@ -30,7 +30,9 @@ const FragmentDetalleCanje = () =>{
         try {
           axios.get(baseUrl+'/orders/api/specific/'+idproduct+'/',{ headers })
           .then((response) => {
-            setList2(response.data[0][0]);
+
+            console.log(response.data[0][0][0].order_date)
+            setList2(response.data[0][0][0]);
             setList(response.data[0][2][0]);
             setList3(response.data[0][1][0]);
             
@@ -82,7 +84,15 @@ const FragmentDetalleCanje = () =>{
     <div className="container">
         <div>
             <p><b>Datos del pedido:</b></p>
-            <p><MdDateRange/> <b>Pedido Realizado:</b> {list2.order_date} &nbsp;&nbsp;&nbsp;<MdDirections/> <b>Fecha de entrega: </b> {list2.date_delivery}  </p>
+            <p>
+                <MdDateRange/> <b>Pedido Realizado:</b> {list2.order_date} &nbsp;&nbsp;&nbsp;
+                <MdDirections/> <b>Fecha de entrega: </b> 
+                {
+                list2.date_delivery === null
+                ? "Sin asignar"
+                : list2.date_delivery
+                }  
+            </p>
             <p><MdGroups/> <b>Producto de la campaña:</b> {list2.campaign}</p>
             <p><MdWorkspaces/> <b>Cantidad: </b>{list3.amount}  &nbsp;&nbsp;&nbsp;  <MdStars/> <b>Puntos gastados: </b>{list3.total_price}  </p>
             <p></p>

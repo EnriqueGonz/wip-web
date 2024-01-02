@@ -73,7 +73,7 @@ const SuperAdminEnviarInvitacion = () =>{
                 email:checkboxes[i].value,
                 },{headers})
                 .then((response) => {
-                    //console.log(response)
+                    console.log(response)
                     setShow(true)
                 })
                 .catch((error) => {

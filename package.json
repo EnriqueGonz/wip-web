@@ -21,7 +21,7 @@
     "react-scripts": "3.0.0",
     "web-vitals": "^1.1.2"
   },
-  "homepage": "http://wishesinpoints.com/",
+  "homepage": "https://wishesinpoints.com/",
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts --openssl-legacy-provider build",

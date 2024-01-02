@@ -83,7 +83,6 @@ const FragmentCancelOrder = () =>{
                                 <Form.Control type="password" style={{ backgroundColor: "#FFF", color: "#000", borderRadius: 20 }} required name="password" value={inputs.password} onChange={handleChange} />
                             </Form.Group>
                             <Button style={{float:"right",borderRadius:15}} variant="danger" type="button" onClick={handleSubmit}>Cancelar pedido</Button>
-                            <Button style={{ marginRight:10,float:"right",borderRadius:15}} variant="primary" type="button" >Regresar</Button>
                         </Form>
                     </div>
                     

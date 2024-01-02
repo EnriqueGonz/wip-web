@@ -89,12 +89,12 @@ const SuperAdminDetallesCanje = () =>{
 
     function setDateDelivery(){
 
-        axios.put('baseUrl+/orders/api/change_status/'+idorder+'/',{
-            date_delivery: document.getElementById('fechaEntrega').value+' 19:48:28.182647-05',
+        axios.put(baseUrl + '/orders/api/change_status/'+idorder+'/',{
+            date_delivery: document.getElementById('fechaEntrega').value,
             status:document.getElementById('selectStatus').value
         },{headers})
         .then((response) => {
-            //console.log(response);
+            //console.log(document.getElementById('fechaEntrega').value);
             window.location.href = "/superadmin/detallescanje/"+idorder+'/'+iduser+'/';
         })
         .catch((error) => {

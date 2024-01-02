@@ -2,17 +2,11 @@ import React, {useState,useEffect} from 'react';
 import { Modal,Button,Row,Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
-import Prosa1 from '../images/Prosa.png';
-import Pmorado1 from '../images/Pmorado.png';
-import Pazul1 from '../images/Pazul.png';
-import Pregalo from '../images/Pregalo1.png';
-import Pliston from '../images/Pliston.png';
+import { MdStars } from 'react-icons/md';
+import bgtd from '../images/bgtd.png';
 
 import '../config';
 var baseUrl = global.config.wishes.inPoints.url;
-
-var bolean = false;
 
 const headers = {
     'Content-Type': 'application/json',
@@ -30,12 +24,14 @@ const FragmentReedem = () =>{
 
   var { uuid } = useParams(); // params
   var { rtoken } = useParams(); // params 
+
+  
   useEffect(() =>{  
     try {
       axios.get(baseUrl+'/products/gift/' + uuid + '/' + rtoken + '/', { headers })
       .then((response) => {
+        console.log(response);
           if(response.status === 204){
-            bolean = true;
             document.getElementById('valido').style.display="block"
             document.getElementById('btnOK').style.display="none"
 
@@ -47,7 +43,11 @@ const FragmentReedem = () =>{
         localStorage.setItem('id_user_invitacion',response.data[0][0]["id"]);
         setlistproducts(response.data[3][0]);
         setlistplantilla(response.data[4][0]);
-        
+        localStorage.setItem('namecatalog', response.data[0][0]["first_name"]);
+        localStorage.setItem('colorheader', response.data[4][0]["color_header"]);
+        localStorage.setItem('colorletra', response.data[4][0]["primary_color"]);
+        localStorage.setItem('puntos', response.data[0][0]["points"]);
+        localStorage.setItem('estrella', response.data[4][0]["secondary_color"]);        
       })
       .catch((error) => {
         console.log(error);
@@ -60,24 +60,65 @@ const FragmentReedem = () =>{
 
 
   function methodName() {
-    console.log(listproducts.id);
-    localStorage.setItem('producto', listproducts.id);
-    window.location.href = "/product/"+listproducts.id;
+    localStorage.setItem('producto', 3);
+    window.location.href = "/product/"+3;
 }
 
     return(
-      
         <>
+          <div style={{height:"100vh"}}>
+            <div className="navbar navbar-expand-lg navbar-light navContainer" style={{height:"8vh",color:listplantilla.primary_color,backgroundColor:listplantilla.color_header,justifyContent: "space-around"}}>
+                <h3>Hola {list.first_name}</h3>
+                <h2>{listproducts.campaign_name}</h2>
+                <h4><MdStars style={{color: listplantilla.secondary_color}}/> {list.points} pts</h4>
+                <h3 id="valido" style={{color:"black",display:"none"}}>Invitacion expirada</h3>
+            </div>
 
-          
-              <div className="navbar navbar-expand-lg navbar-light navContainer" style={{color:"white",backgroundColor:listplantilla.color_header,justifyContent: "space-around"}}>
-                  <h3>Hola {list.first_name}</h3>
-                  <h2>{listproducts.campaign_name}</h2>
-                  <h4>{list.points} pts</h4>
-                  <h3 id="valido" style={{color:"black",display:"none"}}>Invitacion expirada</h3>
+            <div style={{height:"92vh"}}>
+                <img alt="" src={bgtd} style={{width:"100%",height:"100%"}}></img>
+            </div>
+          </div>
+
+          <button id="btnOK" className="btn" style={{display:"block",backgroundColor:listplantilla.secondary_color,position:"absolute", right:"5%",bottom:"5%", fontWeight:700,color:"black"}} onClick={handleShow} >Abrir</button>
+
+          <Modal show={show} size="lg" onHide={handleClose}>
+            <Modal.Body>
+              <div>
+                <h3 style={{textAlign:"center"}}>¡Has recibido un regalo!</h3>
               </div>
+              <div className="container">
+                <Row>
+                  <Col>
+                    <br/><br/><br/>
+                    <h5>Hola {list.first_name}</h5>
+                    <p style={{textAlign:"justify"}}>
+                    Tus puntos son acumulables puedes ganar desde un Jetti hasta boletos para F1. 
+                    <br></br><br></br>
+                    Conoce todos los premios que puedes canjear</p><br/>
+                  </Col>
+                  <Col>
+                    <br/>
+                    <p style={{textAlign:"center"}}>Boletos de la Formula 1 </p>
+                    <div className="container" style={{textAlign:"center"}}>
+                        <img style={{width:"100%"}} alt='' src="https://wishesinpointsbucket.s3.amazonaws.com/assets/73bf45bf-afc8-4432-ab28-de252d3d7a1d.jpg"></img>
+                    </div>
+                    <p style={{fontSize:"22px", textAlign:"end"}}><MdStars style={{color: listplantilla.color_header}}/>2000 pts</p>
+                  </Col>
+                </Row>
+              </div>
+
+            </Modal.Body>
+            <Modal.Footer>
+              <Button style={{backgroundColor:listplantilla.color_header, color:listplantilla.primary_color}}  onClick = {() => { methodName()} } >
+                Escoge este regalo
+              </Button>
+              <Button style={{backgroundColor:listplantilla.color_header, color:listplantilla.primary_color}}  onClick={event =>  window.location.href='/catalogo'}>
+                Revisa otras opciones
+              </Button>
+            </Modal.Footer>
+          </Modal>
               
-              {
+              {/* {
                     (bolean) === false
                         ?   <div>
                                 <img alt="" src={Prosa1} style={{filter:"invert(98%) sepia(32%) saturate(4864%) hue-rotate(287deg) brightness(92%) contrast(94%)",width:"100%",height:"90vh",position:"absolute"}}></img>
@@ -93,54 +134,16 @@ const FragmentReedem = () =>{
                             <img alt="" src={Pregalo} style={{filter:listplantilla.primary_color_filter,width:"100%",height:"90vh",position:"absolute"}}></img>
                             <img alt="" src={Pliston} style={{filter:listplantilla.color_footer_filter,width:"100%",height:"90vh",position:"absolute"}}></img>
                           </div>
-                }
-    
-              
-              
-            
+                } */}
 
-              <button id="btnOK" className="btn" style={{display:"block",backgroundColor:listplantilla.secondary_color,position:"absolute", right:"5%",bottom:"5%", fontWeight:700,color:"white"}} onClick={handleShow} >Abrir</button>
-
-
-          <Modal show={show} size="lg" onHide={handleClose}>
-            <Modal.Body>
-              <div>
-                <h3 style={{textAlign:"center"}}>¡Has recibido un regalo!</h3>
-              </div>
-              <div className="container">
-                <Row>
-                  <Col>
-                    <br/><br/><br/>
-                    <h3>Hola {list.first_name}</h3>
-                    <p style={{textAlign:"justify"}}>Ten un maravilloso día, puedes elejir este regalo clikeando en "Escoge este regalo" o selecciona otro de los productos de nuestro catalago <br/>Para ver otros regalos selecciona "Revisa otras opciones"</p><br/>
-                    <p style={{margin:0}}>Tus amigos</p>
-                    <p><b>{listproducts.campaign_name}</b></p>
-                  </Col>
-                  <Col>
-                    <br/>
-                    <p style={{textAlign:"center"}}>{listproducts.product_name}</p>
-                    <div className="container" style={{textAlign:"center"}}>
-                        {
-                            (listproducts.image) === '' 
-                            ? <img style={{width:"100%"}} alt='' src="https://wishesinpointsbucket.s3.amazonaws.com/assets/ProfilePic1.jpg"></img>
-                            : <img style={{width:"100%"}} alt='' src={'https://wishesinpointsbucket.s3.amazonaws.com/'+listproducts.image}></img>
-                        }
-                    </div>
-                    
-                  </Col>
-                </Row>
-              </div>
-
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="danger" onClick = {() => { methodName()} } >
-                Escoge este regalo
-              </Button>
-              <Button variant="danger" onClick={event =>  window.location.href='/catalogo'}>
-                Revisa otras opciones
-              </Button>
-            </Modal.Footer>
-          </Modal>
+                {/* {
+                    (listproducts.image) === '' 
+                    ? <img style={{width:"100%"}} alt='' src="https://wishesinpointsbucket.s3.amazonaws.com/assets/ProfilePic1.jpg"></img>
+                    : <img style={{width:"100%"}} alt='' src={'https://wishesinpointsbucket.s3.amazonaws.com/'+listproducts.image}></img>
+                } */}
+  
+  
+          
 
 
         </>

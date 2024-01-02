@@ -2,6 +2,7 @@ import { Form, Button,Modal } from 'react-bootstrap';
 import React, { useState } from 'react';
 import axios from 'axios'; // npm install axios
 import imgLogin from '../images/loginimg.png';
+import { FaRegEye,FaRegEyeSlash } from "react-icons/fa";
 import '../config';
 var baseUrl = global.config.wishes.inPoints.url;
 
@@ -20,6 +21,18 @@ const FragmentLogin = () => {
 
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);  
+
+    const [passwordType, setPasswordType] = useState("password");
+
+    const togglePassword =()=>{
+        if(passwordType==="password")
+        {
+         setPasswordType("text")
+         return;
+        }
+        console.log(passwordType)
+        setPasswordType("password")
+      }
 
 
     function handleChange(evt) {
@@ -61,13 +74,20 @@ const FragmentLogin = () => {
 
             })
             .catch(err =>{
-                if(err.response.status === 423){
-                    username = err.response.data.username;
-                    handleShow();
-
-                }else{
+                try {
+                    if(err.response.status === 423){
+                        console.log(err.message);
+                        username = err.response.data.username;
+                        handleShow();
+    
+                    }else{
+                        handleShow1();
+                    }
+                    
+                } catch (error) {
                     handleShow1();
                 }
+                
             });
         return false;
     }
@@ -109,7 +129,19 @@ const FragmentLogin = () => {
 
                                     <Form.Group className="mb-3" controlId="password">
                                         <Form.Label>Contraseña</Form.Label>
-                                        <Form.Control type="password" style={{ backgroundColor: "#FFF", color: "#000", borderRadius: 20 }} required name="password" value={inputs.password} onChange={handleChange} />
+                                        <div style={{position:"relative"}}>
+                                            <Form.Control type={passwordType} style={{ backgroundColor: "#FFF", color: "#000", borderRadius: 20 }} required name="password" value={inputs.password} onChange={handleChange} />
+                                            <div className="input-group-btn" style={{position: "absolute", top: "0%", right: "2%"}}>
+                                                <button type='button' className="btn " onClick={togglePassword}>
+                                                    { 
+                                                    passwordType==="password"
+                                                    ?   <FaRegEye />
+                                                    :   <FaRegEyeSlash />
+                                                    }
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
                                     </Form.Group>
                                     <div>
                                         <a href='/recover/password/'>¿Olvidaste tu contraseña?</a>

@@ -232,10 +232,9 @@ const SuperAdminListaPlantillas = () =>{
                         <th scope="col">Id</th>
                         <th scope="col">Imagen</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Color de regalo</th>
-                        <th scope="col">Color de boton</th>
-                        <th scope="col">Color header</th>
-                        <th scope="col">Color de liston</th>
+                        <th scope="col">Fondo del Header</th>
+                        <th scope="col">Color de Letras</th>
+                        <th scope="col">Color Estrella</th>
                         <th scope="col">Opciones</th>
                         </tr>
                     </thead>
@@ -256,16 +255,13 @@ const SuperAdminListaPlantillas = () =>{
                                         {item.template_name}
                                     </td>
                                     <td>
+                                        <span className="badge" style={{backgroundColor:item.color_header}}>&ensp;</span>{item.color_header}
+                                    </td>
+                                    <td>
                                         <span className="badge" style={{backgroundColor:item.primary_color}}>&ensp;</span>{item.primary_color}
                                     </td>
                                     <td>
                                         <span className="badge" style={{backgroundColor:item.secondary_color}}>&ensp;</span>{item.secondary_color}
-                                    </td>
-                                    <td>
-                                        <span className="badge" style={{backgroundColor:item.color_header}}>&ensp;</span>{item.color_header}
-                                    </td>
-                                    <td>
-                                        <span className="badge" style={{backgroundColor:item.color_footer}}>&ensp;</span>{item.color_footer}
                                     </td>
                                     <td>
                                         <div className='container'>
@@ -358,30 +354,29 @@ const SuperAdminListaPlantillas = () =>{
                         <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="template_name" value={inputsPlantilla.template_name} onChange={handleChange}  />
                         </Form.Group>
                     </Row>
-                    <Row className="mb-3">
-                        <Form.Group as={Col} controlId="">
-                        <Form.Label>Color de regalo:</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="primary_color" value={inputsPlantilla.primary_color} onChange={handleChange} />
-                        </Form.Group>
 
-                        <Form.Group as={Col} controlId="">
-                        <Form.Label>Color de boton:</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="secondary_color" value={inputsPlantilla.secondary_color} onChange={handleChange} />
-                        </Form.Group>
-                    </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Color header:</Form.Label>
                         <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="color_header" value={inputsPlantilla.color_header} onChange={handleChange} />
                         </Form.Group>
 
+                    </Row>
+
+                    <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
-                        <Form.Label>Color de liston</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="color_footer" value={inputsPlantilla.color_footer} onChange={handleChange}/>
+                        <Form.Label>Color de letras:</Form.Label>
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="primary_color" value={inputsPlantilla.primary_color} onChange={handleChange} />
+                        </Form.Group>
+
+                        <Form.Group as={Col} controlId="">
+                        <Form.Label>Color de estrella:</Form.Label>
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="secondary_color" value={inputsPlantilla.secondary_color} onChange={handleChange} />
                         </Form.Group>
                     </Row>
+                    
                     <Row>
-                        <Form.Label>Avatar/Image:</Form.Label>
+                        <Form.Label>Background:</Form.Label>
                         <input type="file" onChange={handleFileSelect}/><br></br><br></br>
                     </Row>
                     <Row className="mb-3">

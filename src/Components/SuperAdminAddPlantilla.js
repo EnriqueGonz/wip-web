@@ -3,23 +3,9 @@ import { Form,Button,Row,Col,Modal } from 'react-bootstrap';
 import axios from 'axios';
 import MenuSuperAdmin from './MenuSuperAdmin';
 import { PhotoshopPicker   } from 'react-color';
-import { hexToCSSFilter } from 'hex-to-css-filter';
-
-import Prosa1 from '../images/Prosa.png';
-import Pmorado1 from '../images/Pmorado.png';
-import Pazul1 from '../images/Pazul.png';
-import Pregalo from '../images/Pregalo1.png';
-import Pliston from '../images/Pliston.png';
-
 import '../config';
+
 var baseUrl = global.config.wishes.inPoints.url;
-
-
-var filter_primary_color = "";
-var filter_secundary_color = "";
-var filter_header_color = "";
-var filter_footer_color = "";
-
 var token = localStorage.getItem('tokenSuperAdmin');
 
 const headers = {
@@ -28,12 +14,8 @@ const headers = {
 };
 
 const SuperAdminAddPlantilla = () =>{
-    const [color, setColor] = useState('#ff0000');
+    const [color, setColor] = useState('#ffffff');
     const [selectedFile, setSelectedFile] = useState("");
-
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);  
 
     const [show1, setShow1] = useState(false);
     const handleClose1 = () => setShow1(false);
@@ -60,19 +42,6 @@ const SuperAdminAddPlantilla = () =>{
       }
 
     const submitPlantilla = (event) => {
-        filter_primary_color = (hexToCSSFilter(inputsPlantilla.primary_color).filter)
-        filter_primary_color = filter_primary_color.substring(0, filter_primary_color.length - 1).toString();
-
-        filter_secundary_color = (hexToCSSFilter(inputsPlantilla.secondary_color).filter)
-        filter_secundary_color = filter_secundary_color.substring(0, filter_secundary_color.length - 1).toString();
-
-        filter_header_color = (hexToCSSFilter(inputsPlantilla.color_header).filter)
-        filter_header_color = filter_header_color.substring(0, filter_header_color.length - 1).toString();
-        
-        filter_footer_color = (hexToCSSFilter(inputsPlantilla.color_footer).filter)
-        filter_footer_color = filter_footer_color.substring(0, filter_footer_color.length - 1).toString();
-        
-
         event.preventDefault()
         let formData = new FormData();
         
@@ -83,13 +52,6 @@ const SuperAdminAddPlantilla = () =>{
         formData.append('secondary_color', inputsPlantilla.secondary_color)
         formData.append('color_header', inputsPlantilla.color_header)
         formData.append('color_footer', inputsPlantilla.color_footer)
-
-        formData.append('primary_color_filter', filter_primary_color)
-        formData.append('secondary_color_filter', filter_secundary_color)
-        formData.append('color_header_filter', filter_header_color)
-        formData.append('color_footer_filter', filter_footer_color)
-
-
 
         formData.append('description', inputsPlantilla.description)
         
@@ -112,33 +74,6 @@ const SuperAdminAddPlantilla = () =>{
         });
       }
 
-
-      const viewModal = (event) => {
-        try {
-            filter_primary_color = (hexToCSSFilter(inputsPlantilla.primary_color).filter)
-            filter_primary_color = filter_primary_color.substring(0, filter_primary_color.length - 1).toString();
-
-            filter_secundary_color = (hexToCSSFilter(inputsPlantilla.secondary_color).filter)
-            filter_secundary_color = filter_secundary_color.substring(0, filter_secundary_color.length - 1).toString();
-
-            filter_header_color = (hexToCSSFilter(inputsPlantilla.color_header).filter)
-            filter_header_color = filter_header_color.substring(0, filter_header_color.length - 1).toString();
-            
-            filter_footer_color = (hexToCSSFilter(inputsPlantilla.color_footer).filter)
-            filter_footer_color = filter_footer_color.substring(0, filter_footer_color.length - 1).toString();
-
-        } catch (error) {
-            console.log(error);
-            
-            
-        }
-        handleShow();
-    
-
-      }
-
-      
-    
 
     return(    
         <>
@@ -182,7 +117,7 @@ const SuperAdminAddPlantilla = () =>{
             <div className='container' style={{width:"85%", marginTop:"50px"}}>
                 <Form onSubmit={submitPlantilla}>
                     <Row>
-                        <Form.Label>Avatar/Image:</Form.Label>
+                        <Form.Label>Background:</Form.Label>
                         <input type="file" onChange={handleFileSelect}/><br></br><br></br>
                     </Row>
                     <Row className="mb-3">
@@ -193,26 +128,23 @@ const SuperAdminAddPlantilla = () =>{
                     </Row>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
-                        <Form.Label>Color de regalo:</Form.Label>
+                        <Form.Label>Color del Header:</Form.Label>
+                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="color_header" defaultValue="#000000" value={inputsPlantilla.color_header} onChange={handleChange} />
+                        </Form.Group>
+
+                    </Row>
+                    <Row className="mb-3">
+                        <Form.Group as={Col} controlId="">
+                        <Form.Label>Color de Letras:</Form.Label>
                         <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="primary_color" defaultValue="#000000" value={inputsPlantilla.primary_color} onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="">
-                        <Form.Label>Color de botones:</Form.Label>
+                        <Form.Label>Color de estrella y boton:</Form.Label>
                         <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="secondary_color" defaultValue="#000000" value={inputsPlantilla.secondary_color} onChange={handleChange} />
                         </Form.Group>
                     </Row>
-                    <Row className="mb-3">
-                        <Form.Group as={Col} controlId="">
-                        <Form.Label>Color header:</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="color_header" defaultValue="#000000" value={inputsPlantilla.color_header} onChange={handleChange} />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="">
-                        <Form.Label>Color de liston:</Form.Label>
-                        <Form.Control style={{backgroundColor:"#BFBFBF",borderRadius:20}} required type="text" name="color_footer" defaultValue="#000000" value={inputsPlantilla.color_footer} onChange={handleChange}/>
-                        </Form.Group>
-                    </Row>
+                    
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="">
                         <Form.Label>Descripcion:</Form.Label>
@@ -222,34 +154,12 @@ const SuperAdminAddPlantilla = () =>{
                     <Button style={{marginLeft:20,border:"none",float:"right",borderRadius:15,backgroundColor:"#7B3E90",color:"white"}} type="button" onClick={submitPlantilla}>
                     Crear
                     </Button>
-                    <Button style={{float:"right",border:"none",borderRadius:15,backgroundColor:"#7B3E90",color:"white"}} type="button" onClick={viewModal}>
-                    Ver preview
-                    </Button>
                 </Form>  
             </div>
 
             </div>
             
         </div>
-
-        <Modal show={show} size="md" onHide={handleClose} >
-            <Modal.Body style={{backgroundColor:"#FFF"}}>
-                <div>
-                    <div style={{position:"relative",height:200}}>
-                        <img alt="" src={Prosa1} style={{filter:filter_footer_color,width:"100%",position:"absolute"}}></img>
-                        <img alt="" src={Pmorado1} style={{filter:filter_header_color,width:"100%",position:"absolute"}}></img>
-                        <img alt="" src={Pazul1} style={{filter:filter_secundary_color,width:"100%",position:"absolute"}}></img>
-
-
-                        <img alt="" src={Pregalo} style={{filter:filter_primary_color,width:"100%",position:"absolute"}}></img>
-                        <img alt="" src={Pliston} style={{filter:filter_footer_color,width:"100%",position:"absolute"}}></img>
-                        
-                        
-                        
-                    </div>
-                </div>
-            </Modal.Body>
-        </Modal>
 
         <Modal show={show1} size="md" onHide={handleClose1} >
         <Modal.Body style={{backgroundColor:"#FFF"}}>
