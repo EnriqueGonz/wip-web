@@ -92,9 +92,9 @@ const FragmentReedem = () =>{
                     <br/><br/><br/>
                     <h5>Hola {list.first_name}</h5>
                     <p style={{textAlign:"justify"}}>
-                    Tus puntos son acumulables puedes ganar desde un Jetti hasta boletos para F1. 
+                    Tus puntos son acumulables puedes ganar desde un Jetti hasta una experiencia para 2 personas para la Formula 1 2024
                     <br></br><br></br>
-                    Conoce todos los premios que puedes canjear</p><br/>
+                    Conoce todos los premios que puedes canjear y terminod y condiciones</p><br/>
                   </Col>
                   <Col>
                     <br/>

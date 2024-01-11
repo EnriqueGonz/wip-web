@@ -104,19 +104,18 @@ const FragmentProductSpecific = () => {
 
   }, [setList]);
 
-  /* useEffect(() => {
+   useEffect(() => {
     axios.get(baseUrl + '/products/gift/' + uuid + '/' + rtoken + '/', { headers })
       .then((response) => {
         console.log(response);
         user_id = response.data[0][0]["id"];
         user_points = response.data[0][0]["points"];
-        setList2(response.data[1]);
       })
       .catch((error) => {
         console.log(error);
       });
 
-  }, [setList2]); */
+  });
 
   /* function handleChange(evt) {
     const name = evt.target.name;
@@ -160,7 +159,8 @@ const FragmentProductSpecific = () => {
       } 
     } */
 
-    if(costo <= user_points){
+    if(user_points >= costo){
+      console.log('compra');
       console.log(date.getFullYear().toString()+"-"+date.getMonth().toString()+"-"+date.getDate().toString());
       document.getElementById('alertaCosto').style.display = 'none'
       axios.post(baseUrl+'/orders/api/order/', {
@@ -183,7 +183,10 @@ const FragmentProductSpecific = () => {
       .catch(err => handleShow1());
 
     }else{
-      document.getElementById('alertaCosto').style.display = 'block'
+      document.getElementById('alertaCosto').style.display = 'block';
+      console.log('aqui');
+      console.log(user_points);
+      console.log(costo);
     }
     /* if(user_address === 0){
       document.getElementById('alerta').style.display = 'block'
@@ -224,7 +227,7 @@ const FragmentProductSpecific = () => {
 
     <div>
       <div className="container" style={{ height: "100vh", position: "relative", paddingTop: 40, width: "85%" }}>
-        <Row style={{ position: "absolute", top: "10%", transform: "translateY(-0%)" }}>
+        <Row style={{ position: "absolute", top: "10%", transform: "translateY(-0%)",width:"100%" }}>
 
           <Col style={{ borderRight: "solid", borderWidth: 10, borderColor: "#E5E5E5" }}>
             {list.map((item) => (

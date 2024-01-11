@@ -72,7 +72,7 @@ class FragmentCatalog extends Component {
                             <Button style={{backgroundColor:"transparent", borderColor:"black",color:"black"}} className="content-product card__content" onClick={() => this.redirection(p.id)}>
                                 <div >
                                 <div style={{textAlign:"center"}}>
-                                    <img style={{width:200, height:200, objectFit:"cover"}} src={ imguRL + p.image } alt="products"></img>
+                                    <img style={{width:200, height:200, objectFit:"contain"}} src={ imguRL + p.image } alt="products"></img>
                                 </div>
                                 
                                 </div>
